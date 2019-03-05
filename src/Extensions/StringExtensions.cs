@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Mariowski.Common.Extensions
 {
@@ -128,6 +129,26 @@ namespace Mariowski.Common.Extensions
         /// <returns>A single-precision floating-point number that is equivalent to the number in <paramref name="this">value</paramref>.</returns>
         public static float ToFloat(this string @this)
             => @this.ToSingle();
+
+        #endregion
+
+        #region Convert to Byte Array
+
+        /// <summary>
+        /// Converts string to ASCII byte array encoded.
+        /// </summary>
+        /// <param name="this">The @this to act on.</param>
+        /// <returns>A ASCII byte array.</returns>
+        public static byte[] ToAsciiByteArray(this string @this)
+            => Encoding.ASCII.GetBytes(@this);
+        
+        /// <summary>
+        /// Converts string to UTF-8 byte array encoded.
+        /// </summary>
+        /// <param name="this">The @this to act on.</param>
+        /// <returns>A UTF-8 byte array.</returns>
+        public static byte[] ToUtf8ByteArray(this string @this)
+            => Encoding.UTF8.GetBytes(@this);
 
         #endregion
 

@@ -18,4 +18,4 @@ deploy:
   script: dotnet nuget push src/bin/Release/Mariowski.Common.*.nupkg -k $NUGET_API_KEY -s https://api.nuget.org/v3/index.json
   on:
     tags: true
-    condition: $TRAVIS_TAG =~ ^(\d+\.)?(\d+\.)?(\*|\d+)$
+    condition: $TRAVIS_TAG =~ ^[0-9]+\.[0-9]+\.[0-9]+

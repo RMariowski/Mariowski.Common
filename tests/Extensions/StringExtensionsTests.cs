@@ -116,6 +116,24 @@ namespace Mariowski.Common.UnitTests.Extensions
             value.ToFloat().Should().Be(expected);
         }
 
+        [Fact]
+        public void StringExtensions_ToAsciiByteArray_ShouldConvertStringToByteArray()
+        {
+            const string value = "Abc";
+            var expected = new byte[] { 65, 98, 99 };
+
+            value.ToAsciiByteArray().Should().BeEquivalentTo(expected);
+        }
+
+        [Fact]
+        public void StringExtensions_ToUtf8ByteArray_ShouldConvertStringToByteArray()
+        {
+            const string value = "Ąćę";
+            var expected = new byte[] { 0xC4, 0x84, 0xC4, 0x87, 0xC4, 0x99 };
+
+            value.ToUtf8ByteArray().Should().BeEquivalentTo(expected);
+        }
+
         #endregion
 
         #region Invalid

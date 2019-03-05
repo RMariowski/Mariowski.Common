@@ -26,7 +26,7 @@ namespace Mariowski.Common.UnitTests.Extensions
         }
 
         [Fact]
-        public void JsonExtensions_ToJson_And_Serialize_WithPrettyTrue_ShouldSerializeObjectToJsonWithPrettyFormating()
+        public void JsonExtensions_ToJson_And_Serialize_WithPrettyTrue_ShouldSerializeObjectToJsonWithPrettyFormatting()
         {
             var obj = new StructToTest { FirstName = "Radosław", LastName = "Mariowski" };
             const string expected = @"{
