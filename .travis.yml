@@ -2,6 +2,10 @@ language: csharp
 mono: none
 dotnet: 2.1.502
 solution: Mariowski.Common.sln
+
+install:
+- dotnet restore
+
 script:
- - dotnet restore
- - dotnet build
+- dotnet build
+- dotnet test tests/Mariowski.Common.UnitTests.csproj
