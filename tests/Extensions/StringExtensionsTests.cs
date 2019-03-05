@@ -104,18 +104,12 @@ namespace Mariowski.Common.UnitTests.Extensions
         }
 
         [Theory]
-        [InlineData("-1234567890123456789,1234567890123456789", -1234567890123456789.1234567890123456789f)]
-        [InlineData("-123456789,123456789", -123456789.123456789f)]
-        [InlineData("-1,123456789", -1.123456789f)]
         [InlineData("-1", -1.0f)]
         [InlineData("-0,00000000000000000000", 0.0f)]
         [InlineData("-0", -0.0f)]
         [InlineData("0,00000000000000000000", 0.0f)]
         [InlineData("0", 0.0f)]
         [InlineData("1", 1.0f)]
-        [InlineData("1,123456789", 1.123456789f)]
-        [InlineData("123456789,123456789", 123456789.123456789f)]
-        [InlineData("1234567890123456789,1234567890123456789", 1234567890123456789.1234567890123456789f)]
         public void StringExtensions_ToSingle_And_ToFloat_ShouldBeConvertedToByte(string value, float expected)
         {
             value.ToSingle().Should().Be(expected);

@@ -18,6 +18,7 @@ namespace Mariowski.Common.UnitTests.Extensions
             list.Should().NotEqual(originalList, "chance of getting the same order should be small enough.");
         }
 
+        [Fact]
         public void ListExtensions_Shuffle_ShouldShuffleTwoElementsList()
         {
             var random = new Random(1);
