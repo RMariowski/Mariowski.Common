@@ -11,3 +11,11 @@ script:
 - dotnet build -c Release
 - dotnet test tests/Mariowski.Common.UnitTests.csproj
 - dotnet pack -c Release
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: dotnet nuget push src/bin/Release/Mariowski.Common.*.nupkg -k $NUGET_API_KEY -s https://api.nuget.org/v3/index.json
+  on:
+    tags: true
+    condition: $TRAVIS_TAG =~ ^(\d+\.)?(\d+\.)?(\*|\d+)$
