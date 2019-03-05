@@ -1,0 +1,1 @@
+# Mariowski.Common
