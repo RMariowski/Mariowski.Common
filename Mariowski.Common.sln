@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common", "src\Mariowski.Common.csproj", "{35A8EF77-70B2-4B10-BFF5-21747E4A6DD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common", "src\Mariowski.Common\Mariowski.Common.csproj", "{35A8EF77-70B2-4B10-BFF5-21747E4A6DD3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common.UnitTests", "tests\Mariowski.Common.UnitTests.csproj", "{95256DF4-D8D8-47D2-B8AB-D3E7F0D29D50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common.UnitTests", "tests\Mariowski.Common.UnitTests\Mariowski.Common.UnitTests.csproj", "{95256DF4-D8D8-47D2-B8AB-D3E7F0D29D50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
