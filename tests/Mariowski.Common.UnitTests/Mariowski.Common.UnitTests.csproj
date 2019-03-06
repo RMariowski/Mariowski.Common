@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Mariowski.Common.csproj" />
+    <ProjectReference Include="..\..\src\Mariowski.Common\Mariowski.Common.csproj" />
   </ItemGroup>
 
 </Project>
