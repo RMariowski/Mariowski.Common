@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
 namespace Mariowski.Common.Extensions
 {
@@ -10,145 +9,99 @@ namespace Mariowski.Common.Extensions
         #region Convert to Byte
 
         /// <summary>
-        /// Converts string to byte.
+        /// Converts the string representation of a number to its <see cref="T:System.Byte"></see> equivalent.
         /// </summary>
-        /// <param name="this">The @this to act on.</param>
-        /// <exception cref="T:System.FormatException"><paramref name="this">this</paramref> is not a number in a valid format.</exception>
-        /// <returns>An 8-bit unsigned integer that is equivalent to <paramref name="this">value</paramref>.</returns>
-        public static byte ToByte(this string @this)
-            => Convert.ToByte(@this);
-
-        #endregion
-
-        #region Convert to Int16
-
-        /// <summary>
-        /// Converts string to short int.
-        /// </summary>
-        /// <remarks>Same as <see cref="ToShort"/>.</remarks>
-        /// <param name="this">The @this to act on.</param>
-        /// <exception cref="T:System.FormatException"><paramref name="this">this</paramref> is not a number in a valid format.</exception>
-        /// <returns>A 16-bit signed integer that is equivalent to <paramref name="this">value</paramref>.</returns>
-        public static short ToInt16(this string @this)
-            => Convert.ToInt16(@this);
-
-        #endregion
-
-        #region Convert to Int32
-
-        /// <summary>
-        /// Converts string to int.
-        /// </summary>
-        /// <remarks>Same as <see cref="ToInt"/>.</remarks>
-        /// <param name="this">The @this to act on.</param>
-        /// <exception cref="T:System.FormatException"><paramref name="this">this</paramref> is not a number in a valid format.</exception>
-        /// <returns>A 32-bit signed integer that is equivalent to <paramref name="this">value</paramref>.</returns>
-        public static int ToInt32(this string @this)
-            => Convert.ToInt32(@this);
-
-        #endregion
-
-        #region Convert to Int64
-
-        /// <summary>
-        /// Converts string to long.
-        /// </summary>
-        /// <remarks>Same as <see cref="ToLong"/>.</remarks>
-        /// <param name="this">The @this to act on.</param>
-        /// <exception cref="T:System.FormatException"><paramref name="this">this</paramref> is not a number in a valid format.</exception>
-        /// <returns>A 64-bit signed integer that is equivalent to <paramref name="this">value</paramref>.</returns>
-        public static long ToInt64(this string @this)
-            => Convert.ToInt64(@this);
+        /// <param name="s">A string that contains a number to convert. The string is interpreted using the <see cref="F:System.Globalization.NumberStyles.Integer"></see> style.</param>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="s">s</paramref> is null.</exception>
+        /// <exception cref="T:System.FormatException"><paramref name="s">s</paramref> is not of the correct format.</exception>
+        /// <exception cref="T:System.OverflowException"><paramref name="s">s</paramref> represents a number less than <see cref="F:System.Byte.MinValue"></see> or greater than <see cref="F:System.Byte.MaxValue"></see>.</exception>
+        /// <returns>A byte value that is equivalent to the number contained in <paramref name="s">s</paramref>.</returns>
+        public static byte ToByte(this string s)
+            => byte.Parse(s);
 
         #endregion
 
         #region Convert to Short
 
         /// <summary>
-        /// Converts string to short int.
+        /// Converts the string representation of a number to its 16-bit signed integer equivalent.
         /// </summary>
-        /// <remarks>Same as <see cref="ToInt16"/>.</remarks>
-        /// <param name="this">The @this to act on.</param>
-        /// <exception cref="T:System.FormatException"><paramref name="this">this</paramref> is not a number in a valid format.</exception>
-        /// <returns>A 16-bit signed integer that is equivalent to <paramref name="this">value</paramref>.</returns>
-        public static short ToShort(this string @this)
-            => @this.ToInt16();
+        /// <param name="s">A string containing a number to convert.</param>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="s">s</paramref> is null.</exception>
+        /// <exception cref="T:System.FormatException"><paramref name="s">s</paramref> is not in the correct format.</exception>
+        /// <exception cref="T:System.OverflowException"><paramref name="s">s</paramref> represents a number less than <see cref="F:System.Int16.MinValue"></see> or greater than <see cref="F:System.Int16.MaxValue"></see>.</exception>
+        /// <returns>A 16-bit signed integer equivalent to the number contained in <paramref name="s">s</paramref>.</returns>
+        public static short ToShort(this string s)
+            => short.Parse(s);
 
         #endregion
 
         #region Convert to Int
 
         /// <summary>
-        /// Converts string to int.
+        /// Converts the string representation of a number to its 32-bit signed integer equivalent.
         /// </summary>
-        /// <remarks>Same as <see cref="ToInt32"/>.</remarks>
-        /// <param name="this">The @this to act on.</param>
-        /// <exception cref="T:System.FormatException"><paramref name="this">this</paramref> is not a number in a valid format.</exception>
-        /// <returns>A 32-bit signed integer that is equivalent to <paramref name="this">value</paramref>.</returns>
-        public static int ToInt(this string @this)
-            => @this.ToInt32();
+        /// <param name="s">A string containing a number to convert.</param>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="s">s</paramref> is null.</exception>
+        /// <exception cref="T:System.FormatException"><paramref name="s">s</paramref> is not in the correct format.</exception>
+        /// <exception cref="T:System.OverflowException"><paramref name="s">s</paramref> represents a number less than <see cref="F:System.Int32.MinValue"></see> or greater than <see cref="F:System.Int32.MaxValue"></see>.</exception>
+        /// <returns>A 32-bit signed integer equivalent to the number contained in <paramref name="s">s</paramref>.</returns>
+        public static int ToInt(this string s)
+            => int.Parse(s);
 
         #endregion
 
         #region Convert to Long
 
         /// <summary>
-        /// Converts string to long.
+        /// Converts the string representation of a number to its 64-bit signed integer equivalent.
         /// </summary>
-        /// <remarks>Same as <see cref="ToInt64"/>.</remarks>
-        /// <param name="this">The @this to act on.</param>
-        /// <exception cref="T:System.FormatException"><paramref name="this">this</paramref> is not a number in a valid format.</exception>
-        /// <returns>A 64-bit signed integer that is equivalent to <paramref name="this">value</paramref>.</returns>
-        public static long ToLong(this string @this)
-            => @this.ToInt64();
-
-        #endregion
-
-        #region Convert to Single
-
-        /// <summary>
-        /// Converts string to float.
-        /// </summary>
-        /// <remarks>Same as <see cref="ToFloat"/>.</remarks>
-        /// <param name="this">The @this to act on.</param>
-        /// <exception cref="T:System.FormatException"><paramref name="this">this</paramref> is not a number in a valid format.</exception>
-        /// <returns>A single-precision floating-point number that is equivalent to the number in <paramref name="this">value</paramref>.</returns>
-        public static float ToSingle(this string @this)
-            => Convert.ToSingle(@this);
+        /// <param name="s">A string containing a number to convert.</param>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="s">s</paramref> is null.</exception>
+        /// <exception cref="T:System.FormatException"><paramref name="s">s</paramref> is not in the correct format.</exception>
+        /// <exception cref="T:System.OverflowException"><paramref name="s">s</paramref> represents a number less than <see cref="F:System.Int64.MinValue"></see> or greater than <see cref="F:System.Int64.MaxValue"></see>.</exception>
+        /// <returns>A 64-bit signed integer equivalent to the number contained in <paramref name="s">s</paramref>.</returns>
+        public static long ToLong(this string s)
+            => long.Parse(s);
 
         #endregion
 
         #region Convert to Float
 
         /// <summary>
-        /// Converts string to float.
+        /// Converts the string representation of a number to its single-precision floating-point number equivalent.
         /// </summary>
-        /// <remarks>Same as <see cref="ToSingle"/>.</remarks>
-        /// <param name="this">The @this to act on.</param>
-        /// <exception cref="T:System.FormatException"><paramref name="this">this</paramref> is not a number in a valid format.</exception>
-        /// <returns>A single-precision floating-point number that is equivalent to the number in <paramref name="this">value</paramref>.</returns>
-        public static float ToFloat(this string @this)
-            => @this.ToSingle();
+        /// <param name="s">A string that contains a number to convert.</param>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="s">s</paramref> is null.</exception>
+        /// <exception cref="T:System.FormatException"><paramref name="s">s</paramref> does not represent a number in a valid format.</exception>
+        /// <exception cref="T:System.OverflowException"><paramref name="s">s</paramref> represents a number less than <see cref="F:System.Single.MinValue"></see> or greater than <see cref="F:System.Single.MaxValue"></see>.</exception>
+        /// <returns>A single-precision floating-point number equivalent to the numeric value or symbol specified in <paramref name="s">s</paramref>.</returns>
+        public static float ToFloat(this string s)
+            => float.Parse(s);
 
         #endregion
 
         #region Convert to Byte Array
 
         /// <summary>
-        /// Converts string to ASCII byte array encoded.
+        /// Encodes all the characters in the specified string into a sequence of bytes.
         /// </summary>
-        /// <param name="this">The @this to act on.</param>
-        /// <returns>A ASCII byte array.</returns>
-        public static byte[] ToAsciiByteArray(this string @this)
-            => Encoding.ASCII.GetBytes(@this);
-        
+        /// <param name="s">The string containing the characters to encode.</param>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="s">s</paramref> is null.</exception>
+        /// <exception cref="T:System.Text.EncoderFallbackException">A fallback occurred (see Character Encoding in the .NET for complete explanation)   -and-  <see cref="P:System.Text.Encoding.EncoderFallback"></see> is set to <see cref="T:System.Text.EncoderExceptionFallback"></see>.</exception>
+        /// <returns>A byte array containing the results of encoding the specified set of characters.</returns>
+        public static byte[] ToAsciiByteArray(this string s)
+            => Encoding.ASCII.GetBytes(s);
+
         /// <summary>
-        /// Converts string to UTF-8 byte array encoded.
+        /// Encodes all the characters in the specified string into a sequence of bytes.
         /// </summary>
-        /// <param name="this">The @this to act on.</param>
-        /// <returns>A UTF-8 byte array.</returns>
-        public static byte[] ToUtf8ByteArray(this string @this)
-            => Encoding.UTF8.GetBytes(@this);
+        /// <param name="s">The string containing the characters to encode.</param>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="s">s</paramref> is null.</exception>
+        /// <exception cref="T:System.Text.EncoderFallbackException">A fallback occurred (see Character Encoding in the .NET for complete explanation)   -and-  <see cref="P:System.Text.Encoding.EncoderFallback"></see> is set to <see cref="T:System.Text.EncoderExceptionFallback"></see>.</exception>
+        /// <returns>A byte array containing the results of encoding the specified set of characters.</returns>
+        public static byte[] ToUtf8ByteArray(this string s)
+            => Encoding.UTF8.GetBytes(s);
 
         #endregion
 
