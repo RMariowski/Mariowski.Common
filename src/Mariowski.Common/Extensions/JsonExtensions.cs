@@ -10,7 +10,7 @@ namespace Mariowski.Common.Extensions
 
         /// <summary>
         /// Serializes the specified object to a JSON string using formatting or not.
-        /// Same as <see cref="Serialize"/>.
+        /// Same as <see cref="M:Serialize"/>.
         /// </summary>
         /// <param name="this">The @this to act on.</param>
         /// <param name="pretty">Use pretty formatting.</param>
@@ -24,7 +24,7 @@ namespace Mariowski.Common.Extensions
 
         /// <summary>
         /// Serializes the specified object to a JSON string using formatting or not.
-        /// Same as <see cref="ToJson"/>.
+        /// Same as <see cref="M:ToJson"/>.
         /// </summary>
         /// <param name="this">The @this to act on.</param>
         /// <param name="pretty">Use pretty formatting.</param>
