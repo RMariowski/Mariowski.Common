@@ -5,6 +5,8 @@ namespace Mariowski.Common.Extensions
 {
     public static class HttpContentExtensions
     {
+        #region ReadAsAsync
+
         /// <summary>
         /// Serialize the HTTP content to a <typeparamref name="T"/> as an asynchronous operation.
         /// </summary>
@@ -16,5 +18,7 @@ namespace Mariowski.Common.Extensions
             string contentAsString = await @this.ReadAsStringAsync();
             return contentAsString.TryDeserialize<T>();
         }
+
+        #endregion
     }
 }

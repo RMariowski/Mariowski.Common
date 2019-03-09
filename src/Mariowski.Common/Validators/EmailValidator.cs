@@ -4,6 +4,8 @@ namespace Mariowski.Common.Validators
 {
     public static class EmailValidator
     {
+        #region IsValid
+
         /// <summary>
         /// Checks whatever value has email address format.
         /// </summary>
@@ -20,5 +22,7 @@ namespace Mariowski.Common.Validators
                                    @"@(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]*\.)+[a-zA-Z0-9]{2,17})$";
             return Regex.IsMatch(value, pattern);
         }
+
+        #endregion
     }
 }
