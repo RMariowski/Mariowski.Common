@@ -27,7 +27,7 @@ namespace Mariowski.Common.UnitTests.Extensions
         [InlineData("128", (short)128)]
         [InlineData("1234", (short)1234)]
         [InlineData("32767", short.MaxValue)]
-        public void StringExtensions_ToShort_ShouldBeConvertedToShortInt(string value, short expected)
+        public void StringExtensions_ToShort_ShouldBeConvertedToShort(string value, short expected)
         {
             value.ToShort().Should().Be(expected);
         }
@@ -95,7 +95,7 @@ namespace Mariowski.Common.UnitTests.Extensions
         [InlineData("123456789012345678", 123456789012345678L)]
         [InlineData("1234567890123456789", 1234567890123456789L)]
         [InlineData("9223372036854775807", long.MaxValue)]
-        public void StringExtensions_ToLong_ShouldBeConvertedToInt(string value, long expected)
+        public void StringExtensions_ToLong_ShouldBeConvertedToLong(string value, long expected)
         {
             value.ToLong().Should().Be(expected);
         }
@@ -107,7 +107,7 @@ namespace Mariowski.Common.UnitTests.Extensions
         [InlineData("0,00000000000000000000", 0.0f)]
         [InlineData("0", 0.0f)]
         [InlineData("1", 1.0f)]
-        public void StringExtensions_ToFloat_ShouldBeConvertedToByte(string value, float expected)
+        public void StringExtensions_ToFloat_ShouldBeConvertedToFloat(string value, float expected)
         {
             value.ToFloat().Should().Be(expected);
         }
