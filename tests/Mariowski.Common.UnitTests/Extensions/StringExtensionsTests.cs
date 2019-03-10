@@ -68,6 +68,22 @@ namespace Mariowski.Common.UnitTests.Extensions
         }
 
         [Theory]
+        [InlineData("0", uint.MinValue)]
+        [InlineData("128", 128U)]
+        [InlineData("1234", 1234U)]
+        [InlineData("12345", 12345U)]
+        [InlineData("123456", 123456U)]
+        [InlineData("1234567", 1234567U)]
+        [InlineData("12345678", 12345678U)]
+        [InlineData("123456789", 123456789U)]
+        [InlineData("1234567890", 1234567890U)]
+        [InlineData("4294967295", uint.MaxValue)]
+        public void StringExtensions_ToUInt_ShouldBeConvertedToUInt(string value, uint expected)
+        {
+            value.ToUInt().Should().Be(expected);
+        }
+        
+        [Theory]
         [InlineData("-9223372036854775808", long.MinValue)]
         [InlineData("-1234567890123456789", -1234567890123456789L)]
         [InlineData("-123456789012345678", -123456789012345678L)]
@@ -153,6 +169,7 @@ namespace Mariowski.Common.UnitTests.Extensions
             Assert.Throws<ArgumentNullException>(() => value.ToShort());
             Assert.Throws<ArgumentNullException>(() => value.ToUShort());
             Assert.Throws<ArgumentNullException>(() => value.ToInt());
+            Assert.Throws<ArgumentNullException>(() => value.ToUInt());
             Assert.Throws<ArgumentNullException>(() => value.ToLong());
             Assert.Throws<ArgumentNullException>(() => value.ToFloat());
         }
@@ -169,6 +186,7 @@ namespace Mariowski.Common.UnitTests.Extensions
             Assert.Throws<FormatException>(() => value.ToShort());
             Assert.Throws<FormatException>(() => value.ToUShort());
             Assert.Throws<FormatException>(() => value.ToInt());
+            Assert.Throws<FormatException>(() => value.ToUInt());
             Assert.Throws<FormatException>(() => value.ToLong());
             Assert.Throws<FormatException>(() => value.ToFloat());
         }
@@ -211,6 +229,16 @@ namespace Mariowski.Common.UnitTests.Extensions
         public void StringExtensions_ToInt_TooSmallOrTooBigValueShouldThrowOverflowException(string value)
         {
             Assert.Throws<OverflowException>(() => value.ToInt());
+        }
+        
+        [Theory]
+        [InlineData("-123456789")]
+        [InlineData("-1")]
+        [InlineData("4294967296")]
+        [InlineData("12345678901")]
+        public void StringExtensions_ToUInt_TooSmallOrTooBigValueShouldThrowOverflowException(string value)
+        {
+            Assert.Throws<OverflowException>(() => value.ToUInt());
         }
 
         [Theory]

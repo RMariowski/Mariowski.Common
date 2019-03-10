@@ -66,6 +66,21 @@ namespace Mariowski.Common.Extensions
 
         #endregion
 
+        #region Convert to UInt
+
+        /// <summary>
+        /// Converts the string representation of a number to its 32-bit unsigned integer equivalent.
+        /// </summary>
+        /// <param name="s">A string containing a number to convert.</param>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="s">s</paramref> is null.</exception>
+        /// <exception cref="T:System.FormatException"><paramref name="s">s</paramref> is not in the correct format.</exception>
+        /// <exception cref="T:System.OverflowException"><paramref name="s">s</paramref> represents a number less than <see cref="F:System.UInt32.MinValue"></see> or greater than <see cref="F:System.UInt32.MaxValue"></see>.</exception>
+        /// <returns>A 32-bit unsigned integer equivalent to the number contained in <paramref name="s">s</paramref>.</returns>
+        public static uint ToUInt(this string s)
+            => uint.Parse(s);
+
+        #endregion
+
         #region Convert to Long
 
         /// <summary>
