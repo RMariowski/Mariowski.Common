@@ -125,6 +125,31 @@ namespace Mariowski.Common.UnitTests.Extensions
         {
             value.ToLong().Should().Be(expected);
         }
+        
+        [Theory]
+        [InlineData("0", ulong.MinValue)]
+        [InlineData("128", 128L)]
+        [InlineData("1234", 1234L)]
+        [InlineData("12345", 12345L)]
+        [InlineData("123456", 123456L)]
+        [InlineData("1234567", 1234567L)]
+        [InlineData("12345678", 12345678L)]
+        [InlineData("123456789", 123456789L)]
+        [InlineData("1234567890", 1234567890L)]
+        [InlineData("12345678901", 12345678901L)]
+        [InlineData("123456789012", 123456789012L)]
+        [InlineData("1234567890123", 1234567890123L)]
+        [InlineData("12345678901234", 12345678901234L)]
+        [InlineData("123456789012345", 123456789012345L)]
+        [InlineData("1234567890123456", 1234567890123456L)]
+        [InlineData("12345678901234567", 12345678901234567L)]
+        [InlineData("123456789012345678", 123456789012345678L)]
+        [InlineData("1234567890123456789", 1234567890123456789L)]
+        [InlineData("18446744073709551615", ulong.MaxValue)]
+        public void StringExtensions_ToULong_ShouldBeConvertedToULong(string value, ulong expected)
+        {
+            value.ToULong().Should().Be(expected);
+        }
 
         [Theory]
         [InlineData("-1", -1.0f)]
@@ -171,6 +196,7 @@ namespace Mariowski.Common.UnitTests.Extensions
             Assert.Throws<ArgumentNullException>(() => value.ToInt());
             Assert.Throws<ArgumentNullException>(() => value.ToUInt());
             Assert.Throws<ArgumentNullException>(() => value.ToLong());
+            Assert.Throws<ArgumentNullException>(() => value.ToULong());
             Assert.Throws<ArgumentNullException>(() => value.ToFloat());
         }
 
@@ -188,6 +214,7 @@ namespace Mariowski.Common.UnitTests.Extensions
             Assert.Throws<FormatException>(() => value.ToInt());
             Assert.Throws<FormatException>(() => value.ToUInt());
             Assert.Throws<FormatException>(() => value.ToLong());
+            Assert.Throws<FormatException>(() => value.ToULong());
             Assert.Throws<FormatException>(() => value.ToFloat());
         }
 
@@ -249,6 +276,16 @@ namespace Mariowski.Common.UnitTests.Extensions
         public void StringExtensions_ToLong_TooSmallOrTooBigValueShouldThrowOverflowException(string value)
         {
             Assert.Throws<OverflowException>(() => value.ToLong());
+        }
+        
+        [Theory]
+        [InlineData("-123456789")]
+        [InlineData("-1")]
+        [InlineData("18446744073709551616")]
+        [InlineData("12345678901234567890123456789")]
+        public void StringExtensions_ToULong_TooSmallOrTooBigValueShouldThrowOverflowException(string value)
+        {
+            Assert.Throws<OverflowException>(() => value.ToULong());
         }
 
         [Theory]
