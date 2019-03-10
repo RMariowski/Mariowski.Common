@@ -31,6 +31,16 @@ namespace Mariowski.Common.UnitTests.Extensions
         {
             value.ToShort().Should().Be(expected);
         }
+        
+        [Theory]
+        [InlineData("0", ushort.MinValue)]
+        [InlineData("128", (ushort)128)]
+        [InlineData("1234", (ushort)1234)]
+        [InlineData("65535", ushort.MaxValue)]
+        public void StringExtensions_ToUShort_ShouldBeConvertedToUShort(string value, ushort expected)
+        {
+            value.ToUShort().Should().Be(expected);
+        }
 
         [Theory]
         [InlineData("-2147483648", int.MinValue)]
@@ -141,6 +151,7 @@ namespace Mariowski.Common.UnitTests.Extensions
 
             Assert.Throws<ArgumentNullException>(() => value.ToByte());
             Assert.Throws<ArgumentNullException>(() => value.ToShort());
+            Assert.Throws<ArgumentNullException>(() => value.ToUShort());
             Assert.Throws<ArgumentNullException>(() => value.ToInt());
             Assert.Throws<ArgumentNullException>(() => value.ToLong());
             Assert.Throws<ArgumentNullException>(() => value.ToFloat());
@@ -156,6 +167,7 @@ namespace Mariowski.Common.UnitTests.Extensions
         {
             Assert.Throws<FormatException>(() => value.ToByte());
             Assert.Throws<FormatException>(() => value.ToShort());
+            Assert.Throws<FormatException>(() => value.ToUShort());
             Assert.Throws<FormatException>(() => value.ToInt());
             Assert.Throws<FormatException>(() => value.ToLong());
             Assert.Throws<FormatException>(() => value.ToFloat());
@@ -179,6 +191,16 @@ namespace Mariowski.Common.UnitTests.Extensions
         public void StringExtensions_ToShort_TooSmallOrTooBigValueShouldThrowOverflowException(string value)
         {
             Assert.Throws<OverflowException>(() => value.ToShort());
+        }
+        
+        [Theory]
+        [InlineData("-123456789")]
+        [InlineData("-1")]
+        [InlineData("65536")]
+        [InlineData("123456789")]
+        public void StringExtensions_ToUShort_TooSmallOrTooBigValueShouldThrowOverflowException(string value)
+        {
+            Assert.Throws<OverflowException>(() => value.ToUShort());
         }
 
         [Theory]
