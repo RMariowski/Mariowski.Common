@@ -73,16 +73,16 @@ namespace Mariowski.Common.DataTypes
         /// <summary>
         /// Returns a value that indicates whether this instance is equal to a specified object.
         /// </summary>
-        /// <param name="o">The object to compare with this instance.</param>
+        /// <param name="obj">The object to compare with this instance.</param>
         /// <returns>
-        /// true if <paramref name="o">o</paramref> is a <see cref="T:ShortGuid"></see> that has the same value as this instance;
-        /// true if <paramref name="o">o</paramref> is a <see cref="T:System.Guid"></see> that has the same value as this instance;
-        /// true if <paramref name="o">o</paramref> is a string that has the same value as this instance;
-        /// otherwise, false.
+        /// True if <paramref name="obj">obj</paramref> is a <see cref="T:ShortGuid"></see> that has the same value as this instance;
+        /// True if <paramref name="obj">obj</paramref> is a <see cref="T:System.Guid"></see> that has the same value as this instance;
+        /// True if <paramref name="obj">obj</paramref> is a string that has the same value as this instance;
+        /// Otherwise, false.
         /// </returns>
-        public override bool Equals(object o)
+        public override bool Equals(object obj)
         {
-            switch (o)
+            switch (obj)
             {
                 case ShortGuid shortGuid:
                     return _guid.Equals(shortGuid._guid);
@@ -106,7 +106,7 @@ namespace Mariowski.Common.DataTypes
         /// <summary>
         /// Returns the HashCode of underlying Guid.
         /// </summary>
-        /// <returns>HashCode of Guid</returns>
+        /// <returns>HashCode of Guid.</returns>
         public override int GetHashCode()
             => _guid.GetHashCode();
 
@@ -128,11 +128,11 @@ namespace Mariowski.Common.DataTypes
         /// <summary>
         /// Indicates whether the values of two specified <see cref="T:ShortGuid"></see> objects are equal.
         /// </summary>
-        /// <param name="a">The first object to compare.</param>
-        /// <param name="b">The second object to compare.</param>
-        /// <returns>true if <paramref name="a">a</paramref> and <paramref name="b">b</paramref> are equal; otherwise, false.</returns>
-        public static bool operator ==(ShortGuid a, ShortGuid b)
-            => a._guid == b._guid;
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns>True if <paramref name="left">left</paramref> and <paramref name="right">right</paramref> are equal; otherwise, false.</returns>
+        public static bool operator ==(ShortGuid left, ShortGuid right)
+            => left._guid == right._guid;
 
         #endregion
 
@@ -141,11 +141,11 @@ namespace Mariowski.Common.DataTypes
         /// <summary>
         /// Indicates whether the values of two specified <see cref="T:ShortGuid"></see> objects are not equal.
         /// </summary>
-        /// <param name="a">The first object to compare.</param>
-        /// <param name="b">The second object to compare.</param>
-        /// <returns>true if <paramref name="a">a</paramref> and <paramref name="b">b</paramref> are not equal; otherwise, false.</returns>
-        public static bool operator !=(ShortGuid a, ShortGuid b)
-            => !(a == b);
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns>true if <paramref name="left">left</paramref> and <paramref name="right">right</paramref> are not equal; otherwise, false.</returns>
+        public static bool operator !=(ShortGuid left, ShortGuid right)
+            => !(left == right);
 
         #endregion
 
