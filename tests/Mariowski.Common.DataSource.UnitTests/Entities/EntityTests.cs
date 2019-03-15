@@ -60,10 +60,12 @@ namespace Mariowski.Common.DataSource.UnitTests.Entities
         public void Entity_EqualityOperator_ShouldCorrectlyDetermineEquality()
         {
             var entity = new ClassToTest();
-            (entity == entity).Should().BeTrue();
             (entity == null).Should().BeFalse();
 
-            var entity2 = new ClassToTest();
+            var entity2 = entity;
+            (entity == entity2).Should().BeTrue();
+
+            entity2 = new ClassToTest();
             (entity == entity2).Should().BeFalse();
 
             entity.Id = entity2.Id = 1;
@@ -74,10 +76,12 @@ namespace Mariowski.Common.DataSource.UnitTests.Entities
         public void Entity_InequalityOperator_ShouldCorrectlyDetermineInequality()
         {
             var entity = new ClassToTest();
-            (entity != entity).Should().BeFalse();
             (entity != null).Should().BeTrue();
 
-            var entity2 = new ClassToTest();
+            var entity2 = entity;
+            (entity != entity2).Should().BeFalse();
+
+            entity2 = new ClassToTest();
             (entity != entity2).Should().BeTrue();
 
             entity.Id = entity2.Id = 1;
