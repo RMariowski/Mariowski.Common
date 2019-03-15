@@ -13,13 +13,14 @@ script:
 - dotnet pack -c Release
 
 deploy:
-  skip_cleanup: true
   - provider: script
+    skip_cleanup: true
     script: dotnet nuget push src/Mariowski.Common/bin/Release/Mariowski.Common.*.nupkg -k $NUGET_API_KEY -s https://api.nuget.org/v3/index.json
     on:
       tags: true
       condition: $TRAVIS_TAG =~ ^[0-9]+\.[0-9]+\.[0-9]+
   - provider: script
+    skip_cleanup: true
     script: dotnet nuget push src/Mariowski.Common.DataSource/bin/Release/Mariowski.Common.DataSource.*.nupkg -k $NUGET_API_KEY -s https://api.nuget.org/v3/index.json
     on:
       tags: true
