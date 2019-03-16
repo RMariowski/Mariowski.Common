@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Mariowski.Common.DataSource.Entities;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Mariowski.Common.DataSource.Entities;
 
 namespace Mariowski.Common.DataSource.GenericRepository
 {
-    public interface IGenericRepository<TEntity, TPrimaryKey> : IRepository 
+    public interface IGenericRepository<TEntity, TPrimaryKey> : IRepository
         where TEntity : class, IEntity<TPrimaryKey>
     {
         #region Create
@@ -106,7 +106,7 @@ namespace Mariowski.Common.DataSource.GenericRepository
         /// <param name="predicate">Predicate to filter entities.</param>
         /// <returns>Entity or null.</returns>
         TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate);
-        
+
         /// <summary>
         /// Gets an entity with given predicate or null if not found.
         /// </summary>
@@ -115,14 +115,14 @@ namespace Mariowski.Common.DataSource.GenericRepository
         Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
 
         /// <summary>
-        /// Checks whatever any entity matches <param name="predicate"></param>.
+        /// Checks whatever any entity matches <paramref name="predicate"/>.
         /// </summary>
         /// <param name="predicate">Predicate to filter entities.</param>
         /// <returns>True if any entity matches predicate, false otherwise.</returns>
         bool Any(Expression<Func<TEntity, bool>> predicate);
 
         /// <summary>
-        /// Checks whatever any entity matches <param name="predicate"></param>.
+        /// Checks whatever any entity matches <paramref name="predicate"/>.
         /// </summary>
         /// <param name="predicate">Predicate to filter entities.</param>
         /// <returns>True if any entity matches predicate, false otherwise.</returns>
@@ -172,13 +172,6 @@ namespace Mariowski.Common.DataSource.GenericRepository
         int Count();
 
         /// <summary>
-        /// Gets count of all entities in this repository based on given <paramref name="predicate"/>.
-        /// </summary>
-        /// <param name="predicate">A method to filter count.</param>
-        /// <returns>Count of entities.</returns>
-        int Count(Expression<Func<TEntity, bool>> predicate);
-
-        /// <summary>
         /// Gets count of all entities in this repository.
         /// </summary>
         /// <returns>Count of entities.</returns>
@@ -189,8 +182,15 @@ namespace Mariowski.Common.DataSource.GenericRepository
         /// </summary>
         /// <param name="predicate">A method to filter count.</param>
         /// <returns>Count of entities.</returns>
+        int Count(Expression<Func<TEntity, bool>> predicate);
+
+        /// <summary>
+        /// Gets count of all entities in this repository based on given <paramref name="predicate"/>.
+        /// </summary>
+        /// <param name="predicate">A method to filter count.</param>
+        /// <returns>Count of entities.</returns>
         Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate);
-        
+
         /// <summary>
         /// Gets long count of all entities in this repository.
         /// </summary>
@@ -198,17 +198,17 @@ namespace Mariowski.Common.DataSource.GenericRepository
         long LongCount();
 
         /// <summary>
+        /// Gets long count of all entities in this repository.
+        /// </summary>
+        /// <returns>Long count of entities.</returns>
+        Task<long> LongCountAsync();
+
+        /// <summary>
         /// Gets long count of all entities in this repository based on given <paramref name="predicate"/>.
         /// </summary>
         /// <param name="predicate">A method to filter count.</param>
         /// <returns>Long count of entities.</returns>
         long LongCount(Expression<Func<TEntity, bool>> predicate);
-
-        /// <summary>
-        /// Gets long count of all entities in this repository.
-        /// </summary>
-        /// <returns>Long count of entities.</returns>
-        Task<long> LongCountAsync();
 
         /// <summary>
         /// Gets long count of all entities in this repository based on given <paramref name="predicate"/>.
