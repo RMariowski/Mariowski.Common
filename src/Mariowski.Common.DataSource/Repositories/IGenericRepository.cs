@@ -1,10 +1,10 @@
-﻿using Mariowski.Common.DataSource.Entities;
-using System;
+﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Mariowski.Common.DataSource.Entities;
 
-namespace Mariowski.Common.DataSource.GenericRepository
+namespace Mariowski.Common.DataSource.Repositories
 {
     public interface IGenericRepository<TEntity, TPrimaryKey> : IRepository
         where TEntity : class, IEntity<TPrimaryKey>

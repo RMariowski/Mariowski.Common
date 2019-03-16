@@ -1,4 +1,4 @@
-namespace Mariowski.Common.DataSource.GenericRepository
+namespace Mariowski.Common.DataSource.Repositories
 {
     /// <summary>
     /// Marker interface for repositories.
