@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common.DataSource
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common.DataSource.UnitTests", "tests\Mariowski.Common.DataSource.UnitTests\Mariowski.Common.DataSource.UnitTests.csproj", "{1E047A7C-FFC3-4C37-AA17-1D7EBB19881D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common.EntityFramework", "src\Mariowski.Common.EntityFramework\Mariowski.Common.EntityFramework.csproj", "{0B7A2999-BCC8-408B-B9E0-3ED420AE8ED6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common.EntityFramework.UnitTests", "tests\Mariowski.Common.EntityFramework.UnitTests\Mariowski.Common.EntityFramework.UnitTests.csproj", "{662AD5AB-A156-47E1-ACD9-D5E8F96B252E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{1E047A7C-FFC3-4C37-AA17-1D7EBB19881D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E047A7C-FFC3-4C37-AA17-1D7EBB19881D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E047A7C-FFC3-4C37-AA17-1D7EBB19881D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B7A2999-BCC8-408B-B9E0-3ED420AE8ED6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B7A2999-BCC8-408B-B9E0-3ED420AE8ED6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B7A2999-BCC8-408B-B9E0-3ED420AE8ED6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B7A2999-BCC8-408B-B9E0-3ED420AE8ED6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{662AD5AB-A156-47E1-ACD9-D5E8F96B252E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{662AD5AB-A156-47E1-ACD9-D5E8F96B252E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{662AD5AB-A156-47E1-ACD9-D5E8F96B252E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{662AD5AB-A156-47E1-ACD9-D5E8F96B252E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
