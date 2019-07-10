@@ -1,7 +1,7 @@
 ﻿namespace Mariowski.Common.DataSource.Entities
 {
-    public interface IEmailable
+    public interface IMailable
     {
-        string Email { get; }
+        string Mail { get; }
     }
 }
