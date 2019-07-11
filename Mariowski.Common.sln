@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.421
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common", "src\Mariowski.Common\Mariowski.Common.csproj", "{35A8EF77-70B2-4B10-BFF5-21747E4A6DD3}"
 EndProject
@@ -14,6 +14,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common.EntityFramework", "src\Mariowski.Common.EntityFramework\Mariowski.Common.EntityFramework.csproj", "{0B7A2999-BCC8-408B-B9E0-3ED420AE8ED6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common.EntityFramework.UnitTests", "tests\Mariowski.Common.EntityFramework.UnitTests\Mariowski.Common.EntityFramework.UnitTests.csproj", "{662AD5AB-A156-47E1-ACD9-D5E8F96B252E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common.AspNet", "src\Mariowski.Common.AspNet\Mariowski.Common.AspNet.csproj", "{547EDD07-9599-4168-B195-EF734FA80307}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common.AspNet.UnitTests", "tests\Mariowski.Common.AspNet.UnitTests\Mariowski.Common.AspNet.UnitTests.csproj", "{60F36E3C-9AFC-4B59-94E2-88D1D0AD1FA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{662AD5AB-A156-47E1-ACD9-D5E8F96B252E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{662AD5AB-A156-47E1-ACD9-D5E8F96B252E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{662AD5AB-A156-47E1-ACD9-D5E8F96B252E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{547EDD07-9599-4168-B195-EF734FA80307}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{547EDD07-9599-4168-B195-EF734FA80307}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{547EDD07-9599-4168-B195-EF734FA80307}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{547EDD07-9599-4168-B195-EF734FA80307}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60F36E3C-9AFC-4B59-94E2-88D1D0AD1FA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60F36E3C-9AFC-4B59-94E2-88D1D0AD1FA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60F36E3C-9AFC-4B59-94E2-88D1D0AD1FA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60F36E3C-9AFC-4B59-94E2-88D1D0AD1FA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

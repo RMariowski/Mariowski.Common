@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Radosław Mariowski</Authors>
+    <Company />
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.0</Version>
+    <PackageProjectUrl>https://github.com/Xandev/Mariowski.Common</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Xandev/Mariowski.Common</RepositoryUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mariowski.Common\Mariowski.Common.csproj" />
+  </ItemGroup>
+
+</Project>
