@@ -21,10 +21,4 @@
     <ProjectReference Include="..\..\src\Mariowski.Common\Mariowski.Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Update="xunit.runner.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
 </Project>
