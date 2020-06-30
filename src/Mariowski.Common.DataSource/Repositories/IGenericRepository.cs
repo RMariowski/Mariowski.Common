@@ -93,7 +93,7 @@ namespace Mariowski.Common.DataSource.Repositories
         /// </summary>
         /// <param name="id">Primary key of the entity to get.</param>
         /// <returns>Entity or null.</returns>
-        Task<TEntity> FirstOrDefaultAsyncById(TPrimaryKey id);
+        Task<TEntity> FirstOrDefaultByIdAsync(TPrimaryKey id);
 
         /// <summary>
         /// Gets an entity with given predicate or null if not found.

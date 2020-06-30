@@ -65,7 +65,7 @@ namespace Mariowski.Common.DataSource.Repositories
             => GetAll().FirstOrDefault(CreateEqualityExpressionForId(id));
 
         /// <inheritdoc />
-        public virtual Task<TEntity> FirstOrDefaultAsyncById(TPrimaryKey id)
+        public virtual Task<TEntity> FirstOrDefaultByIdAsync(TPrimaryKey id)
             => Task.FromResult(FirstOrDefaultById(id));
 
         /// <inheritdoc />

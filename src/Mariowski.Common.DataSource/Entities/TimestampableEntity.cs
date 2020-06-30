@@ -9,7 +9,7 @@ namespace Mariowski.Common.DataSource.Entities
         public DateTime UpdatedAt { get; set; }
 
         /// <summary>
-        /// Creates new instance of <see cref="T:TimestampableEntity"/> with dates set to <see cref="P:DateTime.UtcNow"/>.
+        /// Creates a new instance of <see cref="T:TimestampableEntity"/> with dates set to <see cref="P:DateTime.UtcNow"/>.
         /// </summary>
         protected TimestampableEntity()
         {
@@ -18,7 +18,7 @@ namespace Mariowski.Common.DataSource.Entities
         }
 
         /// <summary>
-        /// Creates new instance of <see cref="T:TimestampableEntity"/> with specified <see cref="T:DateTime"/>.
+        /// Creates a new instance of <see cref="T:TimestampableEntity"/> with specified <see cref="T:DateTime"/>.
         /// </summary>
         /// <param name="createdAt">Entity creation date.</param>
         /// <param name="updatedAt">Entity last update date.</param>

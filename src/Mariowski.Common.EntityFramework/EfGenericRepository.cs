@@ -7,7 +7,8 @@ using System.Linq.Expressions;
 
 namespace Mariowski.Common.EntityFramework
 {
-    public abstract class EfGenericRepository<TDbContext, TEntity, TPrimaryKey> : GenericRepository<TEntity, TPrimaryKey>
+    public abstract class EfGenericRepository<TDbContext, TEntity, TPrimaryKey>
+        : GenericRepository<TEntity, TPrimaryKey>
         where TEntity : class, IEntity<TPrimaryKey>
         where TDbContext : DbContext
     {

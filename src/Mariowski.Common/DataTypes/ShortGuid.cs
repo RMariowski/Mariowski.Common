@@ -11,6 +11,8 @@ namespace Mariowski.Common.DataTypes
         public static readonly ShortGuid Empty = default;
 
         private Guid _guid;
+        private string _value;
+
         public Guid Guid
         {
             get => _guid;
@@ -24,7 +26,6 @@ namespace Mariowski.Common.DataTypes
             }
         }
 
-        private string _value;
         public string Value
         {
             get => _value;
@@ -80,8 +81,8 @@ namespace Mariowski.Common.DataTypes
                 case Guid guid:
                     return _guid.Equals(guid);
 
-                case string @string:
-                    return _value.Equals(@string);
+                case string str:
+                    return _value.Equals(str);
 
                 default:
                     return false;
