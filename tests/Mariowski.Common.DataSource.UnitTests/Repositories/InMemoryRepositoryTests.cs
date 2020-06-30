@@ -9,10 +9,8 @@ namespace Mariowski.Common.DataSource.UnitTests.Repositories
 {
     public class InMemoryRepositoryTests
     {
-        #region Valid
-
         [Fact]
-        public void InMemoryRepository_Insert_InsertNewEntityShouldAddEntityToMemory()
+        public void Insert_InsertNewEntityShouldAddEntityToMemory()
         {
             var repository = new InMemoryRepositoryImpl();
             var entity = new EntityImpl(1);
@@ -23,7 +21,7 @@ namespace Mariowski.Common.DataSource.UnitTests.Repositories
         }
 
         [Fact]
-        public void InMemoryRepository_GetAllIncluding_GetAllShouldReturnAddedEntitiesFromMemory()
+        public void GetAllIncluding_GetAllShouldReturnAddedEntitiesFromMemory()
         {
             var repository = new InMemoryRepositoryImpl();
             repository.Insert(new EntityImpl(1));
@@ -38,7 +36,7 @@ namespace Mariowski.Common.DataSource.UnitTests.Repositories
         }
 
         [Fact]
-        public void InMemoryRepository_Update_UpdateShouldReplaceEntityInMemory()
+        public void Update_UpdateShouldReplaceEntityInMemory()
         {
             var repository = new InMemoryRepositoryImpl();
             repository.Insert(new EntityImpl(1));
@@ -51,7 +49,7 @@ namespace Mariowski.Common.DataSource.UnitTests.Repositories
         }
 
         [Fact]
-        public void InMemoryRepository_Delete_DeleteEntityShouldRemoveEntityFromMemory()
+        public void Delete_DeleteEntityShouldRemoveEntityFromMemory()
         {
             var repository = new InMemoryRepositoryImpl();
             var entity = new EntityImpl(1);
@@ -62,7 +60,7 @@ namespace Mariowski.Common.DataSource.UnitTests.Repositories
         }
 
         [Fact]
-        public void InMemoryRepository_Delete_DeleteNotAddedEntityShouldDoNothing()
+        public void Delete_DeleteNotAddedEntityShouldDoNothing()
         {
             var repository = new InMemoryRepositoryImpl();
             var entity = new EntityImpl(1);
@@ -73,12 +71,8 @@ namespace Mariowski.Common.DataSource.UnitTests.Repositories
             repository.Count().Should().Be(1);
         }
 
-        #endregion
-
-        #region Invalid
-
         [Fact]
-        public void InMemoryRepository_Insert_InsertNullShouldThrowException()
+        public void Insert_InsertNullShouldThrowException()
         {
             var repository = new InMemoryRepositoryImpl();
 
@@ -86,7 +80,7 @@ namespace Mariowski.Common.DataSource.UnitTests.Repositories
         }
 
         [Fact]
-        public void InMemoryRepository_Insert_InsertTransientEntityShouldThrowException()
+        public void Insert_InsertTransientEntityShouldThrowException()
         {
             var repository = new InMemoryRepositoryImpl();
             var entity = new EntityImpl();
@@ -95,7 +89,7 @@ namespace Mariowski.Common.DataSource.UnitTests.Repositories
         }
 
         [Fact]
-        public void InMemoryRepository_Insert_InsertEntityWithIdThatIsAlreadyAddedShouldThrowException()
+        public void Insert_InsertEntityWithIdThatIsAlreadyAddedShouldThrowException()
         {
             var repository = new InMemoryRepositoryImpl();
             var entity = new EntityImpl(1);
@@ -106,7 +100,7 @@ namespace Mariowski.Common.DataSource.UnitTests.Repositories
         }
 
         [Fact]
-        public void InMemoryRepository_Update_UpdateNullShouldThrowException()
+        public void Update_UpdateNullShouldThrowException()
         {
             var repository = new InMemoryRepositoryImpl();
 
@@ -114,7 +108,7 @@ namespace Mariowski.Common.DataSource.UnitTests.Repositories
         }
 
         [Fact]
-        public void InMemoryRepository_Update_UpdateTransientEntityShouldThrowException()
+        public void Update_UpdateTransientEntityShouldThrowException()
         {
             var repository = new InMemoryRepositoryImpl();
             var entity = new EntityImpl();
@@ -123,7 +117,7 @@ namespace Mariowski.Common.DataSource.UnitTests.Repositories
         }
 
         [Fact]
-        public void InMemoryRepository_Update_UpdateEntityWithIdThatIsNotAddedShouldThrowException()
+        public void Update_UpdateEntityWithIdThatIsNotAddedShouldThrowException()
         {
             var repository = new InMemoryRepositoryImpl();
             var entity = new EntityImpl(1);
@@ -132,7 +126,7 @@ namespace Mariowski.Common.DataSource.UnitTests.Repositories
         }
 
         [Fact]
-        public void InMemoryRepository_Delete_DeleteNullShouldThrowException()
+        public void Delete_DeleteNullShouldThrowException()
         {
             var repository = new InMemoryRepositoryImpl();
 
@@ -140,14 +134,12 @@ namespace Mariowski.Common.DataSource.UnitTests.Repositories
         }
 
         [Fact]
-        public void InMemoryRepository_Delete_DeleteTransientEntity1ShouldThrowException()
+        public void Delete_DeleteTransientEntity1ShouldThrowException()
         {
             var repository = new InMemoryRepositoryImpl();
             var entity = new EntityImpl();
 
             Assert.Throws<ArgumentException>(() => repository.Delete(entity));
         }
-
-        #endregion
     }
 }
