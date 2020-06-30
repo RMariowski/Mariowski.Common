@@ -11,28 +11,31 @@ namespace Mariowski.Common.DataSource.UnitTests.Entities
     public class EntityTests
     {
         [Fact]
-        public void Entity_IsTransient_EntityWithoutIdShouldBeTransient()
+        public void IsTransient_EntityWithoutIdShouldBeTransient()
         {
             var entity = new EntityImpl();
+
             entity.IsTransient().Should().BeTrue();
         }
 
         [Fact]
-        public void Entity_IsTransient_EntityWithDefaultIdShouldBeTransient()
+        public void IsTransient_EntityWithDefaultIdShouldBeTransient()
         {
             var entity = new EntityImpl(0);
+
             entity.IsTransient().Should().BeTrue();
         }
 
         [Fact]
-        public void Entity_IsTransient_EntityWithCorrectIdShouldNotBeTransient()
+        public void IsTransient_EntityWithCorrectIdShouldNotBeTransient()
         {
             var entity = new EntityImpl(1);
+
             entity.IsTransient().Should().BeFalse();
         }
 
         [Fact]
-        public void Entity_Equals_ShouldCorrectlyDetermineEqualityWithOtherObject()
+        public void Equals_ShouldCorrectlyDetermineEqualityWithOtherObject()
         {
             var entity = new EntityImpl();
             entity.Equals(entity).Should().BeTrue();
@@ -48,14 +51,15 @@ namespace Mariowski.Common.DataSource.UnitTests.Entities
         }
 
         [Fact]
-        public void Entity_GetHashCode_ShouldReturnTheSameHashCodeAsId()
+        public void GetHashCode_ShouldReturnTheSameHashCodeAsId()
         {
             var entity = new EntityImpl(1);
+
             (entity.Id.GetHashCode() == 1.GetHashCode()).Should().BeTrue();
         }
 
         [Fact]
-        public void Entity_EqualityOperator_ShouldCorrectlyDetermineEquality()
+        public void EqualityOperator_ShouldCorrectlyDetermineEquality()
         {
             var entity = new EntityImpl();
             (entity == null).Should().BeFalse();
@@ -87,10 +91,11 @@ namespace Mariowski.Common.DataSource.UnitTests.Entities
         }
 
         [Fact]
-        public void Entity_ToString_ShouldReturnStringInSpecifiedFormat()
+        public void ToString_ShouldReturnStringInSpecifiedFormat()
         {
             var entity = new EntityImpl();
-            entity.ToString().Should().Be($"[{typeof(EntityImpl).Name} {entity.Id}]");
+
+            entity.ToString().Should().Be($"[{nameof(EntityImpl)} {entity.Id}]");
         }
     }
 }
