@@ -120,7 +120,7 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <inheritdoc />
         public virtual int Count(Expression<Func<TEntity, bool>> predicate)
             => GetAll().Where(predicate).Count();
-        
+
         /// <inheritdoc />
         public virtual Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate)
             => Task.FromResult(Count(predicate));
@@ -136,7 +136,7 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <inheritdoc />
         public virtual long LongCount(Expression<Func<TEntity, bool>> predicate)
             => GetAll().Where(predicate).LongCount();
-        
+
         /// <inheritdoc />
         public virtual Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate)
             => Task.FromResult(LongCount(predicate));
