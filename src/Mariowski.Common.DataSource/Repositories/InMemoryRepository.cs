@@ -19,7 +19,7 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <exception cref="T:System.InvalidOperationException">Entity with key of <paramref name="entity"/> is already added.</exception>
         public override TEntity Insert(TEntity entity)
         {
-            if (entity == null)
+            if (entity is null)
                 throw new ArgumentNullException(nameof(entity), "Entity cannot be null.");
 
             if (entity.IsTransient())
@@ -53,14 +53,14 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <exception cref="T:System.Collections.Generic.KeyNotFoundException">Entity to replace, with key of <paramref name="entity"/> not found in memory.</exception>
         public override TEntity Update(TEntity entity)
         {
-            if (entity == null)
+            if (entity is null)
                 throw new ArgumentNullException(nameof(entity), "Entity cannot be null.");
 
             if (entity.IsTransient())
                 throw new ArgumentException("Cannot update transient entity.", nameof(entity));
 
             var currentEntity = FirstOrDefaultById(entity.Id);
-            if (currentEntity == null)
+            if (currentEntity is null)
                 throw new KeyNotFoundException($"Cannot find entity to replace by id: {entity.Id}.");
 
             // FIXME: When TryUpdate() return false, should exception be thrown?
@@ -74,7 +74,7 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <exception cref="T:System.ArgumentException"><paramref name="entity"/> is transient.</exception>
         public override void Delete(TEntity entity)
         {
-            if (entity == null)
+            if (entity is null)
                 throw new ArgumentNullException(nameof(entity), "Entity cannot be null.");
 
             if (entity.IsTransient())

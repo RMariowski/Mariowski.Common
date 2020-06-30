@@ -11,7 +11,7 @@ namespace Mariowski.Common.Validators
         /// <returns>True if value has mail address format, false otherwise.</returns>
         public static bool IsValid(string value)
         {
-            if (value == null)
+            if (value is null)
                 return false;
 
             const string pattern = "^([0-9a-zA-Z]" + //Start with a digit or alphabetical

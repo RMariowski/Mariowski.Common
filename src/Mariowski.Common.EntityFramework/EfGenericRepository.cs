@@ -41,11 +41,13 @@ namespace Mariowski.Common.EntityFramework
             params Expression<Func<TEntity, object>>[] propertySelectors)
         {
             var query = Table.AsNoTracking().AsQueryable();
-            return propertySelectors == null ? query : propertySelectors.Aggregate(
-                query, (current, propertySelector) => current.Include(propertySelector));
+
+            if (propertySelectors is null)
+                return query;
+
+            return propertySelectors.Aggregate(query,
+                (current, propertySelector) => current.Include(propertySelector));
         }
-
-
 
         /// <summary>
         /// Updates an existing entity.

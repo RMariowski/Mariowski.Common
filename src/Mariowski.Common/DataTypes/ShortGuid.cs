@@ -157,7 +157,7 @@ namespace Mariowski.Common.DataTypes
         /// <returns>A new <see cref="T:System.Guid">Guid</see>.</returns>
         private static Guid Decode(string s)
         {
-            if (s == null)
+            if (s is null)
                 throw new ArgumentNullException(nameof(s), "Value cannot be null.");
 
             s = s
