@@ -7,14 +7,12 @@ namespace Mariowski.Common.UnitTests.Extensions
 {
     public class StringExtensionsTests
     {
-        #region Valid
-
         [Theory]
         [InlineData("0", byte.MinValue)]
         [InlineData("12", (byte)12)]
         [InlineData("128", (byte)128)]
         [InlineData("255", byte.MaxValue)]
-        public void StringExtensions_ToByte_ShouldBeConvertedToByte(string value, byte expected)
+        public void ToByte_ShouldBeConvertedToByte(string value, byte expected)
         {
             value.ToByte().Should().Be(expected);
         }
@@ -27,17 +25,17 @@ namespace Mariowski.Common.UnitTests.Extensions
         [InlineData("128", (short)128)]
         [InlineData("1234", (short)1234)]
         [InlineData("32767", short.MaxValue)]
-        public void StringExtensions_ToShort_ShouldBeConvertedToShort(string value, short expected)
+        public void ToShort_ShouldBeConvertedToShort(string value, short expected)
         {
             value.ToShort().Should().Be(expected);
         }
-        
+
         [Theory]
         [InlineData("0", ushort.MinValue)]
         [InlineData("128", (ushort)128)]
         [InlineData("1234", (ushort)1234)]
         [InlineData("65535", ushort.MaxValue)]
-        public void StringExtensions_ToUShort_ShouldBeConvertedToUShort(string value, ushort expected)
+        public void ToUShort_ShouldBeConvertedToUShort(string value, ushort expected)
         {
             value.ToUShort().Should().Be(expected);
         }
@@ -62,7 +60,7 @@ namespace Mariowski.Common.UnitTests.Extensions
         [InlineData("123456789", 123456789)]
         [InlineData("1234567890", 1234567890)]
         [InlineData("2147483647", int.MaxValue)]
-        public void StringExtensions_ToInt_ShouldBeConvertedToInt(string value, int expected)
+        public void ToInt_ShouldBeConvertedToInt(string value, int expected)
         {
             value.ToInt().Should().Be(expected);
         }
@@ -78,11 +76,11 @@ namespace Mariowski.Common.UnitTests.Extensions
         [InlineData("123456789", 123456789U)]
         [InlineData("1234567890", 1234567890U)]
         [InlineData("4294967295", uint.MaxValue)]
-        public void StringExtensions_ToUInt_ShouldBeConvertedToUInt(string value, uint expected)
+        public void ToUInt_ShouldBeConvertedToUInt(string value, uint expected)
         {
             value.ToUInt().Should().Be(expected);
         }
-        
+
         [Theory]
         [InlineData("-9223372036854775808", long.MinValue)]
         [InlineData("-1234567890123456789", -1234567890123456789L)]
@@ -121,11 +119,11 @@ namespace Mariowski.Common.UnitTests.Extensions
         [InlineData("123456789012345678", 123456789012345678L)]
         [InlineData("1234567890123456789", 1234567890123456789L)]
         [InlineData("9223372036854775807", long.MaxValue)]
-        public void StringExtensions_ToLong_ShouldBeConvertedToLong(string value, long expected)
+        public void ToLong_ShouldBeConvertedToLong(string value, long expected)
         {
             value.ToLong().Should().Be(expected);
         }
-        
+
         [Theory]
         [InlineData("0", ulong.MinValue)]
         [InlineData("128", 128L)]
@@ -146,25 +144,27 @@ namespace Mariowski.Common.UnitTests.Extensions
         [InlineData("123456789012345678", 123456789012345678L)]
         [InlineData("1234567890123456789", 1234567890123456789L)]
         [InlineData("18446744073709551615", ulong.MaxValue)]
-        public void StringExtensions_ToULong_ShouldBeConvertedToULong(string value, ulong expected)
+        public void ToULong_ShouldBeConvertedToULong(string value, ulong expected)
         {
             value.ToULong().Should().Be(expected);
         }
 
         [Theory]
+        [InlineData("-1234567890123456789012345678901234567890,123456789012345678901234567890", float.NegativeInfinity)]
         [InlineData("-1", -1.0f)]
         [InlineData("-0,00000000000000000000", 0.0f)]
         [InlineData("-0", -0.0f)]
         [InlineData("0,00000000000000000000", 0.0f)]
         [InlineData("0", 0.0f)]
         [InlineData("1", 1.0f)]
-        public void StringExtensions_ToFloat_ShouldBeConvertedToFloat(string value, float expected)
+        [InlineData("1234567890123456789012345678901234567890,123456789012345678901234567890", float.PositiveInfinity)]
+        public void ToFloat_ShouldBeConvertedToFloat(string value, float expected)
         {
             value.ToFloat().Should().Be(expected);
         }
 
         [Fact]
-        public void StringExtensions_ToAsciiByteArray_ShouldConvertStringToByteArray()
+        public void ToAsciiByteArray_ShouldConvertStringToByteArray()
         {
             const string value = "Abc";
             var expected = new byte[] { 65, 98, 99 };
@@ -173,7 +173,7 @@ namespace Mariowski.Common.UnitTests.Extensions
         }
 
         [Fact]
-        public void StringExtensions_ToUtf8ByteArray_ShouldConvertStringToByteArray()
+        public void ToUtf8ByteArray_ShouldConvertStringToByteArray()
         {
             const string value = "Ąćę";
             var expected = new byte[] { 0xC4, 0x84, 0xC4, 0x87, 0xC4, 0x99 };
@@ -181,12 +181,8 @@ namespace Mariowski.Common.UnitTests.Extensions
             value.ToUtf8ByteArray().Should().BeEquivalentTo(expected);
         }
 
-        #endregion
-
-        #region Invalid
-
         [Fact]
-        public void StringExtensions_All_To_Numbers_NullValueShouldThrowArgumentNullException()
+        public void All_To_Numbers_NullValueShouldThrowArgumentNullException()
         {
             string value = null;
 
@@ -206,7 +202,7 @@ namespace Mariowski.Common.UnitTests.Extensions
         [InlineData("a128b")]
         [InlineData("")]
         [InlineData("     ")]
-        public void StringExtensions_All_To_Numbers_InvalidValueShouldThrowFormatException(string value)
+        public void All_To_Numbers_InvalidValueShouldThrowFormatException(string value)
         {
             Assert.Throws<FormatException>(() => value.ToByte());
             Assert.Throws<FormatException>(() => value.ToShort());
@@ -223,7 +219,7 @@ namespace Mariowski.Common.UnitTests.Extensions
         [InlineData("-1")]
         [InlineData("256")]
         [InlineData("512")]
-        public void StringExtensions_ToByte_TooSmallOrTooBigValueShouldThrowOverflowException(string value)
+        public void ToByte_TooSmallOrTooBigValueShouldThrowOverflowException(string value)
         {
             Assert.Throws<OverflowException>(() => value.ToByte());
         }
@@ -233,17 +229,17 @@ namespace Mariowski.Common.UnitTests.Extensions
         [InlineData("-32769")]
         [InlineData("32768")]
         [InlineData("123456")]
-        public void StringExtensions_ToShort_TooSmallOrTooBigValueShouldThrowOverflowException(string value)
+        public void ToShort_TooSmallOrTooBigValueShouldThrowOverflowException(string value)
         {
             Assert.Throws<OverflowException>(() => value.ToShort());
         }
-        
+
         [Theory]
         [InlineData("-123456789")]
         [InlineData("-1")]
         [InlineData("65536")]
         [InlineData("123456789")]
-        public void StringExtensions_ToUShort_TooSmallOrTooBigValueShouldThrowOverflowException(string value)
+        public void ToUShort_TooSmallOrTooBigValueShouldThrowOverflowException(string value)
         {
             Assert.Throws<OverflowException>(() => value.ToUShort());
         }
@@ -253,17 +249,17 @@ namespace Mariowski.Common.UnitTests.Extensions
         [InlineData("-2147483649")]
         [InlineData("2147483648")]
         [InlineData("12345678901")]
-        public void StringExtensions_ToInt_TooSmallOrTooBigValueShouldThrowOverflowException(string value)
+        public void ToInt_TooSmallOrTooBigValueShouldThrowOverflowException(string value)
         {
             Assert.Throws<OverflowException>(() => value.ToInt());
         }
-        
+
         [Theory]
         [InlineData("-123456789")]
         [InlineData("-1")]
         [InlineData("4294967296")]
         [InlineData("12345678901")]
-        public void StringExtensions_ToUInt_TooSmallOrTooBigValueShouldThrowOverflowException(string value)
+        public void ToUInt_TooSmallOrTooBigValueShouldThrowOverflowException(string value)
         {
             Assert.Throws<OverflowException>(() => value.ToUInt());
         }
@@ -273,38 +269,28 @@ namespace Mariowski.Common.UnitTests.Extensions
         [InlineData("-9223372036854775809")]
         [InlineData("9223372036854775808")]
         [InlineData("12345678901234567890")]
-        public void StringExtensions_ToLong_TooSmallOrTooBigValueShouldThrowOverflowException(string value)
+        public void ToLong_TooSmallOrTooBigValueShouldThrowOverflowException(string value)
         {
             Assert.Throws<OverflowException>(() => value.ToLong());
         }
-        
+
         [Theory]
         [InlineData("-123456789")]
         [InlineData("-1")]
         [InlineData("18446744073709551616")]
         [InlineData("12345678901234567890123456789")]
-        public void StringExtensions_ToULong_TooSmallOrTooBigValueShouldThrowOverflowException(string value)
+        public void ToULong_TooSmallOrTooBigValueShouldThrowOverflowException(string value)
         {
             Assert.Throws<OverflowException>(() => value.ToULong());
         }
 
-        [Theory]
-        [InlineData("-1234567890123456789012345678901234567890,123456789012345678901234567890")]
-        [InlineData("1234567890123456789012345678901234567890,123456789012345678901234567890")]
-        public void StringExtensions_ToFloat_TooSmallOrTooBigValueShouldThrowOverflowException(string value)
-        {
-            Assert.Throws<OverflowException>(() => value.ToFloat());
-        }
-
         [Fact]
-        public void StringExtensions_All_To_ByteArray_NullValueShouldThrowArgumentNullException()
+        public void All_To_ByteArray_NullValueShouldThrowArgumentNullException()
         {
             string value = null;
 
             Assert.Throws<ArgumentNullException>(() => value.ToAsciiByteArray());
             Assert.Throws<ArgumentNullException>(() => value.ToUtf8ByteArray());
         }
-
-        #endregion
     }
 }
