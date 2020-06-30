@@ -14,17 +14,32 @@ namespace Mariowski.Common.DataSource.Repositories
         public abstract TEntity Insert(TEntity entity);
 
         /// <inheritdoc />
+        public Task<TEntity> InsertAsync(TEntity entity)
+            => Task.FromResult(Insert(entity));
+
+        /// <inheritdoc />
         public virtual TPrimaryKey InsertAndGetId(TEntity entity)
             => Insert(entity).Id;
+
+        /// <inheritdoc />
+        public Task<TPrimaryKey> InsertAndGetIdAsync(TEntity entity)
+            => Task.FromResult(InsertAndGetId(entity));
 
         /// <inheritdoc />
         public virtual TEntity InsertOrUpdate(TEntity entity)
             => entity.IsTransient() ? Insert(entity) : Update(entity);
 
         /// <inheritdoc />
+        public Task<TEntity> InsertOrUpdateAsync(TEntity entity)
+            => Task.FromResult(InsertOrUpdate(entity));
+
+        /// <inheritdoc />
         public virtual TPrimaryKey InsertOrUpdateAndGetId(TEntity entity)
             => InsertOrUpdate(entity).Id;
 
+        /// <inheritdoc />
+        public Task<TPrimaryKey> InsertOrUpdateAndGetIdAsync(TEntity entity)
+            => Task.FromResult(InsertOrUpdateAndGetId(entity));
 
         /// <inheritdoc />
         public virtual IQueryable<TEntity> GetAll()
@@ -87,15 +102,32 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <inheritdoc />
         public abstract TEntity Update(TEntity entity);
 
+        /// <inheritdoc />
+        public Task<TEntity> UpdateAsync(TEntity entity)
+            => Task.FromResult(Update(entity));
 
         /// <inheritdoc />
         public abstract void Delete(TEntity entity);
+
+        /// <inheritdoc />
+        public Task DeleteAsync(TEntity entity)
+        {
+            Delete(entity);
+            return Task.CompletedTask;
+        }
 
         public virtual void Delete(Expression<Func<TEntity, bool>> predicate)
         {
             var entities = GetAll().Where(predicate).ToList();
             foreach (var entity in entities)
                 Delete(entity);
+        }
+
+        /// <inheritdoc />
+        public Task DeleteAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            Delete(predicate);
+            return Task.CompletedTask;
         }
 
         /// <inheritdoc />
@@ -108,6 +140,12 @@ namespace Mariowski.Common.DataSource.Repositories
             Delete(entity);
         }
 
+        /// <inheritdoc />
+        public Task DeleteByIdAsync(TPrimaryKey id)
+        {
+            DeleteById(id);
+            return Task.CompletedTask;
+        }
 
         /// <inheritdoc />
         public virtual int Count()

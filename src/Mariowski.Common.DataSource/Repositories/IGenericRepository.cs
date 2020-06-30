@@ -17,11 +17,25 @@ namespace Mariowski.Common.DataSource.Repositories
         TEntity Insert(TEntity entity);
 
         /// <summary>
+        /// Inserts a new entity.
+        /// </summary>
+        /// <param name="entity">Inserted entity</param>
+        /// <returns>Entity</returns>
+        Task<TEntity> InsertAsync(TEntity entity);
+
+        /// <summary>
         /// Inserts a new entity and gets it's Id.
         /// </summary>
         /// <param name="entity">Entity.</param>
         /// <returns>Id of the entity.</returns>
         TPrimaryKey InsertAndGetId(TEntity entity);
+
+        /// <summary>
+        /// Inserts a new entity and gets it's Id.
+        /// </summary>
+        /// <param name="entity">Entity.</param>
+        /// <returns>Id of the entity.</returns>
+        Task<TPrimaryKey> InsertAndGetIdAsync(TEntity entity);
 
         /// <summary>
         /// Inserts or updates given entity depending on Id's value.
@@ -31,12 +45,25 @@ namespace Mariowski.Common.DataSource.Repositories
         TEntity InsertOrUpdate(TEntity entity);
 
         /// <summary>
+        /// Inserts or updates given entity depending on Id's value.
+        /// </summary>
+        /// <param name="entity">Entity.</param>
+        /// <returns>Entity.</returns>
+        Task<TEntity> InsertOrUpdateAsync(TEntity entity);
+
+        /// <summary>
         /// Inserts or updates given entity depending on Id's value. Also returns Id of the entity.
         /// </summary>
         /// <param name="entity">Entity.</param>
         /// <returns>Id of the entity.</returns>
         TPrimaryKey InsertOrUpdateAndGetId(TEntity entity);
 
+        /// <summary>
+        /// Inserts or updates given entity depending on Id's value. Also returns Id of the entity.
+        /// </summary>
+        /// <param name="entity">Entity.</param>
+        /// <returns>Id of the entity.</returns>
+        Task<TPrimaryKey> InsertOrUpdateAndGetIdAsync(TEntity entity);
 
         /// <summary>
         /// Used to get a <see cref="T:System.Linq.IQueryable"/> that is used to retrieve entities from entire set/table.
@@ -130,6 +157,12 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <returns>Entity.</returns>
         TEntity Update(TEntity entity);
 
+        /// <summary>
+        /// Updates an existing entity.
+        /// </summary>
+        /// <param name="entity">Entity.</param>
+        /// <returns>Entity.</returns>
+        Task<TEntity> UpdateAsync(TEntity entity);
 
         /// <summary>
         /// Deletes an entity.
@@ -138,10 +171,22 @@ namespace Mariowski.Common.DataSource.Repositories
         void Delete(TEntity entity);
 
         /// <summary>
+        /// Deletes an entity.
+        /// </summary>
+        /// <param name="entity">Entity to be deleted.</param>
+        Task DeleteAsync(TEntity entity);
+
+        /// <summary>
         /// Deletes many entities by function.
         /// </summary>
         /// <param name="predicate">Predicate to filter entities.</param>
         void Delete(Expression<Func<TEntity, bool>> predicate);
+
+        /// <summary>
+        /// Deletes many entities by function.
+        /// </summary>
+        /// <param name="predicate">Predicate to filter entities.</param>
+        Task DeleteAsync(Expression<Func<TEntity, bool>> predicate);
 
         /// <summary>
         /// Deletes an entity by primary key.
@@ -149,6 +194,11 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <param name="id">Primary key of the entity.</param>
         void DeleteById(TPrimaryKey id);
 
+        /// <summary>
+        /// Deletes an entity by primary key.
+        /// </summary>
+        /// <param name="id">Primary key of the entity.</param>
+        Task DeleteByIdAsync(TPrimaryKey id);
 
         /// <summary>
         /// Gets count of all entities in this repository.
