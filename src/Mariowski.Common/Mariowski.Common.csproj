@@ -5,7 +5,7 @@
     <Authors>Radosław Mariowski</Authors>
     <Company />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>3.1.1</Version>
+    <Version>3.1.2</Version>
     <PackageProjectUrl>https://github.com/Xandev/Mariowski.Common</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Xandev/Mariowski.Common</RepositoryUrl>
     <PackageLicenseUrl></PackageLicenseUrl>

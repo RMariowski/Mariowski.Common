@@ -10,14 +10,14 @@ namespace Mariowski.Common.UnitTests.ValueObjects
     {
         [Theory]
         [InlineData("joe@doe.com")]
-        [InlineData("valid_mail@gmail.com")]
-        [InlineData("plus+trick@gmail.com")]
+        [InlineData("VALID_mail@gmail.com")]
+        [InlineData("plus+trick@GMAIL.com")]
         [InlineData("super.long.mail.address@that.is.valid")]
         public void Ctor_ShouldAcceptValidEmail(string value)
         {
-            bool isValid = MailAddressValidator.IsValid(value);
+            var email = new Email(value);
 
-            isValid.Should().BeTrue("is a valid mail address");
+            email.Should().NotBeNull();
         }
 
         [Theory]
@@ -43,14 +43,14 @@ namespace Mariowski.Common.UnitTests.ValueObjects
 
         [Theory]
         [InlineData("joe@doe.com")]
-        [InlineData("valid_mail@gmail.com")]
-        [InlineData("plus+trick@gmail.com")]
+        [InlineData("valid_mail@gmail.COM")]
+        [InlineData("plus+TRICK@gmail.com")]
         [InlineData("super.long.mail.address@that.is.valid")]
         public void OperatorPercent_ShouldConvertValidByteValueToPercent(string value)
         {
             Email email = value;
 
-            ((string)email).Should().Be(value);
+            ((string)email).Should().Be(value.ToLowerInvariant());
         }
 
         [Fact]

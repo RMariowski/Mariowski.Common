@@ -18,7 +18,7 @@ namespace Mariowski.Common.ValueObjects
             if (!MailAddressValidator.IsValid(value))
                 throw new InvalidEmailException(value);
 
-            _value = value;
+            _value = value.ToLowerInvariant();
         }
 
         /// <summary>
