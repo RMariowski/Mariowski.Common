@@ -12,9 +12,9 @@ namespace Mariowski.Common.UnitTests.DataTypes
     public class ShortGuidTests
     {
         [Fact]
-        public void ShortGuid_Empty_ShouldBeTheSameAsDefaultValue()
+        public void Empty_ShouldBeTheSameAsDefaultValue()
         {
-            var defaultGuid = default(ShortGuid);
+            ShortGuid defaultGuid = default;
 
             (ShortGuid.Empty.Guid == defaultGuid.Guid).Should().BeTrue();
             (ShortGuid.Empty.Value == defaultGuid.Value).Should().BeTrue();
@@ -22,7 +22,7 @@ namespace Mariowski.Common.UnitTests.DataTypes
         }
 
         [Fact]
-        public void ShortGuid_Empty_ShouldBeDifferentFromGeneratedShortGuid()
+        public void Empty_ShouldBeDifferentFromGeneratedShortGuid()
         {
             var shortGuid = ShortGuid.NewShortGuid();
 
@@ -32,29 +32,29 @@ namespace Mariowski.Common.UnitTests.DataTypes
         }
 
         [Fact]
-        public void ShortGuid_Equals_ShouldCorrectlyDetermineEqualityWithOtherObject()
+        public void Equals_ShouldCorrectlyDetermineEqualityWithOtherObject()
         {
             var guid = new Guid("9a717c34-ed19-4446-8752-ccd020ed9638");
-
             var shortGuid = new ShortGuid(guid);
+            var shortGuid2 = new ShortGuid(guid);
+
             shortGuid.Equals(shortGuid).Should().BeTrue();
             shortGuid.Equals(guid).Should().BeTrue();
             shortGuid.Equals(123).Should().BeFalse();
-
-            var shortGuid2 = new ShortGuid(guid);
             shortGuid.Equals(shortGuid2).Should().BeTrue();
             shortGuid.Equals(shortGuid2.Value).Should().BeTrue();
         }
 
         [Fact]
-        public void ShortGuid_GetHashCode_ShouldReturnTheSameHashCodeAsGuid()
+        public void GetHashCode_ShouldReturnTheSameHashCodeAsGuid()
         {
             var shortGuid = ShortGuid.NewShortGuid();
+
             (shortGuid.GetHashCode() == shortGuid.Guid.GetHashCode()).Should().BeTrue();
         }
 
         [Fact]
-        public void ShortGuid_NewShortGuid_ShouldReturnUniqueShortGuids()
+        public void NewShortGuid_ShouldReturnUniqueShortGuids()
         {
             const int guidsToGenerate = 10000;
             var shortGuids = new List<ShortGuid>(guidsToGenerate);
@@ -68,23 +68,22 @@ namespace Mariowski.Common.UnitTests.DataTypes
         }
 
         [Fact]
-        public void ShortGuid_EqualityOperator_ShouldCorrectlyDetermineEquality()
+        public void EqualityOperator_ShouldCorrectlyDetermineEquality()
         {
             var shortGuid = ShortGuid.NewShortGuid();
             var shortGuidCopy = shortGuid;
+            var shortGuid2 = ShortGuid.NewShortGuid();
 
             (shortGuid.Guid == shortGuidCopy.Guid).Should().BeTrue();
             (shortGuid.Value == shortGuidCopy.Value).Should().BeTrue();
             (shortGuid == shortGuidCopy).Should().BeTrue();
-
-            var shortGuid2 = ShortGuid.NewShortGuid();
             (shortGuid.Guid == shortGuid2.Guid).Should().BeFalse();
             (shortGuid.Value == shortGuid2.Value).Should().BeFalse();
             (shortGuid == shortGuid2).Should().BeFalse();
         }
 
         [Fact]
-        public void ShortGuid_InequalityOperator_ShouldCorrectlyDetermineInequality()
+        public void InequalityOperator_ShouldCorrectlyDetermineInequality()
         {
             var shortGuid = ShortGuid.NewShortGuid();
             var shortGuidCopy = shortGuid;
@@ -93,14 +92,13 @@ namespace Mariowski.Common.UnitTests.DataTypes
             (shortGuid.Guid != shortGuid2.Guid).Should().BeTrue();
             (shortGuid.Value != shortGuid2.Value).Should().BeTrue();
             (shortGuid != shortGuid2).Should().BeTrue();
-
             (shortGuid.Guid != shortGuidCopy.Guid).Should().BeFalse();
             (shortGuid.Value != shortGuidCopy.Value).Should().BeFalse();
             (shortGuid != shortGuidCopy).Should().BeFalse();
         }
 
         [Fact]
-        public void ShortGuid_ToString_ShouldReturnValueOfShortGuid()
+        public void ToString_ShouldReturnValueOfShortGuid()
         {
             var shortGuid = ShortGuid.NewShortGuid();
 
@@ -108,25 +106,23 @@ namespace Mariowski.Common.UnitTests.DataTypes
         }
 
         [Fact]
-        public void ShortGuid_ShortGuidOperator_ShouldImplicitlyConvertsGuidToShortGuid()
+        public void ShortGuidOperator_ShouldImplicitlyConvertsGuidToShortGuid()
         {
             ShortGuid shortGuid = Guid.NewGuid();
 
-            shortGuid.Should().NotBeNull();
-            shortGuid.Should().NotBeSameAs(ShortGuid.Empty);
+            shortGuid.Should().NotBeNull().And.NotBeSameAs(ShortGuid.Empty);
         }
 
         [Fact]
-        public void ShortGuid_ShortGuidOperator_ShouldImplicitlyConvertsStringToShortGuid()
+        public void ShortGuidOperator_ShouldImplicitlyConvertsStringToShortGuid()
         {
             ShortGuid shortGuid = "eRy4yaDYjkuYob4YnHKtnA";
 
-            shortGuid.Should().NotBeNull();
-            shortGuid.Should().NotBeSameAs(ShortGuid.Empty);
+            shortGuid.Should().NotBeNull().And.NotBeSameAs(ShortGuid.Empty);
         }
 
         [Fact]
-        public void ShortGuid_GuidOperator_ShouldImplicitlyConvertsShortGuidToGuid()
+        public void GuidOperator_ShouldImplicitlyConvertsShortGuidToGuid()
         {
             Guid guid = new ShortGuid("eRy4yaDYjkuYob4YnHKtnA");
 
@@ -134,7 +130,7 @@ namespace Mariowski.Common.UnitTests.DataTypes
         }
 
         [Fact]
-        public void ShortGuid_StringOperator_ShouldImplicitlyConvertsShortGuidToString()
+        public void StringOperator_ShouldImplicitlyConvertsShortGuidToString()
         {
             string value = new ShortGuid(new Guid("9a717c34-ed19-4446-8752-ccd020ed9638"));
 
