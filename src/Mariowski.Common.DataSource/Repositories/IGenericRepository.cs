@@ -12,8 +12,8 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <summary>
         /// Inserts a new entity.
         /// </summary>
-        /// <param name="entity">Inserted entity.</param>
-        /// <returns>Entity.</returns>
+        /// <param name="entity">Inserted entity</param>
+        /// <returns>Entity</returns>
         TEntity Insert(TEntity entity);
 
         /// <summary>

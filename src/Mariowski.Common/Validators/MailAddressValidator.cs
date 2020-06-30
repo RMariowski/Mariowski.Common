@@ -14,7 +14,7 @@ namespace Mariowski.Common.Validators
             if (value is null)
                 return false;
 
-            const string pattern = "^([0-9a-zA-Z]" + //Start with a digit or alphabetical
+            const string pattern = "^([0-9a-zA-Z]" + // Start with a digit or alphabetical
                                    @"([\+\-_\.][0-9a-zA-Z]+)*" + // No continuous or ending +-_. chars in mail address
                                    ")+" +
                                    @"@(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]*\.)+[a-zA-Z0-9]{2,17})$";

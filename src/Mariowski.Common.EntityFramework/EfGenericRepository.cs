@@ -27,8 +27,8 @@ namespace Mariowski.Common.EntityFramework
         /// <summary>
         /// Inserts a new entity.
         /// </summary>
-        /// <param name="entity">Inserted entity.</param>
-        /// <returns>Entity.</returns>
+        /// <param name="entity">Inserted entity</param>
+        /// <returns>Entity</returns>
         public override TEntity Insert(TEntity entity)
             => Table.Add(entity).Entity;
 
@@ -52,8 +52,8 @@ namespace Mariowski.Common.EntityFramework
         /// <summary>
         /// Updates an existing entity.
         /// </summary>
-        /// <param name="entity">Entity.</param>
-        /// <returns>Entity.</returns>
+        /// <param name="entity">Entity</param>
+        /// <returns>Entity</returns>
         public override TEntity Update(TEntity entity)
         {
             if (entity is ITimestampable timestampableEntity)
