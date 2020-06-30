@@ -4,7 +4,7 @@ using Mariowski.Common.Validators;
 
 namespace Mariowski.Common.ValueObjects
 {
-    public readonly struct Email : IEquatable<Email>
+    public class Email : IEquatable<Email>
     {
         private readonly string _value;
 
