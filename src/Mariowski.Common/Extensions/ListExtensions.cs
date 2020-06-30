@@ -12,8 +12,7 @@ namespace Mariowski.Common.Extensions
         /// <param name="random">Random number generator to use.</param>
         public static void Shuffle<T>(this IList<T> @this, Random random = null)
         {
-            if (random == null)
-                random = new Random();
+            random ??= new Random();
 
             int n = @this.Count;
             while (n > 1)

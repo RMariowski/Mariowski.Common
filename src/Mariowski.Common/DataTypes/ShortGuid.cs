@@ -8,7 +8,7 @@ namespace Mariowski.Common.DataTypes
         /// A read-only instance of the <see cref="T:ShortGuid"></see> structure
         /// whose guid is all zeros and value is null.
         /// </summary>
-        public static readonly ShortGuid Empty = default(ShortGuid);
+        public static readonly ShortGuid Empty = default;
 
         private Guid _guid;
         public Guid Guid

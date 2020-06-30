@@ -11,18 +11,16 @@ namespace Mariowski.Common.DataSource.Entities
         /// <inheritdoc />
         public virtual bool IsTransient()
         {
-            if (EqualityComparer<TPrimaryKey>.Default.Equals(Id, default(TPrimaryKey)))
+            if (EqualityComparer<TPrimaryKey>.Default.Equals(Id, default))
                 return true;
 
             // Workaround for EF Core since it sets int/long to min value when attaching to db context.
-            var typeOfPrimaryKey = typeof(TPrimaryKey);
-            if (typeOfPrimaryKey == typeof(int))
-                return Convert.ToInt32(Id) <= 0;
-
-            if (typeOfPrimaryKey == typeof(long))
-                return Convert.ToInt64(Id) <= 0;
-
-            return false;
+            return Id switch
+            {
+                int id => id <= 0,
+                long id => id <= 0,
+                _ => false
+            };
         }
 
         /// <summary>
