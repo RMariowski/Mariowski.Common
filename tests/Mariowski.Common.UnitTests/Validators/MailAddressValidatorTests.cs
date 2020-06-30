@@ -4,23 +4,19 @@ using Xunit;
 
 namespace Mariowski.Common.UnitTests.Validators
 {
-    public class MailAddressValidatorTest
+    public class MailAddressValidatorTests
     {
-        #region Valid
-
         [Theory]
         [InlineData("joe@doe.com")]
         [InlineData("valid_mail@gmail.com")]
         [InlineData("plus+trick@gmail.com")]
         [InlineData("super.long.mail.address@that.is.valid")]
-        public void MailAddressValidator_IsValid_DetectValidMailAddresses(string value)
+        public void IsValid_ShouldDetectValidMailAddresses(string value)
         {
-            MailAddressValidator.IsValid(value).Should().BeTrue("is a valid mail address");
+            bool isValid = MailAddressValidator.IsValid(value);
+
+            isValid.Should().BeTrue("is a valid mail address");
         }
-
-        #endregion
-
-        #region Invalid
 
         [Theory]
         [InlineData(null)]
@@ -36,11 +32,11 @@ namespace Mariowski.Common.UnitTests.Validators
         [InlineData("fake_mail_address@sd@.org")]
         [InlineData("!#$%^&**[]@sd.com")]
         [InlineData("óąćżź@sd.com")]
-        public void MailAddressValidator_IsValid_DetectInvalidMailAddresses(string value)
+        public void IsValid_ShouldDetectInvalidMailAddresses(string value)
         {
-            MailAddressValidator.IsValid(value).Should().BeFalse("is a invalid mail address");
-        }
+            bool isValid = MailAddressValidator.IsValid(value);
 
-        #endregion
+            isValid.Should().BeFalse("is a invalid mail address");
+        }
     }
 }
