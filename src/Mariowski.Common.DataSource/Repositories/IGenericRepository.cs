@@ -9,8 +9,6 @@ namespace Mariowski.Common.DataSource.Repositories
     public interface IGenericRepository<TEntity, TPrimaryKey> : IRepository
         where TEntity : class, IEntity<TPrimaryKey>
     {
-        #region Create
-
         /// <summary>
         /// Inserts a new entity.
         /// </summary>
@@ -39,9 +37,6 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <returns>Id of the entity.</returns>
         TPrimaryKey InsertOrUpdateAndGetId(TEntity entity);
 
-        #endregion
-
-        #region Read
 
         /// <summary>
         /// Used to get a <see cref="T:System.Linq.IQueryable"/> that is used to retrieve entities from entire set/table.
@@ -128,10 +123,6 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <returns>True if any entity matches predicate, false otherwise.</returns>
         Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate);
 
-        #endregion
-
-        #region Update
-
         /// <summary>
         /// Updates an existing entity.
         /// </summary>
@@ -139,9 +130,6 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <returns>Entity.</returns>
         TEntity Update(TEntity entity);
 
-        #endregion
-
-        #region Delete
 
         /// <summary>
         /// Deletes an entity.
@@ -161,9 +149,6 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <param name="id">Primary key of the entity.</param>
         void DeleteById(TPrimaryKey id);
 
-        #endregion
-
-        #region Count
 
         /// <summary>
         /// Gets count of all entities in this repository.
@@ -216,7 +201,5 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <param name="predicate">A method to filter count.</param>
         /// <returns>Long count of entities.</returns>
         Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate);
-
-        #endregion
     }
 }

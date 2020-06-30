@@ -5,14 +5,8 @@ namespace Mariowski.Common.DataSource.Entities
     [Serializable]
     public abstract class TimestampableEntity<TPrimaryKey> : Entity<TPrimaryKey>, ITimestampable
     {
-        #region Fields
-
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-
-        #endregion
-
-        #region Constructor
 
         /// <summary>
         /// Creates new instance of <see cref="T:TimestampableEntity"/> with dates set to <see cref="P:DateTime.UtcNow"/>.
@@ -33,7 +27,5 @@ namespace Mariowski.Common.DataSource.Entities
             CreatedAt = createdAt;
             UpdatedAt = updatedAt ?? CreatedAt;
         }
-
-        #endregion
     }
 }

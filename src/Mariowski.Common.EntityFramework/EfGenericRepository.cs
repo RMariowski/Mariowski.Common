@@ -11,15 +11,9 @@ namespace Mariowski.Common.EntityFramework
         where TEntity : class, IEntity<TPrimaryKey>
         where TDbContext : DbContext
     {
-        #region Fields
-
         public DbContext Context { get; }
 
         public DbSet<TEntity> Table => Context.Set<TEntity>();
-
-        #endregion
-
-        #region Constructor
 
         /// <summary>
         /// Creates instance of Entity Generic Repository.
@@ -30,10 +24,6 @@ namespace Mariowski.Common.EntityFramework
             Context = dbContext;
         }
 
-        #endregion
-
-        #region Insert
-
         /// <summary>
         /// Inserts a new entity.
         /// </summary>
@@ -41,10 +31,6 @@ namespace Mariowski.Common.EntityFramework
         /// <returns>Entity.</returns>
         public override TEntity Insert(TEntity entity)
             => Table.Add(entity).Entity;
-
-        #endregion
-
-        #region GetAllIncluding
 
         /// <summary>
         /// Used to get a <see cref="T:System.Linq.IQueryable"/> that is used to retrieve entities from entire set/table.
@@ -59,9 +45,7 @@ namespace Mariowski.Common.EntityFramework
                 query, (current, propertySelector) => current.Include(propertySelector));
         }
 
-        #endregion
 
-        #region Update
 
         /// <summary>
         /// Updates an existing entity.
@@ -77,17 +61,11 @@ namespace Mariowski.Common.EntityFramework
             return entity;
         }
 
-        #endregion
-
-        #region Delete
-
         /// <summary>
         /// Deletes an entity.
         /// </summary>
         /// <param name="entity">Entity to be deleted.</param>
         public override void Delete(TEntity entity)
             => Table.Remove(entity);
-
-        #endregion
     }
 }

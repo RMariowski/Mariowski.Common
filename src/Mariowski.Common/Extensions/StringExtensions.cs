@@ -4,10 +4,6 @@ namespace Mariowski.Common.Extensions
 {
     public static class StringExtensions
     {
-        #region Convert
-
-        #region Convert to Byte
-
         /// <summary>
         /// Converts the string representation of a number to its <see cref="T:System.Byte"></see> equivalent.
         /// </summary>
@@ -18,10 +14,6 @@ namespace Mariowski.Common.Extensions
         /// <returns>A byte value that is equivalent to the number contained in <paramref name="s">s</paramref>.</returns>
         public static byte ToByte(this string s)
             => byte.Parse(s);
-
-        #endregion
-
-        #region Convert to Short
 
         /// <summary>
         /// Converts the string representation of a number to its 16-bit signed integer equivalent.
@@ -34,10 +26,6 @@ namespace Mariowski.Common.Extensions
         public static short ToShort(this string s)
             => short.Parse(s);
 
-        #endregion
-        
-        #region Convert to UShort
-
         /// <summary>
         /// Converts the string representation of a number to its 16-bit unsigned integer equivalent.
         /// </summary>
@@ -48,10 +36,6 @@ namespace Mariowski.Common.Extensions
         /// <returns>A 16-bit unsigned integer equivalent to the number contained in <paramref name="s">s</paramref>.</returns>
         public static ushort ToUShort(this string s)
             => ushort.Parse(s);
-
-        #endregion
-
-        #region Convert to Int
 
         /// <summary>
         /// Converts the string representation of a number to its 32-bit signed integer equivalent.
@@ -64,10 +48,6 @@ namespace Mariowski.Common.Extensions
         public static int ToInt(this string s)
             => int.Parse(s);
 
-        #endregion
-
-        #region Convert to UInt
-
         /// <summary>
         /// Converts the string representation of a number to its 32-bit unsigned integer equivalent.
         /// </summary>
@@ -78,10 +58,6 @@ namespace Mariowski.Common.Extensions
         /// <returns>A 32-bit unsigned integer equivalent to the number contained in <paramref name="s">s</paramref>.</returns>
         public static uint ToUInt(this string s)
             => uint.Parse(s);
-
-        #endregion
-
-        #region Convert to Long
 
         /// <summary>
         /// Converts the string representation of a number to its 64-bit signed integer equivalent.
@@ -94,10 +70,6 @@ namespace Mariowski.Common.Extensions
         public static long ToLong(this string s)
             => long.Parse(s);
 
-        #endregion
-
-        #region Convert to ULong
-
         /// <summary>
         /// Converts the string representation of a number to its 64-bit unsigned integer equivalent.
         /// </summary>
@@ -109,10 +81,6 @@ namespace Mariowski.Common.Extensions
         public static ulong ToULong(this string s)
             => ulong.Parse(s);
 
-        #endregion
-        
-        #region Convert to Float
-
         /// <summary>
         /// Converts the string representation of a number to its single-precision floating-point number equivalent.
         /// </summary>
@@ -123,10 +91,6 @@ namespace Mariowski.Common.Extensions
         /// <returns>A single-precision floating-point number equivalent to the numeric value or symbol specified in <paramref name="s">s</paramref>.</returns>
         public static float ToFloat(this string s)
             => float.Parse(s);
-
-        #endregion
-
-        #region Convert to Byte Array
 
         /// <summary>
         /// Encodes all the characters in the specified string into a sequence of bytes.
@@ -147,9 +111,5 @@ namespace Mariowski.Common.Extensions
         /// <returns>A byte array containing the results of encoding the specified set of characters.</returns>
         public static byte[] ToUtf8ByteArray(this string s)
             => Encoding.UTF8.GetBytes(s);
-
-        #endregion
-
-        #endregion
     }
 }

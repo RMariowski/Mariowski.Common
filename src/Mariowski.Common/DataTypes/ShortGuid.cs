@@ -4,8 +4,6 @@ namespace Mariowski.Common.DataTypes
 {
     public struct ShortGuid
     {
-        #region Fields
-
         /// <summary>
         /// A read-only instance of the <see cref="T:ShortGuid"></see> structure
         /// whose guid is all zeros and value is null.
@@ -40,10 +38,6 @@ namespace Mariowski.Common.DataTypes
             }
         }
 
-        #endregion
-
-        #region Constructor
-
         /// <summary>
         /// Creates a ShortGuid from a base64 encoded string.
         /// </summary>
@@ -65,10 +59,6 @@ namespace Mariowski.Common.DataTypes
             _value = Encode(guid);
             _guid = guid;
         }
-
-        #endregion
-
-        #region Equals
 
         /// <summary>
         /// Returns a value that indicates whether this instance is equal to a specified object.
@@ -98,10 +88,6 @@ namespace Mariowski.Common.DataTypes
             }
         }
 
-        #endregion
-
-        #region GetHashCode
-
         // ReSharper disable NonReadonlyMemberInGetHashCode
         /// <summary>
         /// Returns the HashCode of underlying Guid.
@@ -110,20 +96,12 @@ namespace Mariowski.Common.DataTypes
         public override int GetHashCode()
             => _guid.GetHashCode();
 
-        #endregion
-
-        #region NewShortGuid
-
         /// <summary>
         /// Initializes a new instance of the <see cref="T:ShortGuid"></see> structure.
         /// </summary>
         /// <returns>A new ShortGuid object.</returns>
         public static ShortGuid NewShortGuid()
             => new ShortGuid(Guid.NewGuid());
-
-        #endregion
-
-        #region == operator
 
         /// <summary>
         /// Indicates whether the values of two specified <see cref="T:ShortGuid"></see> objects are equal.
@@ -134,10 +112,6 @@ namespace Mariowski.Common.DataTypes
         public static bool operator ==(ShortGuid left, ShortGuid right)
             => left._guid == right._guid;
 
-        #endregion
-
-        #region != operator
-
         /// <summary>
         /// Indicates whether the values of two specified <see cref="T:ShortGuid"></see> objects are not equal.
         /// </summary>
@@ -146,10 +120,6 @@ namespace Mariowski.Common.DataTypes
         /// <returns>true if <paramref name="left">left</paramref> and <paramref name="right">right</paramref> are not equal; otherwise, false.</returns>
         public static bool operator !=(ShortGuid left, ShortGuid right)
             => !(left == right);
-
-        #endregion
-
-        #region Encode
 
         /// <summary>
         /// Creates a new instance of a <see cref="T:System.Guid"></see> using the string value, 
@@ -178,10 +148,6 @@ namespace Mariowski.Common.DataTypes
             return encoded.Substring(0, 22);
         }
 
-        #endregion
-
-        #region Decode
-
         /// <summary>
         /// Decodes the given base64 string to <see cref="T:System.Guid"></see>.
         /// </summary>
@@ -201,20 +167,12 @@ namespace Mariowski.Common.DataTypes
             return new Guid(buffer);
         }
 
-        #endregion
-
-        #region ToString
-
         /// <summary>
         /// Returns the base64 encoded <see cref="T:ShortGuid">ShortGuid</see> as a string.
         /// </summary>
         /// <returns>The value of <see cref="T:ShortGuid"></see>.</returns>
         public override string ToString()
             => _value;
-
-        #endregion
-
-        #region ShortGuid operator 
 
         /// <summary>
         /// Implicitly converts the <see cref="T:System.Guid">Guid</see>
@@ -233,10 +191,6 @@ namespace Mariowski.Common.DataTypes
         public static implicit operator ShortGuid(string value)
             => new ShortGuid(value);
 
-        #endregion
-
-        #region Guid operator
-
         /// <summary>
         /// Implicitly converts the <see cref="T:ShortGuid">ShortGuid</see>
         /// to it's <see cref="T:System.Guid">Guid</see> equivalent.
@@ -246,10 +200,6 @@ namespace Mariowski.Common.DataTypes
         public static implicit operator Guid(ShortGuid shortGuid)
             => shortGuid._guid;
 
-        #endregion
-
-        #region string operator
-
         /// <summary>
         /// Implicitly converts the <see cref="T:ShortGuid">ShortGuid</see>
         /// to it's string equivalent.
@@ -258,7 +208,5 @@ namespace Mariowski.Common.DataTypes
         /// <returns>String equivalent of <see cref="T:ShortGuid">ShortGuid</see>.</returns>
         public static implicit operator string(ShortGuid shortGuid)
             => shortGuid._value;
-
-        #endregion
     }
 }

@@ -6,13 +6,7 @@ namespace Mariowski.Common.DataSource.Entities
     [Serializable]
     public abstract class Entity<TPrimaryKey> : IEntity<TPrimaryKey>
     {
-        #region Fields
-
         public virtual TPrimaryKey Id { get; set; }
-
-        #endregion
-
-        #region IsTransient
 
         /// <inheritdoc />
         public virtual bool IsTransient()
@@ -30,10 +24,6 @@ namespace Mariowski.Common.DataSource.Entities
 
             return false;
         }
-
-        #endregion
-
-        #region Equals
 
         /// <summary>
         /// Returns a value that indicates whether this instance is equal to a specified object.
@@ -67,10 +57,6 @@ namespace Mariowski.Common.DataSource.Entities
             return Id.Equals(other.Id);
         }
 
-        #endregion
-
-        #region GetHashCode
-
         // ReSharper disable NonReadonlyMemberInGetHashCode
         /// <summary>
         /// Returns the HashCode of underlying Id.
@@ -78,10 +64,6 @@ namespace Mariowski.Common.DataSource.Entities
         /// <returns>HashCode of Id.</returns>
         public override int GetHashCode()
             => Id.GetHashCode();
-
-        #endregion
-
-        #region == operator
 
         /// <summary>
         /// Indicates whether the values of two specified <see cref="T:Entity{TPrimaryKey}"></see> objects are equal.
@@ -92,10 +74,6 @@ namespace Mariowski.Common.DataSource.Entities
         public static bool operator ==(Entity<TPrimaryKey> left, Entity<TPrimaryKey> right)
             => left?.Equals(right) ?? Equals(right, null);
 
-        #endregion
-
-        #region != operator
-
         /// <summary>
         /// Indicates whether the values of two specified <see cref="T:Entity{TPrimaryKey}"></see> objects are not equal.
         /// </summary>
@@ -105,17 +83,11 @@ namespace Mariowski.Common.DataSource.Entities
         public static bool operator !=(Entity<TPrimaryKey> left, Entity<TPrimaryKey> right)
             => !(left == right);
 
-        #endregion
-
-        #region ToString
-
         /// <summary>
         /// Returns the string in following format: "[{TypeName} {Id}]".
         /// </summary>
         /// <returns>The string in following format: "[{TypeName} {Id}]".</returns>
         public override string ToString()
             => $"[{GetType().Name} {Id}]";
-
-        #endregion
     }
 }

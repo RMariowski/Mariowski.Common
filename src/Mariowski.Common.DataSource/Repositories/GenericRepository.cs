@@ -10,8 +10,6 @@ namespace Mariowski.Common.DataSource.Repositories
     public abstract class GenericRepository<TEntity, TPrimaryKey> : IGenericRepository<TEntity, TPrimaryKey>
         where TEntity : class, IEntity<TPrimaryKey>
     {
-        #region Create
-
         /// <inheritdoc />
         public abstract TEntity Insert(TEntity entity);
 
@@ -27,9 +25,6 @@ namespace Mariowski.Common.DataSource.Repositories
         public virtual TPrimaryKey InsertOrUpdateAndGetId(TEntity entity)
             => InsertOrUpdate(entity).Id;
 
-        #endregion
-
-        #region Read
 
         /// <inheritdoc />
         public virtual IQueryable<TEntity> GetAll()
@@ -38,8 +33,6 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <inheritdoc />
         public abstract IQueryable<TEntity> GetAllIncluding(
             params Expression<Func<TEntity, object>>[] propertySelectors);
-
-        #region GetById
 
         /// <inheritdoc />
         /// <exception cref="T:KeyNotFoundException">Entity with given <paramref name="id"></paramref> not found.</exception>
@@ -58,8 +51,6 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <inheritdoc />
         public virtual Task<TEntity> GetByIdAsync(TPrimaryKey id)
             => Task.FromResult(GetById(id));
-
-        #endregion
 
         /// <inheritdoc />
         public virtual TEntity Single(Expression<Func<TEntity, bool>> predicate)
@@ -93,16 +84,9 @@ namespace Mariowski.Common.DataSource.Repositories
         public virtual Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate)
             => Task.FromResult(Any(predicate));
 
-        #endregion
-
-        #region Update
-
         /// <inheritdoc />
         public abstract TEntity Update(TEntity entity);
 
-        #endregion
-
-        #region Delete
 
         /// <inheritdoc />
         public abstract void Delete(TEntity entity);
@@ -124,9 +108,6 @@ namespace Mariowski.Common.DataSource.Repositories
             Delete(entity);
         }
 
-        #endregion
-
-        #region Count
 
         /// <inheritdoc />
         public virtual int Count()
@@ -160,10 +141,6 @@ namespace Mariowski.Common.DataSource.Repositories
         public virtual Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate)
             => Task.FromResult(LongCount(predicate));
 
-        #endregion
-
-        #region CreateEqualityExpressionForId
-
         /// <summary>
         /// Creates expression tree for <see cref="T:TPrimeKey"/> equality.
         /// </summary>
@@ -181,7 +158,5 @@ namespace Mariowski.Common.DataSource.Repositories
             var lambdaBody = Expression.Equal(leftExpression, rightExpression);
             return Expression.Lambda<Func<TEntity, bool>>(lambdaBody, lambdaParam);
         }
-
-        #endregion
     }
 }

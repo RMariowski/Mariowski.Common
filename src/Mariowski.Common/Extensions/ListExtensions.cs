@@ -5,8 +5,6 @@ namespace Mariowski.Common.Extensions
 {
     public static class ListExtensions
     {
-        #region Shuffle
-
         /// <summary>
         /// Real shuffle of list.
         /// </summary>
@@ -27,7 +25,5 @@ namespace Mariowski.Common.Extensions
                 @this[n] = value;
             }
         }
-
-        #endregion
     }
 }
