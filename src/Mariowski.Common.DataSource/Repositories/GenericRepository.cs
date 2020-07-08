@@ -54,7 +54,7 @@ namespace Mariowski.Common.DataSource.Repositories
         public virtual TEntity GetById(TPrimaryKey id)
         {
             var entity = FirstOrDefaultById(id);
-            if (entity == null)
+            if (entity is null)
             {
                 throw new KeyNotFoundException(
                     $"There is no such an entity with given primary key. Entity type: {typeof(TEntity).FullName}, primary key: {id}");
@@ -134,7 +134,7 @@ namespace Mariowski.Common.DataSource.Repositories
         public virtual void DeleteById(TPrimaryKey id)
         {
             var entity = FirstOrDefaultById(id);
-            if (entity == null)
+            if (entity is null)
                 return;
 
             Delete(entity);

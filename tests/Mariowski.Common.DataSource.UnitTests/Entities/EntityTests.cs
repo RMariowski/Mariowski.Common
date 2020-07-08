@@ -62,7 +62,7 @@ namespace Mariowski.Common.DataSource.UnitTests.Entities
         public void EqualityOperator_ShouldCorrectlyDetermineEquality()
         {
             var entity = new EntityImpl();
-            (entity == null).Should().BeFalse();
+            (entity is null).Should().BeFalse();
 
             var entity2 = entity;
             (entity == entity2).Should().BeTrue();
