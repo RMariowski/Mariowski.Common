@@ -14,7 +14,7 @@ namespace Mariowski.Common.DataSource.Repositories
         public abstract TEntity Insert(TEntity entity);
 
         /// <inheritdoc />
-        public Task<TEntity> InsertAsync(TEntity entity)
+        public virtual Task<TEntity> InsertAsync(TEntity entity)
             => Task.FromResult(Insert(entity));
 
         /// <inheritdoc />
@@ -22,24 +22,30 @@ namespace Mariowski.Common.DataSource.Repositories
             => Insert(entity).Id;
 
         /// <inheritdoc />
-        public Task<TPrimaryKey> InsertAndGetIdAsync(TEntity entity)
-            => Task.FromResult(InsertAndGetId(entity));
+        public virtual async Task<TPrimaryKey> InsertAndGetIdAsync(TEntity entity)
+        {
+            entity = await InsertAsync(entity);
+            return entity.Id;
+        }
 
         /// <inheritdoc />
         public virtual TEntity InsertOrUpdate(TEntity entity)
             => entity.IsTransient() ? Insert(entity) : Update(entity);
 
         /// <inheritdoc />
-        public Task<TEntity> InsertOrUpdateAsync(TEntity entity)
-            => Task.FromResult(InsertOrUpdate(entity));
+        public virtual Task<TEntity> InsertOrUpdateAsync(TEntity entity)
+            => entity.IsTransient() ? InsertAsync(entity) : UpdateAsync(entity);
 
         /// <inheritdoc />
         public virtual TPrimaryKey InsertOrUpdateAndGetId(TEntity entity)
             => InsertOrUpdate(entity).Id;
 
         /// <inheritdoc />
-        public Task<TPrimaryKey> InsertOrUpdateAndGetIdAsync(TEntity entity)
-            => Task.FromResult(InsertOrUpdateAndGetId(entity));
+        public virtual async Task<TPrimaryKey> InsertOrUpdateAndGetIdAsync(TEntity entity)
+        {
+            entity = await InsertOrUpdateAsync(entity);
+            return entity.Id;
+        }
 
         /// <inheritdoc />
         public virtual IQueryable<TEntity> GetAll()
@@ -92,7 +98,7 @@ namespace Mariowski.Common.DataSource.Repositories
             => Task.FromResult(FirstOrDefault(predicate));
 
         /// <inheritdoc />
-        public bool Any(Expression<Func<TEntity, bool>> predicate)
+        public virtual bool Any(Expression<Func<TEntity, bool>> predicate)
             => GetAll().Any(predicate);
 
         /// <inheritdoc />
@@ -103,14 +109,14 @@ namespace Mariowski.Common.DataSource.Repositories
         public abstract TEntity Update(TEntity entity);
 
         /// <inheritdoc />
-        public Task<TEntity> UpdateAsync(TEntity entity)
+        public virtual Task<TEntity> UpdateAsync(TEntity entity)
             => Task.FromResult(Update(entity));
 
         /// <inheritdoc />
         public abstract void Delete(TEntity entity);
 
         /// <inheritdoc />
-        public Task DeleteAsync(TEntity entity)
+        public virtual Task DeleteAsync(TEntity entity)
         {
             Delete(entity);
             return Task.CompletedTask;
@@ -124,7 +130,7 @@ namespace Mariowski.Common.DataSource.Repositories
         }
 
         /// <inheritdoc />
-        public Task DeleteAsync(Expression<Func<TEntity, bool>> predicate)
+        public virtual Task DeleteAsync(Expression<Func<TEntity, bool>> predicate)
         {
             Delete(predicate);
             return Task.CompletedTask;
@@ -141,10 +147,13 @@ namespace Mariowski.Common.DataSource.Repositories
         }
 
         /// <inheritdoc />
-        public Task DeleteByIdAsync(TPrimaryKey id)
+        public virtual async Task DeleteByIdAsync(TPrimaryKey id)
         {
-            DeleteById(id);
-            return Task.CompletedTask;
+            var entity = await FirstOrDefaultByIdAsync(id);
+            if (entity is null)
+                return;
+
+            await DeleteAsync(entity);
         }
 
         /// <inheritdoc />
