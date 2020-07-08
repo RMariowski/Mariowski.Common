@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security.Claims;
+using Mariowski.Common.Markers;
 
 namespace Mariowski.Common.AspNet.Services
 {
-    public interface IJwtFactory
+    public interface IJwtFactory : IService
     {
         /// <summary>
         /// Creates JSON Web Token.
