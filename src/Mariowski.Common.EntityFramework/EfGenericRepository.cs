@@ -2,8 +2,10 @@
 using Mariowski.Common.DataSource.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Mariowski.Common.EntityFramework
 {
@@ -34,6 +36,17 @@ namespace Mariowski.Common.EntityFramework
             => Table.Add(entity).Entity;
 
         /// <summary>
+        /// Inserts a new entity.
+        /// </summary>
+        /// <param name="entity">Inserted entity</param>
+        /// <returns>Entity</returns>
+        public override async Task<TEntity> InsertAsync(TEntity entity)
+        {
+            var entityEntry = await Table.AddAsync(entity);
+            return entityEntry.Entity;
+        }
+
+        /// <summary>
         /// Used to get a <see cref="T:System.Linq.IQueryable"/> that is used to retrieve entities from entire set/table.
         /// </summary>
         /// <param name="propertySelectors">A list of include expressions.</param>
@@ -49,6 +62,56 @@ namespace Mariowski.Common.EntityFramework
             return propertySelectors.Aggregate(query,
                 (current, propertySelector) => current.Include(propertySelector));
         }
+
+        /// <summary>
+        /// Gets an entity with given primary key.
+        /// </summary>
+        /// <param name="id">Primary key of the entity to get.</param>
+        /// <returns>Entity.</returns>
+        public override async Task<TEntity> GetByIdAsync(TPrimaryKey id)
+        {
+            var entity = await FirstOrDefaultByIdAsync(id);
+            if (entity is null)
+            {
+                throw new KeyNotFoundException(
+                    $"There is no such an entity with given primary key. Entity type: {typeof(TEntity).FullName}, primary key: {id}");
+            }
+
+            return entity;
+        }
+
+        /// <summary>
+        /// Gets exactly one entity with given predicate.
+        /// Throws exception if no entity or more than one entity.
+        /// </summary>
+        /// <param name="predicate">Predicate to filter entities.</param>
+        /// <returns>Entity.</returns>
+        public override Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate)
+            => GetAll().SingleAsync(predicate);
+
+        /// <summary>
+        /// Gets an entity with given primary key or null if not found.
+        /// </summary>
+        /// <param name="id">Primary key of the entity to get.</param>
+        /// <returns>Entity or null.</returns>
+        public override Task<TEntity> FirstOrDefaultByIdAsync(TPrimaryKey id)
+            => GetAll().FirstOrDefaultAsync(CreateEqualityExpressionForId(id));
+
+        /// <summary>
+        /// Gets an entity with given predicate or null if not found.
+        /// </summary>
+        /// <param name="predicate">Predicate to filter entities.</param>
+        /// <returns>Entity or null.</returns>
+        public override Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+            => GetAll().FirstOrDefaultAsync(predicate);
+
+        /// <summary>
+        /// Checks whatever any entity matches <paramref name="predicate"/>.
+        /// </summary>
+        /// <param name="predicate">Predicate to filter entities.</param>
+        /// <returns>True if any entity matches predicate, false otherwise.</returns>
+        public override Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate)
+            => GetAll().AnyAsync(predicate);
 
         /// <summary>
         /// Updates an existing entity.
@@ -70,5 +133,46 @@ namespace Mariowski.Common.EntityFramework
         /// <param name="entity">Entity to be deleted.</param>
         public override void Delete(TEntity entity)
             => Table.Remove(entity);
+
+        /// <summary>
+        /// Deletes many entities by function.
+        /// </summary>
+        /// <param name="predicate">Predicate to filter entities.</param>
+        public override async Task DeleteAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            var entities = await GetAll().Where(predicate).ToListAsync();
+            foreach (var entity in entities)
+                Delete(entity);
+        }
+
+        /// <summary>
+        /// Gets count of all entities in this repository.
+        /// </summary>
+        /// <returns>Count of entities.</returns>
+        public override Task<int> CountAsync()
+            => GetAll().CountAsync();
+
+        /// <summary>
+        /// Gets count of all entities in this repository based on given <paramref name="predicate"/>.
+        /// </summary>
+        /// <param name="predicate">A method to filter count.</param>
+        /// <returns>Count of entities.</returns>
+        public override Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate)
+            => GetAll().CountAsync(predicate);
+
+        /// <summary>
+        /// Gets long count of all entities in this repository.
+        /// </summary>
+        /// <returns>Long count of entities.</returns>
+        public override Task<long> LongCountAsync()
+            => GetAll().LongCountAsync();
+
+        /// <summary>
+        /// Gets long count of all entities in this repository based on given <paramref name="predicate"/>.
+        /// </summary>
+        /// <param name="predicate">A method to filter count.</param>
+        /// <returns>Long count of entities.</returns>
+        public override Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate)
+            => GetAll().LongCountAsync(predicate);
     }
 }
