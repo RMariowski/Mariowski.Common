@@ -1,10 +1,9 @@
 ﻿using FluentAssertions;
+using Mariowski.Common.DataTypes;
 using Mariowski.Common.Exceptions;
-using Mariowski.Common.Validators;
-using Mariowski.Common.ValueObjects;
 using Xunit;
 
-namespace Mariowski.Common.UnitTests.ValueObjects
+namespace Mariowski.Common.UnitTests.DataTypes
 {
     public class EmailTests
     {

@@ -2,7 +2,7 @@
 using Mariowski.Common.Exceptions;
 using Mariowski.Common.Validators;
 
-namespace Mariowski.Common.ValueObjects
+namespace Mariowski.Common.DataTypes
 {
     public class Email : IEquatable<Email>
     {
