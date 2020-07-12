@@ -3,12 +3,12 @@ using Mariowski.Common.Markers;
 
 namespace Mariowski.Common.Exceptions
 {
-    public abstract class ValueObjectException : Exception, ICodeable
+    public abstract class CodeableException : Exception, ICodeable
     {
         public abstract string Code { get; }
 
         /// <inheritdoc />
-        protected ValueObjectException(string message)
+        protected CodeableException(string message)
             : base(message)
         {
         }

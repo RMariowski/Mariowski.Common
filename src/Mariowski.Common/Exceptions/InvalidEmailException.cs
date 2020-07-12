@@ -1,6 +1,6 @@
 ﻿namespace Mariowski.Common.Exceptions
 {
-    public class InvalidEmailException : ValueObjectException
+    public class InvalidEmailException : CodeableException
     {
         public override string Code => "invalid_email";
 
