@@ -1,10 +1,9 @@
 ﻿using System;
 using Mariowski.Common.Exceptions;
-using Mariowski.Common.Validators;
 
 namespace Mariowski.Common.DataTypes
 {
-    public class Email : IEquatable<Email>
+    public partial class Email : IEquatable<Email>
     {
         private readonly string _value;
 
@@ -15,32 +14,15 @@ namespace Mariowski.Common.DataTypes
         /// <exception cref="InvalidEmailException">The <paramref name="value"/> argument is not valid email.</exception>
         public Email(string value)
         {
-            if (!MailAddressValidator.IsValid(value))
+            if (!IsValid(value))
                 throw new InvalidEmailException(value);
 
             _value = value.ToLowerInvariant();
         }
 
-        /// <summary>
-        /// Converts string to email value object.
-        /// </summary>
-        /// <param name="value">Email as string</param>
-        /// <exception cref="InvalidEmailException">The <paramref name="value"/> argument is not valid email.</exception>
-        /// <returns>New instance of email value object.</returns>
-        public static implicit operator Email(string value)
-            => new Email(value);
-
-        /// <summary>
-        /// Converts email value object to string.
-        /// </summary>
-        /// <param name="email">Email value object</param>
-        /// <returns>Email as string</returns>
-        public static implicit operator string(Email email)
-            => email._value;
-
         /// <inheritdoc />
         public bool Equals(Email other)
-            => _value == other._value;
+            => other != null && _value == other._value;
 
         /// <inheritdoc />
         public override bool Equals(object obj)
