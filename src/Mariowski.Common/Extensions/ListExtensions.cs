@@ -8,20 +8,20 @@ namespace Mariowski.Common.Extensions
         /// <summary>
         /// Real shuffle of list.
         /// </summary>
-        /// <param name="this">The @this to act on.</param>
+        /// <param name="list">The list to act on.</param>
         /// <param name="random">Random number generator to use.</param>
-        public static void Shuffle<T>(this IList<T> @this, Random random = null)
+        public static void Shuffle<T>(this IList<T> list, Random random = null)
         {
             random ??= new Random();
 
-            int n = @this.Count;
+            int n = list.Count;
             while (n > 1)
             {
                 n--;
                 int k = random.Next(n + 1);
-                var value = @this[k];
-                @this[k] = @this[n];
-                @this[n] = value;
+                var value = list[k];
+                list[k] = list[n];
+                list[n] = value;
             }
         }
     }
