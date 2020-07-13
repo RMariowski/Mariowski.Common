@@ -38,6 +38,10 @@ namespace Mariowski.Common.Extensions
         public static float ToFloat(this string s)
             => float.Parse(s);
 
+        /// <inheritdoc cref="System.Double.Parse(string)"></inheritdoc>
+        public static double ToDouble(this string s)
+            => double.Parse(s);
+
         /// <inheritdoc cref="System.Text.Encoding.GetBytes(string)"></inheritdoc>
         public static byte[] ToAsciiByteArray(this string s)
             => Encoding.ASCII.GetBytes(s);
