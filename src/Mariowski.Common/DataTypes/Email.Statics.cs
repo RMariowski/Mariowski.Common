@@ -23,6 +23,32 @@ namespace Mariowski.Common.DataTypes
         }
         
         /// <summary>
+        /// Indicates whether the values of two specified <see cref="T:ShortGuid"></see> objects are equal.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns>True if <paramref name="left">left</paramref> and <paramref name="right">right</paramref> are equal; otherwise, false.</returns>
+        public static bool operator ==(Email left, Email right)
+        {
+            if (left is null)
+                return right is null;
+
+            if (right is null)
+                return false;
+
+            return left.Equals(right);
+        }
+
+        /// <summary>
+        /// Indicates whether the values of two specified <see cref="T:ShortGuid"></see> objects are not equal.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns>true if <paramref name="left">left</paramref> and <paramref name="right">right</paramref> are not equal; otherwise, false.</returns>
+        public static bool operator !=(Email left, Email right)
+            => !(left == right);
+
+        /// <summary>
         /// Converts string to email value object.
         /// </summary>
         /// <param name="value">Email as string</param>
