@@ -40,57 +40,37 @@ namespace Mariowski.Common.UnitTests.DataTypes
             Assert.Throws<InvalidEmailException>(Act);
         }
 
-        [Fact]
-        public void Equals_ShouldReturnTrue_WhenBothEmailsAreTheSame()
+        [Theory]
+        [InlineData("joe@doe.com", "joe@doe.com", true)]
+        [InlineData("joe@doe.com", "doe@joe.com", false)]
+        public void Equals_ShouldCorrectlyDetermineEqualityWithOtherEmail(string value, string value2, bool expected)
         {
-            const string value = "asdf@qwer.com";
             var email = new Email(value);
-            var email2 = new Email(value);
+            var email2 = new Email(value2);
 
             bool areEqual = email.Equals(email2);
 
-            areEqual.Should().BeTrue();
+            areEqual.Should().Be(expected);
         }
 
-        [Fact]
-        public void Equals_ShouldReturnFalse_WhenBothEmailsAreNotTheSame()
+        [Theory]
+        [InlineData("joe@doe.com", "joe@doe.com", true)]
+        [InlineData("joe@doe.com", "doe@joe.com", false)]
+        public void Equals_ShouldCorrectlyDetermineEqualityWithOtherObject(string value, string value2, bool expected)
         {
-            var email = new Email("asdf@qwer.com");
-            var email2 = new Email("qwer@asdf.com");
-
-            bool areEqual = email.Equals(email2);
-
-            areEqual.Should().BeFalse();
-        }
-
-        [Fact]
-        public void Equals_ShouldReturnTrue_WhenEmailAndObjectAreTheSame()
-        {
-            const string value = "asdf@qwer.com";
             var email = new Email(value);
-            var email2 = (object)new Email(value);
+            var email2 = (object)new Email(value2);
 
             bool areEqual = email.Equals(email2);
 
-            areEqual.Should().BeTrue();
-        }
-
-        [Fact]
-        public void Equals_ShouldReturnFalse_WhenEmailAndObjectAreNotTheSame()
-        {
-            var email = new Email("asdf@qwer.com");
-            var email2 = (object)new Email("qwer@asdf.com");
-
-            bool areEqual = email.Equals(email2);
-
-            areEqual.Should().BeFalse();
+            areEqual.Should().Be(expected);
         }
 
         [Theory]
         [InlineData("joe@doe.com", "joe@doe.com")]
         [InlineData("VALID_mail@gmail.com", "valid_mail@gmail.com")]
         [InlineData("plus+trick@GMAIL.com", "plus+trick@gmail.com")]
-        public void ToString_ShouldReturnEncodedFormOfShortGuid(string value, string expected)
+        public void ToString_ShouldReturnEmailAsString(string value, string expected)
         {
             var email = new Email(value);
 

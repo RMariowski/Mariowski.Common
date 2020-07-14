@@ -42,9 +42,9 @@ namespace Mariowski.Common.UnitTests.DataTypes
             var shortGuid = new ShortGuid(encoded);
             var shortGuid2 = new ShortGuid(encoded2);
 
-            bool equals = shortGuid.Equals(shortGuid2);
+            bool areEqual = shortGuid.Equals(shortGuid2);
 
-            equals.Should().Be(expected);
+            areEqual.Should().Be(expected);
         }
 
         [Theory]
@@ -56,9 +56,9 @@ namespace Mariowski.Common.UnitTests.DataTypes
             var shortGuid = new ShortGuid(encoded);
             var shortGuid2 = (object)new ShortGuid(encoded2);
 
-            bool equals = shortGuid.Equals(shortGuid2);
+            bool areEqual = shortGuid.Equals(shortGuid2);
 
-            equals.Should().Be(expected);
+            areEqual.Should().Be(expected);
         }
 
         [Theory]
