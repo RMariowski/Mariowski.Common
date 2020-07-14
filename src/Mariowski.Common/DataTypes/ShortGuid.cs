@@ -30,14 +30,7 @@ namespace Mariowski.Common.DataTypes
             Guid = guid;
         }
 
-        /// <summary>
-        /// Returns a value that indicates whether this instance is equal to a specified <see cref="T:ShortGuid"></see>.
-        /// </summary>
-        /// <param name="other">The <see cref="T:ShortGuid"></see> to compare with this instance.</param>
-        /// <returns>
-        /// True if <paramref name="other">other</paramref> has the same guid and value as this instance;
-        /// Otherwise, false.
-        /// </returns>
+        /// <inheritdoc />
         public bool Equals(ShortGuid other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -45,16 +38,7 @@ namespace Mariowski.Common.DataTypes
             return Guid.Equals(other.Guid) && _value == other._value;
         }
 
-        /// <summary>
-        /// Returns a value that indicates whether this instance is equal to a specified object.
-        /// </summary>
-        /// <param name="obj">The object to compare with this instance.</param>
-        /// <returns>
-        /// True if <paramref name="obj">obj</paramref> is a <see cref="T:ShortGuid"></see> that has the same value as this instance;
-        /// True if <paramref name="obj">obj</paramref> is a <see cref="T:System.Guid"></see> that has the same value as this instance;
-        /// True if <paramref name="obj">obj</paramref> is a string that has the same value as this instance;
-        /// Otherwise, false.
-        /// </returns>
+        /// <inheritdoc />
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -62,17 +46,11 @@ namespace Mariowski.Common.DataTypes
             return obj.GetType() == GetType() && Equals((ShortGuid)obj);
         }
 
-        /// <summary>
-        /// Returns the base64 encoded <see cref="T:ShortGuid">ShortGuid</see> as a string.
-        /// </summary>
-        /// <returns>The value of <see cref="T:ShortGuid"></see>.</returns>
+        /// <inheritdoc />
         public override string ToString()
             => _value;
 
-        /// <summary>
-        /// Returns the HashCode of underlying Guid.
-        /// </summary>
-        /// <returns>HashCode of Guid.</returns>
+        /// <inheritdoc />
         public override int GetHashCode()
             => Guid.GetHashCode();
     }
