@@ -98,14 +98,5 @@ namespace Mariowski.Common.DataTypes
         /// <returns><see cref="T:System.Guid">Guid</see> equivalent of <see cref="T:ShortGuid">ShortGuid</see>.</returns>
         public static implicit operator Guid(ShortGuid shortGuid)
             => shortGuid.Guid;
-
-        /// <summary>
-        /// Implicitly converts the <see cref="T:ShortGuid">ShortGuid</see>
-        /// to it's string equivalent.
-        /// </summary>
-        /// <param name="shortGuid"><see cref="T:ShortGuid">ShortGuid</see> to convert.</param>
-        /// <returns>String equivalent of <see cref="T:ShortGuid">ShortGuid</see>.</returns>
-        public static implicit operator string(ShortGuid shortGuid)
-            => shortGuid.ToString();
     }
 }

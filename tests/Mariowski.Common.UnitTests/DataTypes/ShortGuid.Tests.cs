@@ -30,7 +30,7 @@ namespace Mariowski.Common.UnitTests.DataTypes
         {
             var shortGuid = new ShortGuid(guid);
 
-            ((string)shortGuid).Should().Be(expected);
+            shortGuid.ToString().Should().Be(expected);
         }
 
         [Theory]

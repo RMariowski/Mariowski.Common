@@ -110,13 +110,5 @@ namespace Mariowski.Common.UnitTests.DataTypes
 
             guid.Should().NotBeEmpty();
         }
-
-        [Fact]
-        public void StringOperator_ShouldImplicitlyConvertsShortGuidToString()
-        {
-            string value = new ShortGuid(new Guid("9a717c34-ed19-4446-8752-ccd020ed9638"));
-
-            value.Should().NotBeNullOrWhiteSpace();
-        }
     }
 }
