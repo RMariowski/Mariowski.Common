@@ -43,7 +43,7 @@ namespace Mariowski.Common.UnitTests.DataTypes
         [Theory]
         [InlineData("joe@doe.com", "joe@doe.com", true)]
         [InlineData("joe@doe.com", "doe@joe.com", false)]
-        public void Equals_ShouldCorrectlyDetermineEqualityWithOtherEmail(string value, string value2, bool expected)
+        public void Equals_ShouldDetermineEqualityWithOtherEmail(string value, string value2, bool expected)
         {
             var email = new Email(value);
             var email2 = new Email(value2);
@@ -56,7 +56,7 @@ namespace Mariowski.Common.UnitTests.DataTypes
         [Theory]
         [InlineData("joe@doe.com", "joe@doe.com", true)]
         [InlineData("joe@doe.com", "doe@joe.com", false)]
-        public void Equals_ShouldCorrectlyDetermineEqualityWithOtherObject(string value, string value2, bool expected)
+        public void Equals_ShouldDetermineEqualityWithOtherObject(string value, string value2, bool expected)
         {
             var email = new Email(value);
             var email2 = (object)new Email(value2);

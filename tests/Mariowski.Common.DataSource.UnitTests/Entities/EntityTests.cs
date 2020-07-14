@@ -35,7 +35,7 @@ namespace Mariowski.Common.DataSource.UnitTests.Entities
         }
 
         [Fact]
-        public void Equals_ShouldCorrectlyDetermineEqualityWithOtherObject()
+        public void Equals_ShouldDetermineEqualityWithOtherObject()
         {
             var entity = new EntityImpl();
             entity.Equals(entity).Should().BeTrue();
@@ -59,7 +59,7 @@ namespace Mariowski.Common.DataSource.UnitTests.Entities
         }
 
         [Fact]
-        public void EqualityOperator_ShouldCorrectlyDetermineEquality()
+        public void EqualityOperator_ShouldDetermineEquality()
         {
             var entity = new EntityImpl();
             (entity is null).Should().BeFalse();
@@ -75,7 +75,7 @@ namespace Mariowski.Common.DataSource.UnitTests.Entities
         }
 
         [Fact]
-        public void Entity_InequalityOperator_ShouldCorrectlyDetermineInequality()
+        public void Entity_InequalityOperator_ShouldDetermineInequality()
         {
             var entity = new EntityImpl();
             (entity != null).Should().BeTrue();

@@ -36,7 +36,7 @@ namespace Mariowski.Common.UnitTests.DataTypes
         [Theory]
         [InlineData("hNJ8CJZOu0KHDI-Rd-2CRg", "hNJ8CJZOu0KHDI-Rd-2CRg", true)]
         [InlineData("hNJ8CJZOu0KHDI-Rd-2CRg", "a1tbLajjL0aJ0qDTJEqHAw", false)]
-        public void Equals_ShouldCorrectlyDetermineEqualityWithOtherShortGuid(string encoded, string encoded2,
+        public void Equals_ShouldDetermineEqualityWithOtherShortGuid(string encoded, string encoded2,
             bool expected)
         {
             var shortGuid = new ShortGuid(encoded);
@@ -50,7 +50,7 @@ namespace Mariowski.Common.UnitTests.DataTypes
         [Theory]
         [InlineData("hNJ8CJZOu0KHDI-Rd-2CRg", "hNJ8CJZOu0KHDI-Rd-2CRg", true)]
         [InlineData("hNJ8CJZOu0KHDI-Rd-2CRg", "a1tbLajjL0aJ0qDTJEqHAw", false)]
-        public void Equals_ShouldCorrectlyDetermineEqualityWithOtherObject(string encoded, string encoded2,
+        public void Equals_ShouldDetermineEqualityWithOtherObject(string encoded, string encoded2,
             bool expected)
         {
             var shortGuid = new ShortGuid(encoded);

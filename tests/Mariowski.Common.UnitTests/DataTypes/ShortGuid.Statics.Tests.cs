@@ -42,10 +42,10 @@ namespace Mariowski.Common.UnitTests.DataTypes
         public void Encode_ShouldEncodeGuid(Guid guid, string expected)
         {
             string shortGuid = ShortGuid.Encode(guid);
-            
+
             shortGuid.Should().Be(expected);
         }
-        
+
         [Theory]
         [InlineData("hNJ8CJZOu0KHDI-Rd-2CRg", "087cd284-4e96-42bb-870c-8f9177ed8246")]
         [InlineData("a1tbLajjL0aJ0qDTJEqHAw", "2d5b5b6b-e3a8-462f-89d2-a0d3244a8703")]
@@ -58,33 +58,33 @@ namespace Mariowski.Common.UnitTests.DataTypes
 
             guid.Should().Be(expected);
         }
-        
+
         [Theory]
         [InlineData("hNJ8CJZOu0KHDI-Rd-2CRg", "hNJ8CJZOu0KHDI-Rd-2CRg", true)]
         [InlineData("hNJ8CJZOu0KHDI-Rd-2CRg", "a1tbLajjL0aJ0qDTJEqHAw", false)]
-        public void EqualityOperator_ShouldCorrectlyDetermineEqualityWithOtherShortGuid(string encoded,
+        public void EqualityOperator_ShouldDetermineEqualityWithOtherShortGuid(string encoded,
             string encoded2, bool expected)
         {
             var shortGuid = new ShortGuid(encoded);
             var shortGuid2 = new ShortGuid(encoded2);
 
-            bool equals = shortGuid == shortGuid2;
+            bool areEqual = shortGuid == shortGuid2;
 
-            equals.Should().Be(expected);
+            areEqual.Should().Be(expected);
         }
 
         [Theory]
         [InlineData("hNJ8CJZOu0KHDI-Rd-2CRg", "hNJ8CJZOu0KHDI-Rd-2CRg", false)]
         [InlineData("hNJ8CJZOu0KHDI-Rd-2CRg", "a1tbLajjL0aJ0qDTJEqHAw", true)]
-        public void InequalityOperator_ShouldCorrectlyDetermineInequalityWithOtherShortGuid(string encoded,
+        public void InequalityOperator_ShouldDetermineInequalityWithOtherShortGuid(string encoded,
             string encoded2, bool expected)
         {
             var shortGuid = new ShortGuid(encoded);
             var shortGuid2 = new ShortGuid(encoded2);
 
-            bool equals = shortGuid != shortGuid2;
+            bool areEqual = shortGuid != shortGuid2;
 
-            equals.Should().Be(expected);
+            areEqual.Should().Be(expected);
         }
 
         [Fact]
