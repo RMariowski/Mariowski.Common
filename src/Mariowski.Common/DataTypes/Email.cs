@@ -22,11 +22,19 @@ namespace Mariowski.Common.DataTypes
 
         /// <inheritdoc />
         public bool Equals(Email other)
-            => other != null && _value == other._value;
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return _value == other._value;
+        }
 
         /// <inheritdoc />
         public override bool Equals(object obj)
-            => obj is Email other && Equals(other);
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == GetType() && Equals((Email)obj);
+        }
 
         /// <inheritdoc />
         public override int GetHashCode()
