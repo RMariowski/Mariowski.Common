@@ -37,6 +37,10 @@ namespace Mariowski.Common.DataTypes
         }
 
         /// <inheritdoc />
+        public override string ToString()
+            => _value;
+
+        /// <inheritdoc />
         public override int GetHashCode()
             => _value != null ? _value.GetHashCode() : 0;
     }

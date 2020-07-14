@@ -87,6 +87,19 @@ namespace Mariowski.Common.UnitTests.DataTypes
         }
 
         [Theory]
+        [InlineData("joe@doe.com", "joe@doe.com")]
+        [InlineData("VALID_mail@gmail.com", "valid_mail@gmail.com")]
+        [InlineData("plus+trick@GMAIL.com", "plus+trick@gmail.com")]
+        public void ToString_ShouldReturnEncodedFormOfShortGuid(string value, string expected)
+        {
+            var email = new Email(value);
+
+            var toString = email.ToString();
+
+            toString.Should().Be(expected);
+        }
+
+        [Theory]
         [InlineData("asdf@qwer.com")]
         [InlineData("qwer@asdf.com")]
         [InlineData("test@test.test")]
