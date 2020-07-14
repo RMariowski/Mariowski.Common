@@ -28,7 +28,7 @@ namespace Mariowski.Common.DataTypes
         }
 
         /// <summary>
-        /// 
+        /// Converts time string to <see cref="T:System.TimeSpan">TimeSpan</see>.
         /// </summary>
         /// <param name="timeString">String to parse</param>
         /// <returns>Representation of <paramref name="timeString">timeString</paramref> as <see cref="T:System.TimeSpan">TimeSpan</see></returns>

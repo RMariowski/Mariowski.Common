@@ -83,8 +83,8 @@ namespace Mariowski.Common.UnitTests.DataTypes
         }
 
         [Theory]
-        [InlineData("1h30m", "1h30m", true)]
-        [InlineData("1h30m", "1h31m", false)]
+        [InlineData("1h30m", "1h30m", false)]
+        [InlineData("1h30m", "1h31m", true)]
         public void InequalityOperator_ShouldDetermineEqualityWithOtherTimeString(string value, string value2,
             bool expected)
         {
