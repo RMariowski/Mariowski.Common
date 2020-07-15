@@ -21,7 +21,7 @@ namespace Mariowski.Common.DataTypes
                                    @"@(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]*\.)+[a-zA-Z0-9]{2,17})$";
             return Regex.IsMatch(value, pattern);
         }
-        
+
         /// <summary>
         /// Indicates whether the values of two specified <see cref="T:ShortGuid"></see> objects are equal.
         /// </summary>
@@ -32,11 +32,7 @@ namespace Mariowski.Common.DataTypes
         {
             if (left is null)
                 return right is null;
-
-            if (right is null)
-                return false;
-
-            return left.Equals(right);
+            return !(right is null) && left.Equals(right);
         }
 
         /// <summary>

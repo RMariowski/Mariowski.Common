@@ -14,6 +14,7 @@ namespace Mariowski.Common.AspNet.UnitTests.Services
         [Fact]
         public void CreateToken_ShouldCreateValidJwt()
         {
+            IJwtFactory jwtFactory = new JwtFactory();
             const string signingKey = "jwt_signing_key_for_test";
             var parameters = new TokenValidationParameters
             {
@@ -24,7 +25,7 @@ namespace Mariowski.Common.AspNet.UnitTests.Services
             };
             var claims = new[] { new Claim("test", "yes") };
 
-            string token = new JwtFactory().CreateToken(signingKey, parameters.ValidIssuer, parameters.ValidAudience,
+            string token = jwtFactory.CreateToken(signingKey, parameters.ValidIssuer, parameters.ValidAudience,
                 claims, DateTime.UtcNow, DateTime.UtcNow.AddMinutes(1));
 
             token.Should().NotBeNullOrWhiteSpace();

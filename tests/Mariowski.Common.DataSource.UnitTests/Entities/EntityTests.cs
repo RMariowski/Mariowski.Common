@@ -34,10 +34,7 @@ namespace Mariowski.Common.DataSource.UnitTests.Entities
         public void Equals_ShouldDetermineEqualityWithOtherObject()
         {
             var entity = new EntityImpl();
-            entity.Equals(entity).Should().BeTrue();
             entity.Equals(null).Should().BeFalse();
-            entity.Equals("").Should().BeFalse();
-            entity.Equals(123).Should().BeFalse();
 
             var entity2 = new EntityImpl();
             entity.Equals(entity2).Should().BeFalse();
@@ -51,14 +48,13 @@ namespace Mariowski.Common.DataSource.UnitTests.Entities
         {
             var entity = new EntityImpl(1);
 
-            (entity.Id.GetHashCode() == 1.GetHashCode()).Should().BeTrue();
+            (entity.GetHashCode() == 1.GetHashCode()).Should().BeTrue();
         }
 
         [Fact]
         public void EqualityOperator_ShouldDetermineEquality()
         {
             var entity = new EntityImpl();
-            (entity is null).Should().BeFalse();
 
             var entity2 = entity;
             (entity == entity2).Should().BeTrue();
@@ -71,10 +67,9 @@ namespace Mariowski.Common.DataSource.UnitTests.Entities
         }
 
         [Fact]
-        public void Entity_InequalityOperator_ShouldDetermineInequality()
+        public void InequalityOperator_ShouldDetermineInequality()
         {
             var entity = new EntityImpl();
-            (entity != null).Should().BeTrue();
 
             var entity2 = entity;
             (entity != entity2).Should().BeFalse();
@@ -91,7 +86,9 @@ namespace Mariowski.Common.DataSource.UnitTests.Entities
         {
             var entity = new EntityImpl();
 
-            entity.ToString().Should().Be($"[{nameof(EntityImpl)} {entity.Id}]");
+            var toString = entity.ToString();
+            
+            toString.Should().Be($"[{nameof(EntityImpl)} {entity.Id}]");
         }
     }
 }
