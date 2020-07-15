@@ -55,7 +55,6 @@ namespace Mariowski.Common.DataSource.Entities
             return Id.Equals(other.Id);
         }
 
-        // ReSharper disable NonReadonlyMemberInGetHashCode
         /// <summary>
         /// Returns the HashCode of underlying Id.
         /// </summary>

@@ -1,6 +1,4 @@
-﻿// ReSharper disable UnusedMember.Global
-
-namespace Mariowski.Common.Markers
+﻿namespace Mariowski.Common.Markers
 {
     public interface ICodeable
     {

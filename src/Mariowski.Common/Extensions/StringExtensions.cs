@@ -1,7 +1,5 @@
 ﻿using System.Text;
 
-// ReSharper disable UnusedMember.Global
-
 namespace Mariowski.Common.Extensions
 {
     public static class StringExtensions

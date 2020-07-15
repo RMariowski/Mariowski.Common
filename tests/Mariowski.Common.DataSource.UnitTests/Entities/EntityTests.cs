@@ -2,10 +2,6 @@
 using Mariowski.Common.DataSource.UnitTests.Implementations;
 using Xunit;
 
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
-// ReSharper disable EqualExpressionComparison
-// ReSharper disable SuspiciousTypeConversion.Global
-
 namespace Mariowski.Common.DataSource.UnitTests.Entities
 {
     public class EntityTests
