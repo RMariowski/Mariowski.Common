@@ -122,6 +122,7 @@ namespace Mariowski.Common.DataSource.Repositories
             return Task.CompletedTask;
         }
 
+        /// <inheritdoc />
         public virtual void Delete(Expression<Func<TEntity, bool>> predicate)
         {
             var entities = GetAll().Where(predicate).ToList();
