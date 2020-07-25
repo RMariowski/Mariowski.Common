@@ -54,7 +54,7 @@ namespace Mariowski.Common.EntityFramework
         public override IQueryable<TEntity> GetAllIncluding(
             params Expression<Func<TEntity, object>>[] propertySelectors)
         {
-            var query = Table.AsNoTracking().AsQueryable();
+            var query = Table.AsQueryable();
 
             if (propertySelectors is null)
                 return query;
