@@ -1,4 +1,5 @@
 ﻿using System;
+using Mariowski.Common.Extensions;
 
 namespace Mariowski.Common.DataTypes
 {
@@ -17,20 +18,9 @@ namespace Mariowski.Common.DataTypes
         public static ShortGuid NewShortGuid()
             => new ShortGuid(Guid.NewGuid());
 
-        /// <summary>
-        /// Creates a new instance of a <see cref="T:ShortGuid"></see> using the
-        /// <see cref="T:System.Guid">Guid</see>.
-        /// </summary>
-        /// <param name="guid">The <see cref="T:System.Guid">Guid</see> to encode</param>
-        /// <returns>Base64 version of <see cref="T:System.Guid"></see></returns>
+        /// <inheritdoc cref="GuidExtensions.EncodeBase64String(System.Guid,char,char)"></inheritdoc>
         public static string Encode(Guid guid)
-        {
-            string encoded = Convert.ToBase64String(guid.ToByteArray());
-            encoded = encoded
-                .Replace("/", "_")
-                .Replace("+", "-");
-            return encoded.Substring(0, 22);
-        }
+            => guid.EncodeBase64String();
 
         /// <summary>
         /// Decodes the given base64 string to <see cref="T:System.Guid"></see>.
