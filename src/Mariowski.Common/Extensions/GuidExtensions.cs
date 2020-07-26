@@ -12,10 +12,10 @@ namespace Mariowski.Common.Extensions
         /// Inspired by https://www.stevejgordon.co.uk/using-high-performance-dotnetcore-csharp-techniques-to-base64-encode-a-guid
         /// </note>
         /// </summary>
-        /// <param name="guid">The <see cref="T:System.Guid">Guid</see> to encode</param>
-        /// <param name="replaceForwardSlashWith">Character that will replace forward slash '/'</param>
-        /// <param name="replacePlusWith">Character that will replace plus '+'</param>
-        /// <returns>Base64 version of <see cref="T:System.Guid"></see></returns>
+        /// <param name="guid">The <see cref="T:System.Guid">Guid</see> to encode.</param>
+        /// <param name="replaceForwardSlashWith">Character that will replace forward slash '/'.</param>
+        /// <param name="replacePlusWith">Character that will replace plus '+'.</param>
+        /// <returns>Base64 version of <see cref="T:System.Guid"></see>.</returns>
         public static string EncodeBase64String(this Guid guid, char replaceForwardSlashWith = '_',
             char replacePlusWith = '-')
         {

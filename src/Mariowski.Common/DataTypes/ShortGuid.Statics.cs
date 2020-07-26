@@ -22,24 +22,9 @@ namespace Mariowski.Common.DataTypes
         public static string Encode(Guid guid)
             => guid.EncodeBase64String();
 
-        /// <summary>
-        /// Decodes the given base64 string to <see cref="T:System.Guid"></see>.
-        /// </summary>
-        /// <param name="encoded">The base64 encoded string of a <see cref="T:System.Guid">Guid</see>.</param>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="encoded">encoded</paramref> is null.</exception>
-        /// <exception cref="T:System.FormatException">The length of <paramref name="encoded">encoded</paramref>, ignoring white-space characters, is not zero or a multiple of 4.   -or-   The format of <paramref name="encoded">encoded</paramref> is invalid. <paramref name="encoded">encoded</paramref> contains a non-base-64 character, more than two padding characters, or a non-white space-character among the padding characters.</exception>
-        /// <returns>A new <see cref="T:System.Guid">Guid</see>.</returns>
+        /// <inheritdoc cref="StringExtensions.DecodeBase64ToGuid(string)"></inheritdoc>
         public static Guid Decode(string encoded)
-        {
-            if (encoded is null)
-                throw new ArgumentNullException(nameof(encoded), "Value cannot be null.");
-
-            encoded = encoded
-                .Replace("_", "/")
-                .Replace("-", "+");
-            var buffer = Convert.FromBase64String(encoded + "==");
-            return new Guid(buffer);
-        }
+            => encoded.DecodeBase64ToGuid();
 
         /// <summary>
         /// Indicates whether the values of two specified <see cref="T:ShortGuid"></see> objects are equal.
