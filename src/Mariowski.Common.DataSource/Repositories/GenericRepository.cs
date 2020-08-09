@@ -37,17 +37,6 @@ namespace Mariowski.Common.DataSource.Repositories
             => entity.IsTransient() ? InsertAsync(entity) : UpdateAsync(entity);
 
         /// <inheritdoc />
-        public virtual TPrimaryKey InsertOrUpdateAndGetId(TEntity entity)
-            => InsertOrUpdate(entity).Id;
-
-        /// <inheritdoc />
-        public virtual async Task<TPrimaryKey> InsertOrUpdateAndGetIdAsync(TEntity entity)
-        {
-            entity = await InsertOrUpdateAsync(entity);
-            return entity.Id;
-        }
-
-        /// <inheritdoc />
         public virtual IQueryable<TEntity> GetAll()
             => GetAllIncluding();
 

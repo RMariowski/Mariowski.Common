@@ -52,20 +52,6 @@ namespace Mariowski.Common.DataSource.Repositories
         Task<TEntity> InsertOrUpdateAsync(TEntity entity);
 
         /// <summary>
-        /// Inserts or updates given entity depending on Id's value. Also returns Id of the entity.
-        /// </summary>
-        /// <param name="entity">Entity.</param>
-        /// <returns>Id of the entity.</returns>
-        TPrimaryKey InsertOrUpdateAndGetId(TEntity entity);
-
-        /// <summary>
-        /// Inserts or updates given entity depending on Id's value. Also returns Id of the entity.
-        /// </summary>
-        /// <param name="entity">Entity.</param>
-        /// <returns>Id of the entity.</returns>
-        Task<TPrimaryKey> InsertOrUpdateAndGetIdAsync(TEntity entity);
-
-        /// <summary>
         /// Used to get a <see cref="T:System.Linq.IQueryable"/> that is used to retrieve entities from entire set/table.
         /// </summary>
         /// <returns><see cref="T:System.Linq.IQueryable"/> to be used to select entities from data source.</returns>
