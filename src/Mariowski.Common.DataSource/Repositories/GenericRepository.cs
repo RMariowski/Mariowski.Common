@@ -18,14 +18,17 @@ namespace Mariowski.Common.DataSource.Repositories
             => Task.FromResult(Insert(entity));
 
         /// <inheritdoc />
-        public virtual TPrimaryKey InsertAndGetId(TEntity entity)
-            => Insert(entity).Id;
+        public virtual void Insert(IEnumerable<TEntity> entities)
+        {
+            foreach (var entity in entities)
+                Insert(entity);
+        }
 
         /// <inheritdoc />
-        public virtual async Task<TPrimaryKey> InsertAndGetIdAsync(TEntity entity)
+        public virtual Task InsertAsync(IEnumerable<TEntity> entities)
         {
-            entity = await InsertAsync(entity);
-            return entity.Id;
+            Insert(entities);
+            return Task.CompletedTask;
         }
 
         /// <inheritdoc />
@@ -35,6 +38,20 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <inheritdoc />
         public virtual Task<TEntity> InsertOrUpdateAsync(TEntity entity)
             => entity.IsTransient() ? InsertAsync(entity) : UpdateAsync(entity);
+
+        /// <inheritdoc />
+        public void InsertOrUpdate(IEnumerable<TEntity> entities)
+        {
+            foreach (var entity in entities)
+                InsertOrUpdate(entity);
+        }
+
+        /// <inheritdoc />
+        public Task InsertOrUpdateAsync(IEnumerable<TEntity> entities)
+        {
+            InsertOrUpdate(entities);
+            return Task.CompletedTask;
+        }
 
         /// <inheritdoc />
         public virtual IQueryable<TEntity> GetAll()
@@ -63,6 +80,14 @@ namespace Mariowski.Common.DataSource.Repositories
             => Task.FromResult(GetById(id));
 
         /// <inheritdoc />
+        public IEnumerable<TEntity> GetByIds(IEnumerable<TPrimaryKey> ids)
+            => GetAll().Where(e => ids.Contains(e.Id));
+
+        /// <inheritdoc />
+        public Task<IEnumerable<TEntity>> GetByIdsAsync(IEnumerable<TPrimaryKey> ids)
+            => Task.FromResult(GetByIds(ids));
+
+        /// <inheritdoc />
         public virtual TEntity Single(Expression<Func<TEntity, bool>> predicate)
             => GetAll().Single(predicate);
 
@@ -72,7 +97,7 @@ namespace Mariowski.Common.DataSource.Repositories
 
         /// <inheritdoc />
         public virtual TEntity FirstOrDefaultById(TPrimaryKey id)
-            => GetAll().FirstOrDefault(CreateEqualityExpressionForId(id));
+            => GetAll().FirstOrDefault(e => id.Equals(e.Id));
 
         /// <inheritdoc />
         public virtual Task<TEntity> FirstOrDefaultByIdAsync(TPrimaryKey id)
@@ -102,12 +127,40 @@ namespace Mariowski.Common.DataSource.Repositories
             => Task.FromResult(Update(entity));
 
         /// <inheritdoc />
+        public void Update(IEnumerable<TEntity> entities)
+        {
+            foreach (var entity in entities)
+                Update(entity);
+        }
+
+        /// <inheritdoc />
+        public Task UpdateAsync(IEnumerable<TEntity> entities)
+        {
+            Update(entities);
+            return Task.CompletedTask;
+        }
+
+        /// <inheritdoc />
         public abstract void Delete(TEntity entity);
 
         /// <inheritdoc />
         public virtual Task DeleteAsync(TEntity entity)
         {
             Delete(entity);
+            return Task.CompletedTask;
+        }
+
+        /// <inheritdoc />
+        public void Delete(IEnumerable<TEntity> entities)
+        {
+            foreach (var entity in entities)
+                Delete(entity);
+        }
+
+        /// <inheritdoc />
+        public Task DeleteAsync(IEnumerable<TEntity> entities)
+        {
+            Delete(entities);
             return Task.CompletedTask;
         }
 
@@ -147,6 +200,20 @@ namespace Mariowski.Common.DataSource.Repositories
         }
 
         /// <inheritdoc />
+        public void DeleteByIds(IEnumerable<TPrimaryKey> ids)
+        {
+            foreach (var id in ids)
+                DeleteById(id);
+        }
+
+        /// <inheritdoc />
+        public Task DeleteByIdsAsync(IEnumerable<TPrimaryKey> ids)
+        {
+            DeleteByIds(ids);
+            return Task.CompletedTask;
+        }
+
+        /// <inheritdoc />
         public virtual int Count()
             => GetAll().Count();
 
@@ -177,23 +244,5 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <inheritdoc />
         public virtual Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate)
             => Task.FromResult(LongCount(predicate));
-
-        /// <summary>
-        /// Creates expression tree for <see cref="T:TPrimeKey"/> equality.
-        /// </summary>
-        /// <param name="id"><see cref="T:TPrimeKey"/> of entity.</param>
-        /// <returns>Expression tree.</returns>
-        protected virtual Expression<Func<TEntity, bool>> CreateEqualityExpressionForId(TPrimaryKey id)
-        {
-            var lambdaParam = Expression.Parameter(typeof(TEntity));
-
-            var leftExpression = Expression.PropertyOrField(lambdaParam, "Id");
-
-            Expression<Func<object>> closure = () => id;
-            var rightExpression = Expression.Convert(closure.Body, leftExpression.Type);
-
-            var lambdaBody = Expression.Equal(leftExpression, rightExpression);
-            return Expression.Lambda<Func<TEntity, bool>>(lambdaBody, lambdaParam);
-        }
     }
 }

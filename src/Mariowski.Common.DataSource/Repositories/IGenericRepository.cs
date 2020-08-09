@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -12,30 +13,28 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <summary>
         /// Inserts a new entity.
         /// </summary>
-        /// <param name="entity">Inserted entity</param>
-        /// <returns>Entity</returns>
+        /// <param name="entity">Entity to insert.</param>
+        /// <returns>Entity.</returns>
         TEntity Insert(TEntity entity);
 
         /// <summary>
         /// Inserts a new entity.
         /// </summary>
-        /// <param name="entity">Inserted entity</param>
-        /// <returns>Entity</returns>
+        /// <param name="entity">Entity to insert.</param>
+        /// <returns>Entity.</returns>
         Task<TEntity> InsertAsync(TEntity entity);
 
         /// <summary>
-        /// Inserts a new entity and gets it's Id.
+        /// Inserts new entities.
         /// </summary>
-        /// <param name="entity">Entity.</param>
-        /// <returns>Id of the entity.</returns>
-        TPrimaryKey InsertAndGetId(TEntity entity);
+        /// <param name="entities">Entities to insert.</param>
+        void Insert(IEnumerable<TEntity> entities);
 
         /// <summary>
-        /// Inserts a new entity and gets it's Id.
+        /// Inserts new entities.
         /// </summary>
-        /// <param name="entity">Entity.</param>
-        /// <returns>Id of the entity.</returns>
-        Task<TPrimaryKey> InsertAndGetIdAsync(TEntity entity);
+        /// <param name="entities">Entities to insert.</param>
+        Task InsertAsync(IEnumerable<TEntity> entities);
 
         /// <summary>
         /// Inserts or updates given entity depending on Id's value.
@@ -50,6 +49,18 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <param name="entity">Entity.</param>
         /// <returns>Entity.</returns>
         Task<TEntity> InsertOrUpdateAsync(TEntity entity);
+
+        /// <summary>
+        /// Inserts or updates given entities depending on theirs Id's value.
+        /// </summary>
+        /// <param name="entities">Entities.</param>
+        void InsertOrUpdate(IEnumerable<TEntity> entities);
+
+        /// <summary>
+        /// Inserts or updates given entities depending on theirs Id's value.
+        /// </summary>
+        /// <param name="entities">Entities.</param>
+        Task InsertOrUpdateAsync(IEnumerable<TEntity> entities);
 
         /// <summary>
         /// Used to get a <see cref="T:System.Linq.IQueryable"/> that is used to retrieve entities from entire set/table.
@@ -77,6 +88,20 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <param name="id">Primary key of the entity to get.</param>
         /// <returns>Entity.</returns>
         Task<TEntity> GetByIdAsync(TPrimaryKey id);
+        
+        /// <summary>
+        /// Gets entities with given primary key.
+        /// </summary>
+        /// <param name="ids">Primary key of the entities to get.</param>
+        /// <returns>Entities.</returns>
+        IEnumerable<TEntity> GetByIds(IEnumerable<TPrimaryKey> ids);
+
+        /// <summary>
+        /// Gets entities with given primary key.
+        /// </summary>
+        /// <param name="ids">Primary key of the entities to get.</param>
+        /// <returns>Entities.</returns>
+        Task<IEnumerable<TEntity>> GetByIdsAsync(IEnumerable<TPrimaryKey> ids);
 
         /// <summary>
         /// Gets exactly one entity with given predicate.
@@ -139,16 +164,28 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <summary>
         /// Updates an existing entity.
         /// </summary>
-        /// <param name="entity">Entity.</param>
+        /// <param name="entity">Entity to update.</param>
         /// <returns>Entity.</returns>
         TEntity Update(TEntity entity);
 
         /// <summary>
         /// Updates an existing entity.
         /// </summary>
-        /// <param name="entity">Entity.</param>
+        /// <param name="entity">Entity to update.</param>
         /// <returns>Entity.</returns>
         Task<TEntity> UpdateAsync(TEntity entity);
+
+        /// <summary>
+        /// Updates existing entities.
+        /// </summary>
+        /// <param name="entities">Entities to update.</param>
+        void Update(IEnumerable<TEntity> entities);
+
+        /// <summary>
+        /// Updates existing entities.
+        /// </summary>
+        /// <param name="entities">Entities to update.</param>
+        Task UpdateAsync(IEnumerable<TEntity> entities);
 
         /// <summary>
         /// Deletes an entity.
@@ -162,6 +199,18 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <param name="entity">Entity to be deleted.</param>
         Task DeleteAsync(TEntity entity);
 
+        /// <summary>
+        /// Deletes entities.
+        /// </summary>
+        /// <param name="entities">Entities to be deleted.</param>
+        void Delete(IEnumerable<TEntity> entities);
+
+        /// <summary>
+        /// Deletes entities.
+        /// </summary>
+        /// <param name="entities">Entities to be deleted.</param>
+        Task DeleteAsync(IEnumerable<TEntity> entities);
+        
         /// <summary>
         /// Deletes many entities by function.
         /// </summary>
@@ -186,6 +235,18 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <param name="id">Primary key of the entity.</param>
         Task DeleteByIdAsync(TPrimaryKey id);
 
+        /// <summary>
+        /// Deletes entities by primary key.
+        /// </summary>
+        /// <param name="ids">Primary key of the entities.</param>
+        void DeleteByIds(IEnumerable<TPrimaryKey> ids);
+
+        /// <summary>
+        /// Deletes entities by primary key.
+        /// </summary>
+        /// <param name="ids">Primary key of the entities.</param>
+        Task DeleteByIdsAsync(IEnumerable<TPrimaryKey> ids);
+        
         /// <summary>
         /// Gets count of all entities in this repository.
         /// </summary>
