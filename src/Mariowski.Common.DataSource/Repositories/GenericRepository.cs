@@ -40,14 +40,14 @@ namespace Mariowski.Common.DataSource.Repositories
             => entity.IsTransient() ? InsertAsync(entity) : UpdateAsync(entity);
 
         /// <inheritdoc />
-        public void InsertOrUpdate(IEnumerable<TEntity> entities)
+        public virtual void InsertOrUpdate(IEnumerable<TEntity> entities)
         {
             foreach (var entity in entities)
                 InsertOrUpdate(entity);
         }
 
         /// <inheritdoc />
-        public Task InsertOrUpdateAsync(IEnumerable<TEntity> entities)
+        public virtual Task InsertOrUpdateAsync(IEnumerable<TEntity> entities)
         {
             InsertOrUpdate(entities);
             return Task.CompletedTask;
@@ -76,15 +76,25 @@ namespace Mariowski.Common.DataSource.Repositories
         }
 
         /// <inheritdoc />
-        public virtual Task<TEntity> GetByIdAsync(TPrimaryKey id)
-            => Task.FromResult(GetById(id));
+        /// <exception cref="T:KeyNotFoundException">Entity with given <paramref name="id"></paramref> not found.</exception>
+        public virtual async Task<TEntity> GetByIdAsync(TPrimaryKey id)
+        {
+            var entity = await FirstOrDefaultByIdAsync(id);
+            if (entity is null)
+            {
+                throw new KeyNotFoundException(
+                    $"There is no such an entity with given primary key. Entity type: {typeof(TEntity).FullName}, primary key: {id}");
+            }
+
+            return entity;
+        }
 
         /// <inheritdoc />
-        public IEnumerable<TEntity> GetByIds(IEnumerable<TPrimaryKey> ids)
-            => GetAll().Where(e => ids.Contains(e.Id));
+        public virtual TEntity[] GetByIds(IEnumerable<TPrimaryKey> ids)
+            => GetAll().Where(e => ids.Contains(e.Id)).ToArray();
 
         /// <inheritdoc />
-        public Task<IEnumerable<TEntity>> GetByIdsAsync(IEnumerable<TPrimaryKey> ids)
+        public virtual Task<TEntity[]> GetByIdsAsync(IEnumerable<TPrimaryKey> ids)
             => Task.FromResult(GetByIds(ids));
 
         /// <inheritdoc />
@@ -127,14 +137,14 @@ namespace Mariowski.Common.DataSource.Repositories
             => Task.FromResult(Update(entity));
 
         /// <inheritdoc />
-        public void Update(IEnumerable<TEntity> entities)
+        public virtual void Update(IEnumerable<TEntity> entities)
         {
             foreach (var entity in entities)
                 Update(entity);
         }
 
         /// <inheritdoc />
-        public Task UpdateAsync(IEnumerable<TEntity> entities)
+        public virtual Task UpdateAsync(IEnumerable<TEntity> entities)
         {
             Update(entities);
             return Task.CompletedTask;
@@ -151,14 +161,14 @@ namespace Mariowski.Common.DataSource.Repositories
         }
 
         /// <inheritdoc />
-        public void Delete(IEnumerable<TEntity> entities)
+        public virtual void Delete(IEnumerable<TEntity> entities)
         {
             foreach (var entity in entities)
                 Delete(entity);
         }
 
         /// <inheritdoc />
-        public Task DeleteAsync(IEnumerable<TEntity> entities)
+        public virtual Task DeleteAsync(IEnumerable<TEntity> entities)
         {
             Delete(entities);
             return Task.CompletedTask;
@@ -200,14 +210,14 @@ namespace Mariowski.Common.DataSource.Repositories
         }
 
         /// <inheritdoc />
-        public void DeleteByIds(IEnumerable<TPrimaryKey> ids)
+        public virtual void DeleteByIds(IEnumerable<TPrimaryKey> ids)
         {
-            foreach (var id in ids)
-                DeleteById(id);
+            var entities = GetAll().Where(e => ids.Contains(e.Id)).ToArray();
+            Delete(entities);
         }
 
         /// <inheritdoc />
-        public Task DeleteByIdsAsync(IEnumerable<TPrimaryKey> ids)
+        public virtual Task DeleteByIdsAsync(IEnumerable<TPrimaryKey> ids)
         {
             DeleteByIds(ids);
             return Task.CompletedTask;

@@ -88,20 +88,20 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <param name="id">Primary key of the entity to get.</param>
         /// <returns>Entity.</returns>
         Task<TEntity> GetByIdAsync(TPrimaryKey id);
-        
-        /// <summary>
-        /// Gets entities with given primary key.
-        /// </summary>
-        /// <param name="ids">Primary key of the entities to get.</param>
-        /// <returns>Entities.</returns>
-        IEnumerable<TEntity> GetByIds(IEnumerable<TPrimaryKey> ids);
 
         /// <summary>
         /// Gets entities with given primary key.
         /// </summary>
         /// <param name="ids">Primary key of the entities to get.</param>
         /// <returns>Entities.</returns>
-        Task<IEnumerable<TEntity>> GetByIdsAsync(IEnumerable<TPrimaryKey> ids);
+        TEntity[] GetByIds(IEnumerable<TPrimaryKey> ids);
+
+        /// <summary>
+        /// Gets entities with given primary key.
+        /// </summary>
+        /// <param name="ids">Primary key of the entities to get.</param>
+        /// <returns>Entities.</returns>
+        Task<TEntity[]> GetByIdsAsync(IEnumerable<TPrimaryKey> ids);
 
         /// <summary>
         /// Gets exactly one entity with given predicate.
@@ -210,7 +210,7 @@ namespace Mariowski.Common.DataSource.Repositories
         /// </summary>
         /// <param name="entities">Entities to be deleted.</param>
         Task DeleteAsync(IEnumerable<TEntity> entities);
-        
+
         /// <summary>
         /// Deletes many entities by function.
         /// </summary>
@@ -246,7 +246,7 @@ namespace Mariowski.Common.DataSource.Repositories
         /// </summary>
         /// <param name="ids">Primary key of the entities.</param>
         Task DeleteByIdsAsync(IEnumerable<TPrimaryKey> ids);
-        
+
         /// <summary>
         /// Gets count of all entities in this repository.
         /// </summary>
