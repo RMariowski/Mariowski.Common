@@ -5,7 +5,7 @@ namespace Mariowski.Common.DataSource.UnitTests.Implementations
 {
     public sealed class EntityImpl : Entity<int>
     {
-        public Guid Value { get; } = Guid.NewGuid();
+        public Guid Value { get; set; } = Guid.NewGuid();
 
         public EntityImpl()
         {

@@ -25,14 +25,26 @@ namespace Mariowski.Common.DataSource.Repositories
             if (entity.IsTransient())
                 throw new ArgumentException("Cannot insert transient entity to in-memory repository.", nameof(entity));
 
-            if (_memory.Any(e => e.Key.Equals(entity.Id)))
-            {
-                throw new InvalidOperationException(
-                    $"Cannot add entity with id {entity.Id} that is already added.");
-            }
-
             // FIXME: When TryAdd() return false, should exception be thrown?
-            _memory.TryAdd(entity.Id, entity);
+            bool added = _memory.TryAdd(entity.Id, entity);
+            if (!added)
+                throw new InvalidOperationException($"Cannot add entity with id {entity.Id} that is already added.");
+
+            return entity;
+        }
+
+        /// <inheritdoc />
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="entity"/> is null.</exception>
+        /// <exception cref="T:System.ArgumentException"><paramref name="entity"/> is transient.</exception>
+        public override TEntity InsertOrUpdate(TEntity entity)
+        {
+            if (entity is null)
+                throw new ArgumentNullException(nameof(entity), "Entity cannot be null.");
+
+            if (entity.IsTransient())
+                throw new ArgumentException("Cannot insert transient entity to in-memory repository.", nameof(entity));
+
+            entity = _memory.AddOrUpdate(entity.Id, entity, (id, e) => entity);
 
             return entity;
         }

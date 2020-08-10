@@ -1,145 +1,166 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Mariowski.Common.DataSource.UnitTests.Implementations;
 using Xunit;
 
 namespace Mariowski.Common.DataSource.UnitTests.Repositories
 {
-    public class InMemoryRepositoryTests
+    public partial class InMemoryRepositoryTests
     {
-        [Fact]
-        public void Insert_InsertNewEntityShouldAddEntityToMemory()
-        {
-            var repository = new InMemoryRepositoryImpl();
-            var entity = new EntityImpl(1);
+        private readonly InMemoryRepositoryImpl _repository;
 
-            repository.Insert(entity);
-            repository.Count().Should().BeGreaterThan(0);
-            repository.GetAll().Any(e => e.Id == entity.Id && e.Value == entity.Value).Should().BeTrue();
+        public InMemoryRepositoryTests()
+        {
+            _repository = new InMemoryRepositoryImpl();
+        }
+
+        [Fact]
+        public void InsertOrUpdate_ShouldAddEntity_WhenDoesNotExists()
+        {
+            var entity = new EntityImpl(1);
+            _repository.Insert(entity);
+
+            _repository.InsertOrUpdate(entity);
+
+            _repository.GetAll().Any(e => e.Id == entity.Id && e.Value == entity.Value).Should().BeTrue();
+        }
+
+        [Fact]
+        public void InsertOrUpdate_ShouldUpdateEntity_WhenExists()
+        {
+            var newValue = Guid.NewGuid();
+            var entity = new EntityImpl(1);
+            _repository.Insert(entity);
+            entity.Value = newValue;
+
+            _repository.InsertOrUpdate(entity);
+
+            _repository.GetAll().Any(e => e.Id == entity.Id && e.Value == newValue).Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task InsertOrUpdateAsync_ShouldAddEntity_WhenDoesNotExists()
+        {
+            var entity = new EntityImpl(1);
+            _repository.Insert(entity);
+
+            await _repository.InsertOrUpdateAsync(entity);
+
+            _repository.GetAll().Any(e => e.Id == entity.Id && e.Value == entity.Value).Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task InsertOrUpdateAsync_ShouldUpdateEntity_WhenExists()
+        {
+            var newValue = Guid.NewGuid();
+            var entity = new EntityImpl(1);
+            _repository.Insert(entity);
+            entity.Value = newValue;
+
+            await _repository.InsertOrUpdateAsync(entity);
+
+            _repository.GetAll().Any(e => e.Id == entity.Id && e.Value == newValue).Should().BeTrue();
         }
 
         [Fact]
         public void GetAllIncluding_GetAllShouldReturnAddedEntitiesFromMemory()
         {
-            var repository = new InMemoryRepositoryImpl();
-            repository.Insert(new EntityImpl(1));
-            repository.Insert(new EntityImpl(2));
-            repository.Insert(new EntityImpl(3));
+            _repository.Insert(new EntityImpl(1));
+            _repository.Insert(new EntityImpl(2));
+            _repository.Insert(new EntityImpl(3));
 
-            repository.Count().Should().Be(3);
-            var array = repository.GetAll().ToArray();
+            _repository.Count().Should().Be(3);
+            var array = _repository.GetAll().ToArray();
             array[0].Id.Should().Be(1);
             array[1].Id.Should().Be(2);
             array[2].Id.Should().Be(3);
         }
 
         [Fact]
-        public void Update_UpdateShouldReplaceEntityInMemory()
+        public void GetById_Should()
         {
-            var repository = new InMemoryRepositoryImpl();
-            repository.Insert(new EntityImpl(1));
+            const int id = 54;
+
+            _repository.Insert(new EntityImpl(23));
+            _repository.Insert(new EntityImpl(id));
+            _repository.Insert(new EntityImpl(1));
+
+            var entity = _repository.GetById(id);
+
+            entity.Should().NotBeNull();
+            entity.Id.Should().Be(id);
+        }
+
+        [Fact]
+        public void Update_ShouldReplaceEntityInMemory()
+        {
+            _repository.Insert(new EntityImpl(1));
             var newEntity = new EntityImpl(1);
 
-            repository.Count().Should().Be(1);
-            repository.Update(newEntity);
-            repository.Count().Should().Be(1);
-            repository.GetAll().First().Value.Should().Be(newEntity.Value);
+            _repository.Count().Should().Be(1);
+            _repository.Update(newEntity);
+            _repository.Count().Should().Be(1);
+            _repository.GetAll().First().Value.Should().Be(newEntity.Value);
         }
 
         [Fact]
         public void Delete_DeleteEntityShouldRemoveEntityFromMemory()
         {
-            var repository = new InMemoryRepositoryImpl();
             var entity = new EntityImpl(1);
 
-            repository.Insert(entity);
-            repository.Delete(entity);
-            repository.Count().Should().Be(0);
+            _repository.Insert(entity);
+            _repository.Delete(entity);
+            _repository.Count().Should().Be(0);
         }
 
         [Fact]
         public void Delete_DeleteNotAddedEntityShouldDoNothing()
         {
-            var repository = new InMemoryRepositoryImpl();
             var entity = new EntityImpl(1);
             var entity2 = new EntityImpl(2);
 
-            repository.Insert(entity);
-            repository.Delete(entity2);
-            repository.Count().Should().Be(1);
-        }
-
-        [Fact]
-        public void Insert_InsertNullShouldThrowException()
-        {
-            var repository = new InMemoryRepositoryImpl();
-
-            Assert.Throws<ArgumentNullException>(() => repository.Insert(null));
-        }
-
-        [Fact]
-        public void Insert_InsertTransientEntityShouldThrowException()
-        {
-            var repository = new InMemoryRepositoryImpl();
-            var entity = new EntityImpl();
-
-            Assert.Throws<ArgumentException>(() => repository.Insert(entity));
-        }
-
-        [Fact]
-        public void Insert_InsertEntityWithIdThatIsAlreadyAddedShouldThrowException()
-        {
-            var repository = new InMemoryRepositoryImpl();
-            var entity = new EntityImpl(1);
-            var entity2 = new EntityImpl(entity.Id);
-
-            repository.Insert(entity);
-            Assert.Throws<InvalidOperationException>(() => repository.Insert(entity2));
+            _repository.Insert(entity);
+            _repository.Delete(entity2);
+            _repository.Count().Should().Be(1);
         }
 
         [Fact]
         public void Update_UpdateNullShouldThrowException()
         {
-            var repository = new InMemoryRepositoryImpl();
-
-            Assert.Throws<ArgumentNullException>(() => repository.Update(null));
+            Assert.Throws<ArgumentNullException>(() => _repository.Update((EntityImpl)null));
         }
 
         [Fact]
         public void Update_UpdateTransientEntityShouldThrowException()
         {
-            var repository = new InMemoryRepositoryImpl();
             var entity = new EntityImpl();
 
-            Assert.Throws<ArgumentException>(() => repository.Update(entity));
+            Assert.Throws<ArgumentException>(() => _repository.Update(entity));
         }
 
         [Fact]
         public void Update_UpdateEntityWithIdThatIsNotAddedShouldThrowException()
         {
-            var repository = new InMemoryRepositoryImpl();
             var entity = new EntityImpl(1);
 
-            Assert.Throws<KeyNotFoundException>(() => repository.Update(entity));
+            Assert.Throws<KeyNotFoundException>(() => _repository.Update(entity));
         }
 
         [Fact]
         public void Delete_DeleteNullShouldThrowException()
         {
-            var repository = new InMemoryRepositoryImpl();
-
-            Assert.Throws<ArgumentNullException>(() => repository.Delete((EntityImpl)null));
+            Assert.Throws<ArgumentNullException>(() => _repository.Delete((EntityImpl)null));
         }
 
         [Fact]
         public void Delete_DeleteTransientEntity1ShouldThrowException()
         {
-            var repository = new InMemoryRepositoryImpl();
             var entity = new EntityImpl();
 
-            Assert.Throws<ArgumentException>(() => repository.Delete(entity));
+            Assert.Throws<ArgumentException>(() => _repository.Delete(entity));
         }
     }
 }
