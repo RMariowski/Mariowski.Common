@@ -30,21 +30,35 @@ namespace Mariowski.Common.EntityFramework
         /// <summary>
         /// Inserts a new entity.
         /// </summary>
-        /// <param name="entity">Inserted entity</param>
-        /// <returns>Entity</returns>
+        /// <param name="entity">Entity to insert.</param>
+        /// <returns>Entity.</returns>
         public override TEntity Insert(TEntity entity)
             => Table.Add(entity).Entity;
 
         /// <summary>
         /// Inserts a new entity.
         /// </summary>
-        /// <param name="entity">Inserted entity</param>
-        /// <returns>Entity</returns>
+        /// <param name="entity">Entity to insert.</param>
+        /// <returns>Entity.</returns>
         public override async Task<TEntity> InsertAsync(TEntity entity)
         {
             var entityEntry = await Table.AddAsync(entity);
             return entityEntry.Entity;
         }
+
+        /// <summary>
+        /// Inserts new entities.
+        /// </summary>
+        /// <param name="entities">Entities to insert.</param>
+        public override void Insert(IEnumerable<TEntity> entities)
+            => Table.AddRange(entities);
+
+        /// <summary>
+        /// Inserts new entities.
+        /// </summary>
+        /// <param name="entities">Entities to insert.</param>
+        public override Task InsertAsync(IEnumerable<TEntity> entities)
+            => Table.AddRangeAsync(entities);
 
         /// <summary>
         /// Used to get a <see cref="T:System.Linq.IQueryable"/> that is used to retrieve entities from entire set/table.
@@ -64,21 +78,12 @@ namespace Mariowski.Common.EntityFramework
         }
 
         /// <summary>
-        /// Gets an entity with given primary key.
+        /// Gets entities with given primary key.
         /// </summary>
-        /// <param name="id">Primary key of the entity to get.</param>
-        /// <returns>Entity.</returns>
-        public override async Task<TEntity> GetByIdAsync(TPrimaryKey id)
-        {
-            var entity = await FirstOrDefaultByIdAsync(id);
-            if (entity is null)
-            {
-                throw new KeyNotFoundException(
-                    $"There is no such an entity with given primary key. Entity type: {typeof(TEntity).FullName}, primary key: {id}");
-            }
-
-            return entity;
-        }
+        /// <param name="ids">Primary key of the entities to get.</param>
+        /// <returns>Entities.</returns>
+        public override Task<TEntity[]> GetByIdsAsync(IEnumerable<TPrimaryKey> ids)
+            => GetAll().Where(e => ids.Contains(e.Id)).ToArrayAsync();
 
         /// <summary>
         /// Gets exactly one entity with given predicate.
@@ -95,7 +100,7 @@ namespace Mariowski.Common.EntityFramework
         /// <param name="id">Primary key of the entity to get.</param>
         /// <returns>Entity or null.</returns>
         public override Task<TEntity> FirstOrDefaultByIdAsync(TPrimaryKey id)
-            => GetAll().FirstOrDefaultAsync(CreateEqualityExpressionForId(id));
+            => GetAll().FirstOrDefaultAsync(e => id.Equals(e.Id));
 
         /// <summary>
         /// Gets an entity with given predicate or null if not found.
@@ -143,6 +148,23 @@ namespace Mariowski.Common.EntityFramework
             var entities = await GetAll().Where(predicate).ToListAsync();
             foreach (var entity in entities)
                 Delete(entity);
+        }
+
+        /// <summary>
+        /// Deletes entities.
+        /// </summary>
+        /// <param name="entities">Entities to be deleted.</param>
+        public override void Delete(IEnumerable<TEntity> entities)
+            => Table.RemoveRange(entities);
+
+        /// <summary>
+        /// Deletes entities by primary key.
+        /// </summary>
+        /// <param name="ids">Primary key of the entities.</param>
+        public override async Task DeleteByIdsAsync(IEnumerable<TPrimaryKey> ids)
+        {
+            var entities = await GetAll().Where(e => ids.Contains(e.Id)).ToArrayAsync();
+            await DeleteAsync(entities);
         }
 
         /// <summary>

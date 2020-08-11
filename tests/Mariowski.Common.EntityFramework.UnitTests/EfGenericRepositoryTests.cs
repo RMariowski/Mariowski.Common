@@ -12,9 +12,9 @@ namespace Mariowski.Common.EntityFramework.UnitTests
             await using var context = new TestContext();
             var dummyRepository = new DummyRepository(context);
 
-            int id = await dummyRepository.InsertAndGetIdAsync(new DummyEntity { Foo = "Insert" });
+            var entity = await dummyRepository.InsertAsync(new DummyEntity { Foo = "Insert" });
 
-            id.Should().Be(1);
+            entity.Id.Should().Be(1);
         }
 
         [Fact]
