@@ -121,8 +121,8 @@ namespace Mariowski.Common.EntityFramework
         /// <summary>
         /// Updates an existing entity.
         /// </summary>
-        /// <param name="entity">Entity</param>
-        /// <returns>Entity</returns>
+        /// <param name="entity">Entity to update.</param>
+        /// <returns>Entity.</returns>
         public override TEntity Update(TEntity entity)
         {
             if (entity is ITimestampable timestampableEntity)
