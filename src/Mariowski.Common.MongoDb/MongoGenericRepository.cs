@@ -9,8 +9,8 @@ using MongoDB.Driver;
 
 namespace Mariowski.Common.MongoDb
 {
-    public abstract class MongoGenericRepository<TEntity, TIdentificator> : GenericRepository<TEntity, TIdentificator>
-        where TEntity : class, IEntity<TIdentificator>
+    public abstract class MongoGenericRepository<TEntity, TPrimaryKey> : GenericRepository<TEntity, TPrimaryKey>
+        where TEntity : class, IEntity<TPrimaryKey>
     {
         public IMongoDatabase Database { get; }
         public IMongoCollection<TEntity> Collection { get; }
@@ -91,8 +91,8 @@ namespace Mariowski.Common.MongoDb
         /// </summary>
         /// <param name="id">Primary key of the entity to get.</param>
         /// <returns>Entity or null.</returns>
-        public override Task<TEntity> FirstOrDefaultByIdAsync(TIdentificator id)
-            => Collection.Find(e => id.Equals(e.Id)).FirstOrDefaultAsync();
+        public override Task<TEntity> FirstOrDefaultByIdAsync(TPrimaryKey id)
+            => Collection.Find(CreateEqualityExpressionForId(id)).FirstOrDefaultAsync();
 
         /// <summary>
         /// Gets an entity with given predicate or null if not found.
@@ -120,7 +120,7 @@ namespace Mariowski.Common.MongoDb
             if (entity is ITimestampable timestampableEntity)
                 timestampableEntity.UpdatedAt = DateTime.UtcNow;
 
-            Collection.ReplaceOne(e => entity.Id.Equals(e.Id), entity);
+            Collection.ReplaceOne(CreateEqualityExpressionForId(entity.Id), entity);
             return entity;
         }
 
@@ -129,7 +129,7 @@ namespace Mariowski.Common.MongoDb
         /// </summary>
         /// <param name="entity">Entity to be deleted.</param>
         public override void Delete(TEntity entity)
-            => Collection.DeleteOne(e => entity.Id.Equals(e.Id));
+            => Collection.DeleteOne(CreateEqualityExpressionForId(entity.Id));
 
         /// <summary>
         /// Deletes many entities by function.
