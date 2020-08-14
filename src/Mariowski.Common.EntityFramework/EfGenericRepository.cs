@@ -100,7 +100,7 @@ namespace Mariowski.Common.EntityFramework
         /// <param name="id">Primary key of the entity to get.</param>
         /// <returns>Entity or null.</returns>
         public override Task<TEntity> FirstOrDefaultByIdAsync(TPrimaryKey id)
-            => GetAll().FirstOrDefaultAsync(e => id.Equals(e.Id));
+            => GetAll().FirstOrDefaultAsync(CreateEqualityExpressionForId(id));
 
         /// <summary>
         /// Gets an entity with given predicate or null if not found.
