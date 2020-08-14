@@ -5,15 +5,15 @@
     <Authors>Radosław Mariowski</Authors>
     <Company />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>3.2.1</Version>
+    <Version>3.2.2</Version>
     <PackageProjectUrl>https://github.com/Xandev/Mariowski.Common</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Xandev/Mariowski.Common</RepositoryUrl>
     <PackageLicenseUrl></PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mariowski.Common.DataSource" Version="3.2.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="Mariowski.Common.DataSource" Version="3.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.7" />
   </ItemGroup>
 
 </Project>
