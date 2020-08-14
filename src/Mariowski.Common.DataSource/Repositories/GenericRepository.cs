@@ -107,7 +107,7 @@ namespace Mariowski.Common.DataSource.Repositories
 
         /// <inheritdoc />
         public virtual TEntity FirstOrDefaultById(TPrimaryKey id)
-            => GetAll().FirstOrDefault(e => id.Equals(e.Id));
+            => GetAll().FirstOrDefault(CreateEqualityExpressionForId(id));
 
         /// <inheritdoc />
         public virtual Task<TEntity> FirstOrDefaultByIdAsync(TPrimaryKey id)
@@ -254,5 +254,23 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <inheritdoc />
         public virtual Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate)
             => Task.FromResult(LongCount(predicate));
+        
+        /// <summary>
+        /// Creates expression tree for <see cref="T:TPrimaryKey"/> equality.
+        /// </summary>
+        /// <param name="id"><see cref="T:TPrimaryKey"/> of entity.</param>
+        /// <returns>Expression tree.</returns>
+        protected virtual Expression<Func<TEntity, bool>> CreateEqualityExpressionForId(TPrimaryKey id)
+        {
+            var lambdaParam = Expression.Parameter(typeof(TEntity));
+
+            var leftExpression = Expression.PropertyOrField(lambdaParam, "Id");
+
+            Expression<Func<object>> closure = () => id;
+            var rightExpression = Expression.Convert(closure.Body, leftExpression.Type);
+
+            var lambdaBody = Expression.Equal(leftExpression, rightExpression);
+            return Expression.Lambda<Func<TEntity, bool>>(lambdaBody, lambdaParam);
+        }
     }
 }
