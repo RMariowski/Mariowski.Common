@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mariowski.Common.DataSource" Version="3.2.2" />
+    <PackageReference Include="Mariowski.Common.DataSource" Version="3.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.7" />
   </ItemGroup>
 

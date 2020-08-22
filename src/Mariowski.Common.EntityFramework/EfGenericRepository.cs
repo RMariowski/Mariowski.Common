@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Mariowski.Common.EntityFramework
@@ -39,10 +40,11 @@ namespace Mariowski.Common.EntityFramework
         /// Inserts a new entity.
         /// </summary>
         /// <param name="entity">Entity to insert.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>Entity.</returns>
-        public override async Task<TEntity> InsertAsync(TEntity entity)
+        public override async Task<TEntity> InsertAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
-            var entityEntry = await Table.AddAsync(entity);
+            var entityEntry = await Table.AddAsync(entity, cancellationToken);
             return entityEntry.Entity;
         }
 
@@ -57,8 +59,9 @@ namespace Mariowski.Common.EntityFramework
         /// Inserts new entities.
         /// </summary>
         /// <param name="entities">Entities to insert.</param>
-        public override Task InsertAsync(IEnumerable<TEntity> entities)
-            => Table.AddRangeAsync(entities);
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
+        public override Task InsertAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+            => Table.AddRangeAsync(entities, cancellationToken);
 
         /// <summary>
         /// Used to get a <see cref="T:System.Linq.IQueryable"/> that is used to retrieve entities from entire set/table.
@@ -81,42 +84,52 @@ namespace Mariowski.Common.EntityFramework
         /// Gets entities with given primary key.
         /// </summary>
         /// <param name="ids">Primary key of the entities to get.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>Entities.</returns>
-        public override Task<TEntity[]> GetByIdsAsync(IEnumerable<TPrimaryKey> ids)
-            => GetAll().Where(e => ids.Contains(e.Id)).ToArrayAsync();
+        public override Task<TEntity[]> GetByIdsAsync(IEnumerable<TPrimaryKey> ids,
+            CancellationToken cancellationToken = default)
+            => GetAll().Where(e => ids.Contains(e.Id)).ToArrayAsync(cancellationToken);
 
         /// <summary>
         /// Gets exactly one entity with given predicate.
         /// Throws exception if no entity or more than one entity.
         /// </summary>
         /// <param name="predicate">Predicate to filter entities.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>Entity.</returns>
-        public override Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate)
-            => GetAll().SingleAsync(predicate);
+        public override Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken = default)
+            => GetAll().SingleAsync(predicate, cancellationToken);
 
         /// <summary>
         /// Gets an entity with given primary key or null if not found.
         /// </summary>
         /// <param name="id">Primary key of the entity to get.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>Entity or null.</returns>
-        public override Task<TEntity> FirstOrDefaultByIdAsync(TPrimaryKey id)
-            => GetAll().FirstOrDefaultAsync(CreateEqualityExpressionForId(id));
+        public override Task<TEntity> FirstOrDefaultByIdAsync(TPrimaryKey id,
+            CancellationToken cancellationToken = default)
+            => GetAll().FirstOrDefaultAsync(CreateEqualityExpressionForId(id), cancellationToken);
 
         /// <summary>
         /// Gets an entity with given predicate or null if not found.
         /// </summary>
         /// <param name="predicate">Predicate to filter entities.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>Entity or null.</returns>
-        public override Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
-            => GetAll().FirstOrDefaultAsync(predicate);
+        public override Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken = default)
+            => GetAll().FirstOrDefaultAsync(predicate, cancellationToken);
 
         /// <summary>
         /// Checks whatever any entity matches <paramref name="predicate"/>.
         /// </summary>
         /// <param name="predicate">Predicate to filter entities.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>True if any entity matches predicate, false otherwise.</returns>
-        public override Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate)
-            => GetAll().AnyAsync(predicate);
+        public override Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken = default)
+            => GetAll().AnyAsync(predicate, cancellationToken);
 
         /// <summary>
         /// Updates an existing entity.
@@ -143,9 +156,11 @@ namespace Mariowski.Common.EntityFramework
         /// Deletes many entities by function.
         /// </summary>
         /// <param name="predicate">Predicate to filter entities.</param>
-        public override async Task DeleteAsync(Expression<Func<TEntity, bool>> predicate)
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
+        public override async Task DeleteAsync(Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken = default)
         {
-            var entities = await GetAll().Where(predicate).ToListAsync();
+            var entities = await GetAll().Where(predicate).ToListAsync(cancellationToken);
             foreach (var entity in entities)
                 Delete(entity);
         }
@@ -161,40 +176,46 @@ namespace Mariowski.Common.EntityFramework
         /// Deletes entities by primary key.
         /// </summary>
         /// <param name="ids">Primary key of the entities.</param>
-        public override async Task DeleteByIdsAsync(IEnumerable<TPrimaryKey> ids)
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
+        public override async Task DeleteByIdsAsync(IEnumerable<TPrimaryKey> ids,
+            CancellationToken cancellationToken = default)
         {
-            var entities = await GetAll().Where(e => ids.Contains(e.Id)).ToArrayAsync();
-            await DeleteAsync(entities);
+            var entities = await GetAll().Where(e => ids.Contains(e.Id)).ToArrayAsync(cancellationToken);
+            await DeleteAsync(entities, cancellationToken);
         }
 
         /// <summary>
         /// Gets count of all entities in this repository.
         /// </summary>
         /// <returns>Count of entities.</returns>
-        public override Task<int> CountAsync()
-            => GetAll().CountAsync();
+        public override Task<int> CountAsync(CancellationToken cancellationToken = default)
+            => GetAll().CountAsync(cancellationToken);
 
         /// <summary>
         /// Gets count of all entities in this repository based on given <paramref name="predicate"/>.
         /// </summary>
         /// <param name="predicate">A method to filter count.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>Count of entities.</returns>
-        public override Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate)
-            => GetAll().CountAsync(predicate);
+        public override Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken = default)
+            => GetAll().CountAsync(predicate, cancellationToken);
 
         /// <summary>
         /// Gets long count of all entities in this repository.
         /// </summary>
         /// <returns>Long count of entities.</returns>
-        public override Task<long> LongCountAsync()
-            => GetAll().LongCountAsync();
+        public override Task<long> LongCountAsync(CancellationToken cancellationToken = default)
+            => GetAll().LongCountAsync(cancellationToken);
 
         /// <summary>
         /// Gets long count of all entities in this repository based on given <paramref name="predicate"/>.
         /// </summary>
         /// <param name="predicate">A method to filter count.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>Long count of entities.</returns>
-        public override Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate)
-            => GetAll().LongCountAsync(predicate);
+        public override Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken = default)
+            => GetAll().LongCountAsync(predicate, cancellationToken);
     }
 }
