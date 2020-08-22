@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Mariowski.Common.DataSource.Entities;
 
 namespace Mariowski.Common.DataSource.Repositories
 {
-    public interface IGenericRepository<TEntity, TPrimaryKey> : IRepository
+    public interface IGenericRepository<TEntity, in TPrimaryKey> : IRepository
         where TEntity : class, IEntity<TPrimaryKey>
     {
         /// <summary>
@@ -21,8 +22,9 @@ namespace Mariowski.Common.DataSource.Repositories
         /// Inserts a new entity.
         /// </summary>
         /// <param name="entity">Entity to insert.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>Entity.</returns>
-        Task<TEntity> InsertAsync(TEntity entity);
+        Task<TEntity> InsertAsync(TEntity entity, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Inserts new entities.
@@ -34,7 +36,8 @@ namespace Mariowski.Common.DataSource.Repositories
         /// Inserts new entities.
         /// </summary>
         /// <param name="entities">Entities to insert.</param>
-        Task InsertAsync(IEnumerable<TEntity> entities);
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
+        Task InsertAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Inserts or updates given entity depending on Id's value.
@@ -47,8 +50,9 @@ namespace Mariowski.Common.DataSource.Repositories
         /// Inserts or updates given entity depending on Id's value.
         /// </summary>
         /// <param name="entity">Entity.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>Entity.</returns>
-        Task<TEntity> InsertOrUpdateAsync(TEntity entity);
+        Task<TEntity> InsertOrUpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Inserts or updates given entities depending on theirs Id's value.
@@ -60,7 +64,8 @@ namespace Mariowski.Common.DataSource.Repositories
         /// Inserts or updates given entities depending on theirs Id's value.
         /// </summary>
         /// <param name="entities">Entities.</param>
-        Task InsertOrUpdateAsync(IEnumerable<TEntity> entities);
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
+        Task InsertOrUpdateAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Used to get a <see cref="T:System.Linq.IQueryable"/> that is used to retrieve entities from entire set/table.
@@ -86,8 +91,9 @@ namespace Mariowski.Common.DataSource.Repositories
         /// Gets an entity with given primary key.
         /// </summary>
         /// <param name="id">Primary key of the entity to get.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>Entity.</returns>
-        Task<TEntity> GetByIdAsync(TPrimaryKey id);
+        Task<TEntity> GetByIdAsync(TPrimaryKey id, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets entities with given primary key.
@@ -100,8 +106,9 @@ namespace Mariowski.Common.DataSource.Repositories
         /// Gets entities with given primary key.
         /// </summary>
         /// <param name="ids">Primary key of the entities to get.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>Entities.</returns>
-        Task<TEntity[]> GetByIdsAsync(IEnumerable<TPrimaryKey> ids);
+        Task<TEntity[]> GetByIdsAsync(IEnumerable<TPrimaryKey> ids, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets exactly one entity with given predicate.
@@ -116,8 +123,10 @@ namespace Mariowski.Common.DataSource.Repositories
         /// Throws exception if no entity or more than one entity.
         /// </summary>
         /// <param name="predicate">Predicate to filter entities.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>Entity.</returns>
-        Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets an entity with given primary key or null if not found.
@@ -130,8 +139,9 @@ namespace Mariowski.Common.DataSource.Repositories
         /// Gets an entity with given primary key or null if not found.
         /// </summary>
         /// <param name="id">Primary key of the entity to get.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>Entity or null.</returns>
-        Task<TEntity> FirstOrDefaultByIdAsync(TPrimaryKey id);
+        Task<TEntity> FirstOrDefaultByIdAsync(TPrimaryKey id, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets an entity with given predicate or null if not found.
@@ -144,8 +154,10 @@ namespace Mariowski.Common.DataSource.Repositories
         /// Gets an entity with given predicate or null if not found.
         /// </summary>
         /// <param name="predicate">Predicate to filter entities.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>Entity or null.</returns>
-        Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Checks whatever any entity matches <paramref name="predicate"/>.
@@ -158,8 +170,9 @@ namespace Mariowski.Common.DataSource.Repositories
         /// Checks whatever any entity matches <paramref name="predicate"/>.
         /// </summary>
         /// <param name="predicate">Predicate to filter entities.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>True if any entity matches predicate, false otherwise.</returns>
-        Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Updates an existing entity.
@@ -172,8 +185,9 @@ namespace Mariowski.Common.DataSource.Repositories
         /// Updates an existing entity.
         /// </summary>
         /// <param name="entity">Entity to update.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>Entity.</returns>
-        Task<TEntity> UpdateAsync(TEntity entity);
+        Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Updates existing entities.
@@ -185,7 +199,8 @@ namespace Mariowski.Common.DataSource.Repositories
         /// Updates existing entities.
         /// </summary>
         /// <param name="entities">Entities to update.</param>
-        Task UpdateAsync(IEnumerable<TEntity> entities);
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
+        Task UpdateAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Deletes an entity.
@@ -197,7 +212,8 @@ namespace Mariowski.Common.DataSource.Repositories
         /// Deletes an entity.
         /// </summary>
         /// <param name="entity">Entity to be deleted.</param>
-        Task DeleteAsync(TEntity entity);
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
+        Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Deletes entities.
@@ -209,7 +225,8 @@ namespace Mariowski.Common.DataSource.Repositories
         /// Deletes entities.
         /// </summary>
         /// <param name="entities">Entities to be deleted.</param>
-        Task DeleteAsync(IEnumerable<TEntity> entities);
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
+        Task DeleteAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Deletes many entities by function.
@@ -221,7 +238,8 @@ namespace Mariowski.Common.DataSource.Repositories
         /// Deletes many entities by function.
         /// </summary>
         /// <param name="predicate">Predicate to filter entities.</param>
-        Task DeleteAsync(Expression<Func<TEntity, bool>> predicate);
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
+        Task DeleteAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Deletes an entity by primary key.
@@ -233,7 +251,8 @@ namespace Mariowski.Common.DataSource.Repositories
         /// Deletes an entity by primary key.
         /// </summary>
         /// <param name="id">Primary key of the entity.</param>
-        Task DeleteByIdAsync(TPrimaryKey id);
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
+        Task DeleteByIdAsync(TPrimaryKey id, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Deletes entities by primary key.
@@ -245,7 +264,8 @@ namespace Mariowski.Common.DataSource.Repositories
         /// Deletes entities by primary key.
         /// </summary>
         /// <param name="ids">Primary key of the entities.</param>
-        Task DeleteByIdsAsync(IEnumerable<TPrimaryKey> ids);
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
+        Task DeleteByIdsAsync(IEnumerable<TPrimaryKey> ids, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets count of all entities in this repository.
@@ -256,8 +276,9 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <summary>
         /// Gets count of all entities in this repository.
         /// </summary>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>Count of entities.</returns>
-        Task<int> CountAsync();
+        Task<int> CountAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets count of all entities in this repository based on given <paramref name="predicate"/>.
@@ -270,8 +291,9 @@ namespace Mariowski.Common.DataSource.Repositories
         /// Gets count of all entities in this repository based on given <paramref name="predicate"/>.
         /// </summary>
         /// <param name="predicate">A method to filter count.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>Count of entities.</returns>
-        Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets long count of all entities in this repository.
@@ -282,8 +304,9 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <summary>
         /// Gets long count of all entities in this repository.
         /// </summary>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>Long count of entities.</returns>
-        Task<long> LongCountAsync();
+        Task<long> LongCountAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets long count of all entities in this repository based on given <paramref name="predicate"/>.
@@ -296,7 +319,9 @@ namespace Mariowski.Common.DataSource.Repositories
         /// Gets long count of all entities in this repository based on given <paramref name="predicate"/>.
         /// </summary>
         /// <param name="predicate">A method to filter count.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns>Long count of entities.</returns>
-        Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken = default);
     }
 }

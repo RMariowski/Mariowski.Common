@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Mariowski.Common.DataSource.Entities;
 
@@ -14,8 +15,12 @@ namespace Mariowski.Common.DataSource.Repositories
         public abstract TEntity Insert(TEntity entity);
 
         /// <inheritdoc />
-        public virtual Task<TEntity> InsertAsync(TEntity entity)
-            => Task.FromResult(Insert(entity));
+        public virtual Task<TEntity> InsertAsync(TEntity entity, CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            return Task.FromResult(Insert(entity));
+        }
 
         /// <inheritdoc />
         public virtual void Insert(IEnumerable<TEntity> entities)
@@ -25,8 +30,10 @@ namespace Mariowski.Common.DataSource.Repositories
         }
 
         /// <inheritdoc />
-        public virtual Task InsertAsync(IEnumerable<TEntity> entities)
+        public virtual Task InsertAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             Insert(entities);
             return Task.CompletedTask;
         }
@@ -36,8 +43,8 @@ namespace Mariowski.Common.DataSource.Repositories
             => entity.IsTransient() ? Insert(entity) : Update(entity);
 
         /// <inheritdoc />
-        public virtual Task<TEntity> InsertOrUpdateAsync(TEntity entity)
-            => entity.IsTransient() ? InsertAsync(entity) : UpdateAsync(entity);
+        public virtual Task<TEntity> InsertOrUpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
+            => entity.IsTransient() ? InsertAsync(entity, cancellationToken) : UpdateAsync(entity, cancellationToken);
 
         /// <inheritdoc />
         public virtual void InsertOrUpdate(IEnumerable<TEntity> entities)
@@ -47,8 +54,11 @@ namespace Mariowski.Common.DataSource.Repositories
         }
 
         /// <inheritdoc />
-        public virtual Task InsertOrUpdateAsync(IEnumerable<TEntity> entities)
+        public virtual Task InsertOrUpdateAsync(IEnumerable<TEntity> entities,
+            CancellationToken cancellationToken = default)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             InsertOrUpdate(entities);
             return Task.CompletedTask;
         }
@@ -77,9 +87,9 @@ namespace Mariowski.Common.DataSource.Repositories
 
         /// <inheritdoc />
         /// <exception cref="T:KeyNotFoundException">Entity with given <paramref name="id"></paramref> not found.</exception>
-        public virtual async Task<TEntity> GetByIdAsync(TPrimaryKey id)
+        public virtual async Task<TEntity> GetByIdAsync(TPrimaryKey id, CancellationToken cancellationToken = default)
         {
-            var entity = await FirstOrDefaultByIdAsync(id);
+            var entity = await FirstOrDefaultByIdAsync(id, cancellationToken);
             if (entity is null)
             {
                 throw new KeyNotFoundException(
@@ -94,47 +104,76 @@ namespace Mariowski.Common.DataSource.Repositories
             => GetAll().Where(e => ids.Contains(e.Id)).ToArray();
 
         /// <inheritdoc />
-        public virtual Task<TEntity[]> GetByIdsAsync(IEnumerable<TPrimaryKey> ids)
-            => Task.FromResult(GetByIds(ids));
+        public virtual Task<TEntity[]> GetByIdsAsync(IEnumerable<TPrimaryKey> ids,
+            CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            return Task.FromResult(GetByIds(ids));
+        }
 
         /// <inheritdoc />
         public virtual TEntity Single(Expression<Func<TEntity, bool>> predicate)
             => GetAll().Single(predicate);
 
         /// <inheritdoc />
-        public virtual Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate)
-            => Task.FromResult(Single(predicate));
+        public virtual Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            return Task.FromResult(Single(predicate));
+        }
 
         /// <inheritdoc />
         public virtual TEntity FirstOrDefaultById(TPrimaryKey id)
             => GetAll().FirstOrDefault(CreateEqualityExpressionForId(id));
 
         /// <inheritdoc />
-        public virtual Task<TEntity> FirstOrDefaultByIdAsync(TPrimaryKey id)
-            => Task.FromResult(FirstOrDefaultById(id));
+        public virtual Task<TEntity> FirstOrDefaultByIdAsync(TPrimaryKey id,
+            CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            return Task.FromResult(FirstOrDefaultById(id));
+        }
 
         /// <inheritdoc />
         public virtual TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate)
             => GetAll().FirstOrDefault(predicate);
 
         /// <inheritdoc />
-        public virtual Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
-            => Task.FromResult(FirstOrDefault(predicate));
+        public virtual Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            return Task.FromResult(FirstOrDefault(predicate));
+        }
 
         /// <inheritdoc />
         public virtual bool Any(Expression<Func<TEntity, bool>> predicate)
             => GetAll().Any(predicate);
 
         /// <inheritdoc />
-        public virtual Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate)
-            => Task.FromResult(Any(predicate));
+        public virtual Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            return Task.FromResult(Any(predicate));
+        }
 
         /// <inheritdoc />
         public abstract TEntity Update(TEntity entity);
 
         /// <inheritdoc />
-        public virtual Task<TEntity> UpdateAsync(TEntity entity)
-            => Task.FromResult(Update(entity));
+        public virtual Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            return Task.FromResult(Update(entity));
+        }
 
         /// <inheritdoc />
         public virtual void Update(IEnumerable<TEntity> entities)
@@ -144,8 +183,10 @@ namespace Mariowski.Common.DataSource.Repositories
         }
 
         /// <inheritdoc />
-        public virtual Task UpdateAsync(IEnumerable<TEntity> entities)
+        public virtual Task UpdateAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             Update(entities);
             return Task.CompletedTask;
         }
@@ -154,8 +195,10 @@ namespace Mariowski.Common.DataSource.Repositories
         public abstract void Delete(TEntity entity);
 
         /// <inheritdoc />
-        public virtual Task DeleteAsync(TEntity entity)
+        public virtual Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             Delete(entity);
             return Task.CompletedTask;
         }
@@ -168,8 +211,10 @@ namespace Mariowski.Common.DataSource.Repositories
         }
 
         /// <inheritdoc />
-        public virtual Task DeleteAsync(IEnumerable<TEntity> entities)
+        public virtual Task DeleteAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             Delete(entities);
             return Task.CompletedTask;
         }
@@ -183,8 +228,11 @@ namespace Mariowski.Common.DataSource.Repositories
         }
 
         /// <inheritdoc />
-        public virtual Task DeleteAsync(Expression<Func<TEntity, bool>> predicate)
+        public virtual Task DeleteAsync(Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken = default)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             Delete(predicate);
             return Task.CompletedTask;
         }
@@ -200,13 +248,13 @@ namespace Mariowski.Common.DataSource.Repositories
         }
 
         /// <inheritdoc />
-        public virtual async Task DeleteByIdAsync(TPrimaryKey id)
+        public virtual async Task DeleteByIdAsync(TPrimaryKey id, CancellationToken cancellationToken = default)
         {
-            var entity = await FirstOrDefaultByIdAsync(id);
+            var entity = await FirstOrDefaultByIdAsync(id, cancellationToken);
             if (entity is null)
                 return;
 
-            await DeleteAsync(entity);
+            await DeleteAsync(entity, cancellationToken);
         }
 
         /// <inheritdoc />
@@ -217,8 +265,11 @@ namespace Mariowski.Common.DataSource.Repositories
         }
 
         /// <inheritdoc />
-        public virtual Task DeleteByIdsAsync(IEnumerable<TPrimaryKey> ids)
+        public virtual Task DeleteByIdsAsync(IEnumerable<TPrimaryKey> ids,
+            CancellationToken cancellationToken = default)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             DeleteByIds(ids);
             return Task.CompletedTask;
         }
@@ -228,33 +279,51 @@ namespace Mariowski.Common.DataSource.Repositories
             => GetAll().Count();
 
         /// <inheritdoc />
-        public virtual Task<int> CountAsync()
-            => Task.FromResult(Count());
+        public virtual Task<int> CountAsync(CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            return Task.FromResult(Count());
+        }
 
         /// <inheritdoc />
         public virtual int Count(Expression<Func<TEntity, bool>> predicate)
             => GetAll().Where(predicate).Count();
 
         /// <inheritdoc />
-        public virtual Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate)
-            => Task.FromResult(Count(predicate));
+        public virtual Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            return Task.FromResult(Count(predicate));
+        }
 
         /// <inheritdoc />
         public virtual long LongCount()
             => GetAll().LongCount();
 
         /// <inheritdoc />
-        public virtual Task<long> LongCountAsync()
-            => Task.FromResult(LongCount());
+        public virtual Task<long> LongCountAsync(CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            return Task.FromResult(LongCount());
+        }
 
         /// <inheritdoc />
         public virtual long LongCount(Expression<Func<TEntity, bool>> predicate)
             => GetAll().Where(predicate).LongCount();
 
         /// <inheritdoc />
-        public virtual Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate)
-            => Task.FromResult(LongCount(predicate));
-        
+        public virtual Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            return Task.FromResult(LongCount(predicate));
+        }
+
         /// <summary>
         /// Creates expression tree for <see cref="T:TPrimaryKey"/> equality.
         /// </summary>
