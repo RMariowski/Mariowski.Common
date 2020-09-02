@@ -59,34 +59,6 @@ namespace Mariowski.Common.UnitTests.DataTypes
             guid.Should().Be(expected);
         }
 
-        [Theory]
-        [InlineData("hNJ8CJZOu0KHDI-Rd-2CRg", "hNJ8CJZOu0KHDI-Rd-2CRg", true)]
-        [InlineData("hNJ8CJZOu0KHDI-Rd-2CRg", "a1tbLajjL0aJ0qDTJEqHAw", false)]
-        public void EqualityOperator_ShouldDetermineEqualityWithOtherShortGuid(string encoded,
-            string encoded2, bool expected)
-        {
-            var shortGuid = new ShortGuid(encoded);
-            var shortGuid2 = new ShortGuid(encoded2);
-
-            bool areEqual = shortGuid == shortGuid2;
-
-            areEqual.Should().Be(expected);
-        }
-
-        [Theory]
-        [InlineData("hNJ8CJZOu0KHDI-Rd-2CRg", "hNJ8CJZOu0KHDI-Rd-2CRg", false)]
-        [InlineData("hNJ8CJZOu0KHDI-Rd-2CRg", "a1tbLajjL0aJ0qDTJEqHAw", true)]
-        public void InequalityOperator_ShouldDetermineInequalityWithOtherShortGuid(string encoded,
-            string encoded2, bool expected)
-        {
-            var shortGuid = new ShortGuid(encoded);
-            var shortGuid2 = new ShortGuid(encoded2);
-
-            bool areEqual = shortGuid != shortGuid2;
-
-            areEqual.Should().Be(expected);
-        }
-
         [Fact]
         public void ShortGuidOperator_ShouldImplicitlyConvertsGuidToShortGuid()
         {

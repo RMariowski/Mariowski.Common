@@ -48,20 +48,6 @@ namespace Mariowski.Common.UnitTests.DataTypes
         }
 
         [Theory]
-        [InlineData("hNJ8CJZOu0KHDI-Rd-2CRg", "hNJ8CJZOu0KHDI-Rd-2CRg", true)]
-        [InlineData("hNJ8CJZOu0KHDI-Rd-2CRg", "a1tbLajjL0aJ0qDTJEqHAw", false)]
-        public void Equals_ShouldDetermineEqualityWithOtherObject(string encoded, string encoded2,
-            bool expected)
-        {
-            var shortGuid = new ShortGuid(encoded);
-            var shortGuid2 = (object)new ShortGuid(encoded2);
-
-            bool areEqual = shortGuid.Equals(shortGuid2);
-
-            areEqual.Should().Be(expected);
-        }
-
-        [Theory]
         [InlineData("087cd284-4e96-42bb-870c-8f9177ed8246", "hNJ8CJZOu0KHDI-Rd-2CRg")]
         [InlineData("2d5b5b6b-e3a8-462f-89d2-a0d3244a8703", "a1tbLajjL0aJ0qDTJEqHAw")]
         [InlineData("f026dc2a-5fce-4e74-808e-2ab2575e83a9", "Ktwm8M5fdE6AjiqyV16DqQ")]

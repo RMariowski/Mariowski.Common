@@ -17,7 +17,7 @@ namespace Mariowski.Common.UnitTests.DataTypes
 
             timeString.TimeSpan.TotalMilliseconds.Should().Be(expected);
         }
-        
+
         [Theory]
         [InlineData("1h30m", "1h30m", true)]
         [InlineData("1h30m", "1h31m", false)]
@@ -31,19 +31,6 @@ namespace Mariowski.Common.UnitTests.DataTypes
             areEqual.Should().Be(expected);
         }
 
-        [Theory]
-        [InlineData("1h30m", "1h30m", true)]
-        [InlineData("1h30m", "1h31m", false)]
-        public void Equals_ShouldDetermineEqualityWithOtherObject(string value, string value2, bool expected)
-        {
-            var timeString = new TimeString(value);
-            var timeString2 = (object)new TimeString(value2);
-
-            bool areEqual = timeString.Equals(timeString2);
-
-            areEqual.Should().Be(expected);
-        }
-        
         [Theory]
         [InlineData("1h30m", "1h30m")]
         [InlineData("12h 45m", "12h 45m")]

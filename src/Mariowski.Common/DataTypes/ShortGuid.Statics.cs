@@ -27,28 +27,6 @@ namespace Mariowski.Common.DataTypes
             => encoded.DecodeBase64ToGuid();
 
         /// <summary>
-        /// Indicates whether the values of two specified <see cref="T:ShortGuid"></see> objects are equal.
-        /// </summary>
-        /// <param name="left">The first object to compare.</param>
-        /// <param name="right">The second object to compare.</param>
-        /// <returns>True if <paramref name="left">left</paramref> and <paramref name="right">right</paramref> are equal; otherwise, false.</returns>
-        public static bool operator ==(ShortGuid left, ShortGuid right)
-        {
-            if (left is null)
-                return right is null;
-            return !(right is null) && left.Equals(right);
-        }
-
-        /// <summary>
-        /// Indicates whether the values of two specified <see cref="T:ShortGuid"></see> objects are not equal.
-        /// </summary>
-        /// <param name="left">The first object to compare.</param>
-        /// <param name="right">The second object to compare.</param>
-        /// <returns>true if <paramref name="left">left</paramref> and <paramref name="right">right</paramref> are not equal; otherwise, false.</returns>
-        public static bool operator !=(ShortGuid left, ShortGuid right)
-            => !(left == right);
-
-        /// <summary>
         /// Implicitly converts the <see cref="T:System.Guid">Guid</see>
         /// to a <see cref="T:ShortGuid">ShortGuid</see>.
         /// </summary>

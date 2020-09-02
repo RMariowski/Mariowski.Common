@@ -67,33 +67,5 @@ namespace Mariowski.Common.UnitTests.DataTypes
 
             Assert.Throws<FormatException>(Act);
         }
-
-        [Theory]
-        [InlineData("1h30m", "1h30m", true)]
-        [InlineData("1h30m", "1h31m", false)]
-        public void EqualityOperator_ShouldDetermineEqualityWithOtherTimeString(string value, string value2,
-            bool expected)
-        {
-            var timeString = new TimeString(value);
-            var timeString2 = new TimeString(value2);
-
-            bool areEqual = timeString == timeString2;
-
-            areEqual.Should().Be(expected);
-        }
-
-        [Theory]
-        [InlineData("1h30m", "1h30m", false)]
-        [InlineData("1h30m", "1h31m", true)]
-        public void InequalityOperator_ShouldDetermineEqualityWithOtherTimeString(string value, string value2,
-            bool expected)
-        {
-            var timeString = new TimeString(value);
-            var timeString2 = new TimeString(value2);
-
-            bool areEqual = timeString != timeString2;
-
-            areEqual.Should().Be(expected);
-        }
     }
 }

@@ -40,34 +40,6 @@ namespace Mariowski.Common.UnitTests.DataTypes
         }
 
         [Theory]
-        [InlineData("abc@def.com", "abc@def.com", true)]
-        [InlineData("cba@def.com", "abc@def.com", false)]
-        [InlineData("abc@def.com", "cba@def.com", false)]
-        public void EqualityOperator_ShouldDetermineEquality(string value, string value2, bool expected)
-        {
-            var email = new Email(value);
-            var email2 = new Email(value2);
-
-            bool areEqual = email == email2;
-
-            areEqual.Should().Be(expected);
-        }
-
-        [Theory]
-        [InlineData("abc@def.com", "abc@def.com", false)]
-        [InlineData("cba@def.com", "abc@def.com", true)]
-        [InlineData("abc@def.com", "cba@def.com", true)]
-        public void InequalityOperator_ShouldDetermineInequality(string value, string value2, bool expected)
-        {
-            var email = new Email(value);
-            var email2 = new Email(value2);
-
-            bool areEqual = email != email2;
-
-            areEqual.Should().Be(expected);
-        }
-
-        [Theory]
         [InlineData("joe@doe.com")]
         [InlineData("valid_mail@gmail.COM")]
         [InlineData("plus+TRICK@gmail.com")]

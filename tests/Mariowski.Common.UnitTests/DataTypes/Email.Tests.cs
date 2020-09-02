@@ -54,19 +54,6 @@ namespace Mariowski.Common.UnitTests.DataTypes
         }
 
         [Theory]
-        [InlineData("joe@doe.com", "joe@doe.com", true)]
-        [InlineData("joe@doe.com", "doe@joe.com", false)]
-        public void Equals_ShouldDetermineEqualityWithOtherObject(string value, string value2, bool expected)
-        {
-            var email = new Email(value);
-            var email2 = (object)new Email(value2);
-
-            bool areEqual = email.Equals(email2);
-
-            areEqual.Should().Be(expected);
-        }
-
-        [Theory]
         [InlineData("joe@doe.com", "joe@doe.com")]
         [InlineData("VALID_mail@gmail.com", "valid_mail@gmail.com")]
         [InlineData("plus+trick@GMAIL.com", "plus+trick@gmail.com")]

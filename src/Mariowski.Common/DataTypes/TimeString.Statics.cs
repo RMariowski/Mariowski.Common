@@ -98,27 +98,5 @@ namespace Mariowski.Common.DataTypes
 
             return timeSpan;
         }
-        
-        /// <summary>
-        /// Indicates whether the values of two specified <see cref="T:TimeString"></see> objects are equal.
-        /// </summary>
-        /// <param name="left">The first object to compare.</param>
-        /// <param name="right">The second object to compare.</param>
-        /// <returns>True if <paramref name="left">left</paramref> and <paramref name="right">right</paramref> are equal; otherwise, false.</returns>
-        public static bool operator ==(TimeString left, TimeString right)
-        {
-            if (left is null)
-                return right is null;
-            return !(right is null) && left.Equals(right);
-        }
-
-        /// <summary>
-        /// Indicates whether the values of two specified <see cref="T:TimeString"></see> objects are not equal.
-        /// </summary>
-        /// <param name="left">The first object to compare.</param>
-        /// <param name="right">The second object to compare.</param>
-        /// <returns>true if <paramref name="left">left</paramref> and <paramref name="right">right</paramref> are not equal; otherwise, false.</returns>
-        public static bool operator !=(TimeString left, TimeString right)
-            => !(left == right);
     }
 }

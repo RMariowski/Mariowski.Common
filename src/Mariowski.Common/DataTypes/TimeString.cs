@@ -2,7 +2,7 @@
 
 namespace Mariowski.Common.DataTypes
 {
-    public partial class TimeString : IEquatable<TimeString>
+    public partial class TimeString : ValueObject<TimeString>, IEquatable<TimeString>
     {
         private readonly string _value;
         
@@ -21,19 +21,15 @@ namespace Mariowski.Common.DataTypes
             _value = value;
         }
 
-        /// <inheritdoc />
-        public bool Equals(TimeString other)
+        /// <summary>
+        /// Determines whether the specified <see cref="T:TimeString"></see> is equal to the current <see cref="T:TimeString"></see>.
+        /// </summary>
+        /// <param name="other"><see cref="T:TimeString"></see> to compare.</param>
+        /// <returns>True if <paramref name="other">other</paramref> is equal to the current <see cref="T:TimeString"></see>.</returns>
+        public override bool Equals(TimeString other)
         {
             if (ReferenceEquals(null, other)) return false;
             return ReferenceEquals(this, other) || TimeSpan.Equals(other.TimeSpan);
-        }
-
-        /// <inheritdoc />
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((TimeString)obj);
         }
 
         /// <inheritdoc />

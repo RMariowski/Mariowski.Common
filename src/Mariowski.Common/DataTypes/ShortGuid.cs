@@ -2,7 +2,7 @@
 
 namespace Mariowski.Common.DataTypes
 {
-    public partial class ShortGuid : IEquatable<ShortGuid>
+    public partial class ShortGuid : ValueObject<ShortGuid>, IEquatable<ShortGuid>
     {
         private readonly string _value;
 
@@ -30,20 +30,16 @@ namespace Mariowski.Common.DataTypes
             Guid = guid;
         }
 
-        /// <inheritdoc />
-        public bool Equals(ShortGuid other)
+        /// <summary>
+        /// Determines whether the specified <see cref="T:ShortGuid"></see> is equal to the current <see cref="T:ShortGuid"></see>.
+        /// </summary>
+        /// <param name="other"><see cref="T:ShortGuid"></see> to compare.</param>
+        /// <returns>True if <paramref name="other">other</paramref> is equal to the current <see cref="T:ShortGuid"></see>.</returns>
+        public override bool Equals(ShortGuid other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
             return Guid.Equals(other.Guid) && _value == other._value;
-        }
-
-        /// <inheritdoc />
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((ShortGuid)obj);
         }
 
         /// <inheritdoc />
