@@ -18,5 +18,12 @@ namespace Mariowski.Common.DataTypes
 
             Value = value.ToLowerInvariant();
         }
+
+        /// <summary>
+        /// To satisfy EF
+        /// </summary>
+        protected Email()
+        {
+        }
     }
 }

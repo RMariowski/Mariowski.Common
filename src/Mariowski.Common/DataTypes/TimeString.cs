@@ -19,5 +19,12 @@ namespace Mariowski.Common.DataTypes
             TimeSpan = Parse(value);
             Value = value;
         }
+
+        /// <summary>
+        /// To satisfy EF
+        /// </summary>
+        protected TimeString()
+        {
+        }
     }
 }

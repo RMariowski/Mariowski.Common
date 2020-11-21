@@ -29,5 +29,12 @@ namespace Mariowski.Common.DataTypes
             Value = Encode(guid);
             Guid = guid;
         }
+
+        /// <summary>
+        /// To satisfy EF
+        /// </summary>
+        protected ShortGuid()
+        {
+        }
     }
 }
