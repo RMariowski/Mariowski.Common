@@ -2,9 +2,9 @@
 
 namespace Mariowski.Common.DataTypes
 {
-    public partial class ShortGuid : ValueObject<ShortGuid>, IEquatable<ShortGuid>
+    public partial record ShortGuid
     {
-        private readonly string _value;
+        public string Value { get; }
 
         public Guid Guid { get; }
 
@@ -17,7 +17,7 @@ namespace Mariowski.Common.DataTypes
         public ShortGuid(string encoded)
         {
             Guid = Decode(encoded);
-            _value = encoded;
+            Value = encoded;
         }
 
         /// <summary>
@@ -26,28 +26,8 @@ namespace Mariowski.Common.DataTypes
         /// <param name="guid">The Guid to encode.</param>
         public ShortGuid(Guid guid)
         {
-            _value = Encode(guid);
+            Value = Encode(guid);
             Guid = guid;
         }
-
-        /// <summary>
-        /// Determines whether the specified <see cref="T:ShortGuid"></see> is equal to the current <see cref="T:ShortGuid"></see>.
-        /// </summary>
-        /// <param name="other"><see cref="T:ShortGuid"></see> to compare.</param>
-        /// <returns>True if <paramref name="other">other</paramref> is equal to the current <see cref="T:ShortGuid"></see>.</returns>
-        public override bool Equals(ShortGuid other)
-        {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return Guid.Equals(other.Guid) && _value == other._value;
-        }
-
-        /// <inheritdoc />
-        public override string ToString()
-            => _value;
-
-        /// <inheritdoc />
-        public override int GetHashCode()
-            => Guid.GetHashCode();
     }
 }
