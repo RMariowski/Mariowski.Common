@@ -39,45 +39,5 @@ namespace Mariowski.Common.UnitTests.DataTypes
 
             Assert.Throws<InvalidEmailException>(Act);
         }
-
-        [Theory]
-        [InlineData("joe@doe.com", "joe@doe.com", true)]
-        [InlineData("joe@doe.com", "doe@joe.com", false)]
-        public void Equals_ShouldDetermineEqualityWithOtherEmail(string value, string value2, bool expected)
-        {
-            var email = new Email(value);
-            var email2 = new Email(value2);
-
-            bool areEqual = email.Equals(email2);
-
-            areEqual.Should().Be(expected);
-        }
-
-        [Theory]
-        [InlineData("joe@doe.com", "joe@doe.com")]
-        [InlineData("VALID_mail@gmail.com", "valid_mail@gmail.com")]
-        [InlineData("plus+trick@GMAIL.com", "plus+trick@gmail.com")]
-        public void ToString_ShouldReturnEmailAsString(string value, string expected)
-        {
-            var email = new Email(value);
-
-            var toString = email.ToString();
-
-            toString.Should().Be(expected);
-        }
-
-        [Theory]
-        [InlineData("asdf@qwer.com")]
-        [InlineData("qwer@asdf.com")]
-        [InlineData("test@test.test")]
-        public void GetHashCode_ShouldReturnCalculatedHashCode(string value)
-        {
-            var email = new Email(value);
-            int expected = value.GetHashCode();
-
-            int hashCode = email.GetHashCode();
-
-            hashCode.Should().Be(expected);
-        }
     }
 }

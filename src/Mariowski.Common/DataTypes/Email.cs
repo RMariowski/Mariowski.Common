@@ -1,11 +1,10 @@
-﻿using System;
-using Mariowski.Common.Exceptions;
+﻿using Mariowski.Common.Exceptions;
 
 namespace Mariowski.Common.DataTypes
 {
-    public partial class Email : ValueObject<Email>, IEquatable<Email>
+    public partial record Email
     {
-        private readonly string _value;
+        public string Value { get; }
 
         /// <summary>
         /// Creates a new instance of email value object.
@@ -17,27 +16,7 @@ namespace Mariowski.Common.DataTypes
             if (!IsValid(value))
                 throw new InvalidEmailException(value);
 
-            _value = value.ToLowerInvariant();
+            Value = value.ToLowerInvariant();
         }
-
-        /// <summary>
-        /// Determines whether the specified <see cref="T:Email"></see> is equal to the current <see cref="T:Email"></see>.
-        /// </summary>
-        /// <param name="other"><see cref="T:Email"></see> to compare.</param>
-        /// <returns>True if <paramref name="other">other</paramref> is equal to the current <see cref="T:Email"></see>.</returns>
-        public override bool Equals(Email other)
-        {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return _value == other._value;
-        }
-
-        /// <inheritdoc />
-        public override string ToString()
-            => _value;
-
-        /// <inheritdoc />
-        public override int GetHashCode()
-            => _value != null ? _value.GetHashCode() : 0;
     }
 }

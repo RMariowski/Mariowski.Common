@@ -3,7 +3,7 @@ using Mariowski.Common.Exceptions;
 
 namespace Mariowski.Common.DataTypes
 {
-    public partial class Email
+    public partial record Email
     {
         /// <summary>
         /// Checks whatever value has mail address format.
@@ -29,7 +29,7 @@ namespace Mariowski.Common.DataTypes
         /// <exception cref="InvalidEmailException">The <paramref name="value"/> argument is not valid email.</exception>
         /// <returns>New instance of email value object.</returns>
         public static implicit operator Email(string value)
-            => new Email(value);
+            => new(value);
 
         /// <summary>
         /// Converts email value object to string.
@@ -37,6 +37,6 @@ namespace Mariowski.Common.DataTypes
         /// <param name="email">Email value object</param>
         /// <returns>Email as string</returns>
         public static implicit operator string(Email email)
-            => email._value;
+            => email.Value;
     }
 }
