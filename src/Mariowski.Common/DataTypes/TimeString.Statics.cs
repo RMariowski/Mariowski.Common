@@ -5,7 +5,7 @@ using Mariowski.Common.Extensions;
 
 namespace Mariowski.Common.DataTypes
 {
-    public partial class TimeString
+    public partial record TimeString
     {
         private static readonly Regex DaysRegex;
         private static readonly Regex HoursRegex;
