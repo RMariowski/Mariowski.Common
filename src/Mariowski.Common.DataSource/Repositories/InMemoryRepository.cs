@@ -10,8 +10,7 @@ namespace Mariowski.Common.DataSource.Repositories
     public class InMemoryRepository<TEntity, TPrimaryKey> : GenericRepository<TEntity, TPrimaryKey>
         where TEntity : class, IEntity<TPrimaryKey>
     {
-        private readonly ConcurrentDictionary<TPrimaryKey, TEntity> _memory
-            = new ConcurrentDictionary<TPrimaryKey, TEntity>();
+        private readonly ConcurrentDictionary<TPrimaryKey, TEntity> _memory = new();
 
         /// <inheritdoc />
         /// <exception cref="T:System.ArgumentNullException"><paramref name="entity"/> is null.</exception>
