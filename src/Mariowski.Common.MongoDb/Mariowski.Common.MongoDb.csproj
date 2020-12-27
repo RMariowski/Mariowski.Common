@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="Mariowski.Common.DataSource" Version="5.0.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.11.4" />
+    <PackageReference Include="MongoDB.Driver" Version="2.11.5" />
   </ItemGroup>
 
 </Project>
