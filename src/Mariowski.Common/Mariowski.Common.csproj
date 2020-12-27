@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
     <Authors>Radosław Mariowski</Authors>
     <Company />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -9,6 +8,12 @@
     <PackageProjectUrl>https://github.com/Xandev/Mariowski.Common</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Xandev/Mariowski.Common</RepositoryUrl>
     <PackageLicenseUrl></PackageLicenseUrl>
+    <TargetFrameworks>net5.0;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <LangVersion>9.0</LangVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Memory" Version="4.5.4" />
+  </ItemGroup>
 
 </Project>

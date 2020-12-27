@@ -42,7 +42,11 @@ namespace Mariowski.Common.Extensions
                 };
             }
 
+#if NETSTANDARD2_0 // TODO: Delete when Unity will support at least .net standard 2.1
+            var final = new string(chars.ToArray());
+#else
             var final = new string(chars);
+#endif
             return final;
         }
     }

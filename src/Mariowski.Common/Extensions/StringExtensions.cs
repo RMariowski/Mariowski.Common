@@ -90,7 +90,11 @@ namespace Mariowski.Common.Extensions
             Span<byte> guidBytes = stackalloc byte[16];
             Base64.DecodeFromUtf8(base64, guidBytes, out _, out _);
 
+#if NETSTANDARD2_0 // TODO: Delete when Unity will support at least .net standard 2.1
+            var final = new Guid(guidBytes.ToArray());
+#else
             var final = new Guid(guidBytes);
+#endif
             return final;
         }
     }
