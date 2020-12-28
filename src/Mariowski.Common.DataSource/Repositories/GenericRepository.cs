@@ -44,7 +44,7 @@ namespace Mariowski.Common.DataSource.Repositories
             if (entity.IsTransient())
                 return Insert(entity);
 
-            var entityFromRepository = GetById(entity.Id);
+            var entityFromRepository = FirstOrDefaultById(entity.Id);
             return entityFromRepository is null ? Insert(entity) : Update(entity);
         }
 
@@ -55,7 +55,7 @@ namespace Mariowski.Common.DataSource.Repositories
             if (entity.IsTransient())
                 return await InsertAsync(entity, cancellationToken);
 
-            var entityFromRepository = await GetByIdAsync(entity.Id, cancellationToken);
+            var entityFromRepository = await FirstOrDefaultByIdAsync(entity.Id, cancellationToken);
             return entityFromRepository is null
                 ? await InsertAsync(entity, cancellationToken)
                 : await UpdateAsync(entity, cancellationToken);
