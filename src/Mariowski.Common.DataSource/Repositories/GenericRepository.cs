@@ -40,11 +40,26 @@ namespace Mariowski.Common.DataSource.Repositories
 
         /// <inheritdoc />
         public virtual TEntity InsertOrUpdate(TEntity entity)
-            => entity.IsTransient() ? Insert(entity) : Update(entity);
+        {
+            if (entity.IsTransient())
+                return Insert(entity);
+
+            var entityFromRepository = GetById(entity.Id);
+            return entityFromRepository is null ? Insert(entity) : Update(entity);
+        }
 
         /// <inheritdoc />
-        public virtual Task<TEntity> InsertOrUpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
-            => entity.IsTransient() ? InsertAsync(entity, cancellationToken) : UpdateAsync(entity, cancellationToken);
+        public virtual async Task<TEntity> InsertOrUpdateAsync(TEntity entity,
+            CancellationToken cancellationToken = default)
+        {
+            if (entity.IsTransient())
+                return await InsertAsync(entity, cancellationToken);
+
+            var entityFromRepository = await GetByIdAsync(entity.Id, cancellationToken);
+            return entityFromRepository is null
+                ? await InsertAsync(entity, cancellationToken)
+                : await UpdateAsync(entity, cancellationToken);
+        }
 
         /// <inheritdoc />
         public virtual void InsertOrUpdate(IEnumerable<TEntity> entities)
@@ -222,7 +237,7 @@ namespace Mariowski.Common.DataSource.Repositories
         /// <inheritdoc />
         public virtual void Delete(Expression<Func<TEntity, bool>> predicate)
         {
-            var entities = GetAll().Where(predicate).ToList();
+            var entities = GetAll().Where(predicate).ToArray();
             foreach (var entity in entities)
                 Delete(entity);
         }
