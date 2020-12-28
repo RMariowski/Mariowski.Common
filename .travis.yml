@@ -43,6 +43,13 @@ deploy:
 
   - provider: script
     skip_cleanup: true
+    script: dotnet nuget push src/Mariowski.Common.LiteDb/bin/Release/Mariowski.Common.LiteDb.*.nupkg -k $NUGET_API_KEY -s https://api.nuget.org/v3/index.json
+    on:
+      tags: true
+      condition: $TRAVIS_TAG =~ ^ldb-[0-9]+\.[0-9]+\.[0-9]+*
+
+  - provider: script
+    skip_cleanup: true
     script: dotnet nuget push src/Mariowski.Common.AspNet/bin/Release/Mariowski.Common.AspNet.*.nupkg -k $NUGET_API_KEY -s https://api.nuget.org/v3/index.json
     on:
       tags: true

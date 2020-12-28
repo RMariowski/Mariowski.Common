@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Authors>Radosław Mariowski</Authors>
+        <Company />
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Version>5.0.0</Version>
+        <PackageProjectUrl>https://github.com/Xandev/Mariowski.Common</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Xandev/Mariowski.Common</RepositoryUrl>
+        <PackageLicenseUrl></PackageLicenseUrl>
+        <TargetFrameworks>net5.0;netstandard2.0;netstandard2.1</TargetFrameworks>
+        <LangVersion>9.0</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="LiteDB" Version="5.0.9" />
+      <PackageReference Include="Mariowski.Common.DataSource" Version="5.0.1-dev3" />
+    </ItemGroup>
+
+</Project>
