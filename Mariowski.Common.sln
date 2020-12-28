@@ -5,23 +5,23 @@ VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common", "src\Mariowski.Common\Mariowski.Common.csproj", "{35A8EF77-70B2-4B10-BFF5-21747E4A6DD3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common.UnitTests", "tests\Mariowski.Common.UnitTests\Mariowski.Common.UnitTests.csproj", "{95256DF4-D8D8-47D2-B8AB-D3E7F0D29D50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common.Tests", "tests\Mariowski.Common.Tests\Mariowski.Common.Tests.csproj", "{95256DF4-D8D8-47D2-B8AB-D3E7F0D29D50}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common.DataSource", "src\Mariowski.Common.DataSource\Mariowski.Common.DataSource.csproj", "{85BC3C24-2F27-4329-BB38-2E2501416AB0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common.DataSource.UnitTests", "tests\Mariowski.Common.DataSource.UnitTests\Mariowski.Common.DataSource.UnitTests.csproj", "{1E047A7C-FFC3-4C37-AA17-1D7EBB19881D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common.DataSource.Tests", "tests\Mariowski.Common.DataSource.Tests\Mariowski.Common.DataSource.Tests.csproj", "{1E047A7C-FFC3-4C37-AA17-1D7EBB19881D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common.EntityFramework", "src\Mariowski.Common.EntityFramework\Mariowski.Common.EntityFramework.csproj", "{0B7A2999-BCC8-408B-B9E0-3ED420AE8ED6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common.EntityFramework.UnitTests", "tests\Mariowski.Common.EntityFramework.UnitTests\Mariowski.Common.EntityFramework.UnitTests.csproj", "{662AD5AB-A156-47E1-ACD9-D5E8F96B252E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common.EntityFramework.Tests", "tests\Mariowski.Common.EntityFramework.Tests\Mariowski.Common.EntityFramework.Tests.csproj", "{662AD5AB-A156-47E1-ACD9-D5E8F96B252E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common.AspNet", "src\Mariowski.Common.AspNet\Mariowski.Common.AspNet.csproj", "{547EDD07-9599-4168-B195-EF734FA80307}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common.AspNet.UnitTests", "tests\Mariowski.Common.AspNet.UnitTests\Mariowski.Common.AspNet.UnitTests.csproj", "{60F36E3C-9AFC-4B59-94E2-88D1D0AD1FA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mariowski.Common.AspNet.Tests", "tests\Mariowski.Common.AspNet.Tests\Mariowski.Common.AspNet.Tests.csproj", "{60F36E3C-9AFC-4B59-94E2-88D1D0AD1FA2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mariowski.Common.MongoDb", "src\Mariowski.Common.MongoDb\Mariowski.Common.MongoDb.csproj", "{AECF7B31-A679-4CAE-BBF1-BA1A85F6D4C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mariowski.Common.MongoDb.UnitTests", "tests\Mariowski.Common.MongoDb.UnitTests\Mariowski.Common.MongoDb.UnitTests.csproj", "{124DFE43-D344-49FB-B2CC-BFC1CC637BF0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mariowski.Common.MongoDb.Tests", "tests\Mariowski.Common.MongoDb.Tests\Mariowski.Common.MongoDb.Tests.csproj", "{124DFE43-D344-49FB-B2CC-BFC1CC637BF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
